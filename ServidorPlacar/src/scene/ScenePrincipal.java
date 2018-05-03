@@ -5,10 +5,37 @@
  */
 package scene;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
  *
  * @author danie
  */
-public class ScenePrincipal {
-    
+public class ScenePrincipal extends Application {
+
+    private static Stage stage;
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLPrincipal.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("Principal");
+        stage.setScene(scene);
+        stage.show();
+        setStage(stage);
+        stage.setFullScreen(true);
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        ScenePrincipal.stage = stage;
+    }
+
 }

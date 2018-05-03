@@ -8,13 +8,13 @@ and open the template in the editor.
     Author     : danie
 */
 .imagemFundo{
-    -fx-background-image: url("/imagem/esportes.png");
+    -fx-background-image: url("/imagens/esportes.png");
     -fx-background-size: 100%, 100%;
     -fx-background-repeat: no-repeat;
 }
 
 .imagemDialog{
-    -fx-background-image: url("/imagem/rede.jpg");
+    -fx-background-image: url("/imagens/rede.jpg");
     -fx-background-size: 50%, 50%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: bottom, right;
