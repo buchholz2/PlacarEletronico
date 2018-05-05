@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author daniel
  */
 public class LoginCadastroController implements Initializable {
 
@@ -38,7 +38,7 @@ public class LoginCadastroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
 }

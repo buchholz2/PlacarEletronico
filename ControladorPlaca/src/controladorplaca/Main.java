@@ -5,6 +5,7 @@
  */
 package controladorplaca;
 
+import scene.ScenePrincipal;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
