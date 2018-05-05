@@ -8,7 +8,7 @@ package main;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
-import scene.SceneDialog;
+
 import scene.ScenePrincipal;
 
 /**
@@ -16,17 +16,15 @@ import scene.ScenePrincipal;
  * @author danie
  */
 public class Main extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         ScenePrincipal p = new ScenePrincipal();
-        SceneDialog d = new SceneDialog();
+
         p.start(stage);
-        d.start(stage);
-        
+
     }
 
-    
     /**
      * @param args the command line arguments
      */

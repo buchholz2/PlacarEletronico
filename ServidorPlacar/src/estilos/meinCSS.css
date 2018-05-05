@@ -19,3 +19,12 @@ and open the template in the editor.
     -fx-background-repeat: no-repeat;
     -fx-background-position: bottom, right;
 }
+
+.transparente{
+    -fx-background-color: rgba(0, 100, 100, 0);
+}
+
+.alinhamentoCental{
+    vertical-align: central;
+    align-items: center;
+}
