@@ -19,7 +19,7 @@ import javafx.stage.StageStyle;
 public class ScenePrincipal extends Application {
 
     private static Stage stage;
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginCadastro.fxml"));
@@ -40,5 +40,5 @@ public class ScenePrincipal extends Application {
     public static void setStage(Stage stage) {
         ScenePrincipal.stage = stage;
     }
-
+    
 }

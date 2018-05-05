@@ -44,6 +44,12 @@ public class LoginCadastroController implements Initializable {
         ScenePrincipal s = new ScenePrincipal();
         s.getStage().close(); //Fechando o Stage
     }
+    
+     @FXML
+    void validaLogin(ActionEvent event) {
+       
+        
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
