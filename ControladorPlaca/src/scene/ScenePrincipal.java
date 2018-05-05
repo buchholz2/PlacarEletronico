@@ -24,7 +24,7 @@ public class ScenePrincipal extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginCadastro.fxml"));
         Scene scene = new Scene(root);
-        //stage.setTitle("Principal");
+        stage.setTitle("Principal");
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);

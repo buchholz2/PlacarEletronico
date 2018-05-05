@@ -5,7 +5,7 @@
  */
 package controladorplaca;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import scene.ScenePrincipal;
 
 /**
  * FXML Controller class
@@ -38,15 +39,15 @@ public class LoginCadastroController implements Initializable {
     @FXML
     private Button jBEntrar;
 
-//        @FXML
-//    void fecharTela(ActionEvent event) {
-//        Stage stage = (Stage) jBSair.getScene().getWindow(); //Obtendo a janela atual
-//    stage.close(); //Fechando o Stage
-//    }
-    
+    @FXML
+    void fecharTela(ActionEvent event) {
+        ScenePrincipal s = new ScenePrincipal();
+        s.getStage().close(); //Fechando o Stage
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
 }
