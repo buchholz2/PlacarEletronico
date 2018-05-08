@@ -15,22 +15,22 @@ import javafx.stage.Stage;
  *
  * @author danie
  */
-public class ScenePrincipal extends Application {
+public class SceneBasquete extends Application {
 
-    static Stage stage;
+    private static Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLPrincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLBasquete.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Principal");
+        stage.setTitle("Basquete");
         stage.setScene(scene);
         stage.show();
         setStage(stage);
         stage.setFullScreen(true);
     }
 
-    public static Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 

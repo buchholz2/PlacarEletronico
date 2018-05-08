@@ -8,6 +8,7 @@ package main;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
+import scene.SceneBasquete;
 
 import scene.ScenePrincipal;
 
@@ -19,8 +20,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        ScenePrincipal p = new ScenePrincipal();
-        p.start(stage);
+//        ScenePrincipal p = new ScenePrincipal();
+//        p.start(stage);
+          SceneBasquete b = new SceneBasquete();
+          b.start(stage);
     }
 
     /**
@@ -29,5 +32,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
