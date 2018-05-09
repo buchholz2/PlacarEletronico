@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <GridPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="jLRodada1" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" text="00 x 00" textFill="RED" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="264.0" text="1/4" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="DS-Digital Bold" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLRodada2" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" text="00 x 00" textFill="RED" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="264.0" text="2/4" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="DS-Digital Bold" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLRodada3" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" text="00 x 00" textFill="RED" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="264.0" text="3/4" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="DS-Digital Bold" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLRodada4" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" text="00 x 00" textFill="RED" GridPane.columnIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="264.0" text="4/4" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="DS-Digital Bold" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLRodadaExtra" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" text="00 x 00" textFill="RED" GridPane.columnIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="38.0" prefWidth="264.0" text="EX" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="DS-Digital Bold" size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </bottom>
+   <center>
+      <GridPane prefHeight="288.0" prefWidth="997.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="211.0" prefWidth="237.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="552.0" prefWidth="552.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="211.0" prefWidth="237.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="316.0" minHeight="5.0" prefHeight="171.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="165.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="190.0" minHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="517.0" text="FALTAS" textFill="WHITE" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLCronometroCentral" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="700.0" text="00:00:00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="150.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="700.0" text="Cronometro" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdoPontos" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="514.0" text="00" textAlignment="CENTER" textFill="RED" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdo" alignment="CENTER" prefHeight="44.0" prefWidth="517.0" text="Local" textFill="WHITE" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireitoPontos" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="514.0" text="00" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireito" alignment="CENTER" prefHeight="44.0" prefWidth="517.0" text="Local" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdoFaltas" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="514.0" text="00" textFill="RED" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="340.0" text="FALTAS" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireitoFaltas" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="126.0" prefWidth="340.0" text="00" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLSeguraBola" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="700.0" text="00" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="150.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="700.0" text="SEGURA BOLA" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <GridPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="766.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="100.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="111.0" text="CAMINHANDO CAMINHANDO CAMINHANDO CAMINHANDO" textFill="RED">
+               <font>
+                  <Font name="Virtual Pet Sans" size="72.0" />
+               </font></Label>
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>
