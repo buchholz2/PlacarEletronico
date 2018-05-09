@@ -46,7 +46,7 @@ public class LoginCadastroController implements Initializable {
     }
     
      @FXML
-    void validaLogin(ActionEvent event) {//jTFUsuario pega o campo usuario jTFSenha pega o campo senha
+    void validaLogin(ActionEvent event) {
 //       String usuario = jTFUsuario.getText();
 //       String senha = jTFSenha.getText();
 //       
