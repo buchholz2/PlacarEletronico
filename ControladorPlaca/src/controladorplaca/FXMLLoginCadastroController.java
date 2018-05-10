@@ -22,7 +22,7 @@ import scene.ScenePrincipal;
  *
  * @author daniel
  */
-public class LoginCadastroController implements Initializable {
+public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     private Pane jPLogin;
