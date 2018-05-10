@@ -5,23 +5,27 @@
  */
 package control;
 
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-
 /**
- * 
+ *
  * FXML Controller class
  *
  * @author danie
  */
 public class FXMLBasqueteController implements Initializable {
+
+    Server server1;
 
     @FXML
     private Label jLCronometroCentral;
@@ -61,18 +65,33 @@ public class FXMLBasqueteController implements Initializable {
 
     @FXML
     private Label jLRodadaExtra;
-    
+
+    @FXML
+    private Button jButtonTeste;
+
+    @FXML
+    void iniciaThread(ActionEvent event) {
+        new Thread(new Server(this)).start();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         // TODO
-    } 
-        public void mudaMensagem(String msg){
+    }
+
+    public void mudaMensagem(String msg) {
         Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            jLTeste.setText(msg);
+            jLCronometroCentral.setText("00:00:" + msg);
+            jLTimeDireitoPontos.setText(msg);
+            jLTimeEsquerdoFaltas.setText(msg);
+            jLTimeDireitoFaltas.setText(msg);
+            jLTimeEsquerdoFaltas.setText(msg);
+
         }),
                 new KeyFrame(Duration.seconds(1))
         );
         tlCronometro.play();
     }
-    
+
 }
