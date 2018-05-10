@@ -5,12 +5,11 @@
  */
 package control;
 
-import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,6 +25,21 @@ import javafx.util.Duration;
 public class FXMLBasqueteController implements Initializable {
 
     Server server1;
+
+    @FXML
+    private Label jLRodada1;
+
+    @FXML
+    private Label jLRodada2;
+
+    @FXML
+    private Label jLRodada3;
+
+    @FXML
+    private Label jLRodada4;
+
+    @FXML
+    private Label jLRodadaExtra;
 
     @FXML
     private Label jLCronometroCentral;
@@ -51,32 +65,9 @@ public class FXMLBasqueteController implements Initializable {
     @FXML
     private Label jLSeguraBola;
 
-    @FXML
-    private Label jLRodada1;
-
-    @FXML
-    private Label jLRodada2;
-
-    @FXML
-    private Label jLRodada3;
-
-    @FXML
-    private Label jLRodada4;
-
-    @FXML
-    private Label jLRodadaExtra;
-
-    @FXML
-    private Button jButtonTeste;
-
-    @FXML
-    void iniciaThread(ActionEvent event) {
-        new Thread(new Server(this)).start();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        new Thread(new Server(this)).start();
         // TODO
     }
 
@@ -86,7 +77,7 @@ public class FXMLBasqueteController implements Initializable {
             jLTimeDireitoPontos.setText(msg);
             jLTimeEsquerdoFaltas.setText(msg);
             jLTimeDireitoFaltas.setText(msg);
-            jLTimeEsquerdoFaltas.setText(msg);
+            jLTimeEsquerdoPontos.setText(msg);
 
         }),
                 new KeyFrame(Duration.seconds(1))

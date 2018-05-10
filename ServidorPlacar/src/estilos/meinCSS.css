@@ -24,7 +24,11 @@ and open the template in the editor.
     -fx-background-color: rgba(0, 100, 100, 0);
 }
 
-.alinhamentoCental{
-    vertical-align: central;
-    align-items: center;
+
+@font-face {
+     font-family: digital;
+     src: url("/estilo.fontes/DS-DIGIB.ttf");
+}
+.fonteplacar{
+    -fx-font: digital;
 }

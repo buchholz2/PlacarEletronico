@@ -5,8 +5,6 @@
  */
 package control;
 
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,19 +16,21 @@ public class Server implements Runnable {
 
     private FXMLBasqueteController vi;
     private int i;
+
     public Server(FXMLBasqueteController view) {
         this.vi = view;
     }
 
     @Override
     public void run() {
-
-        vi.mudaMensagem(""+i++);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        while (true) {
+            vi.mudaMensagem("" + i++);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+
     }
 }
