@@ -24,5 +24,5 @@ and open the template in the editor.
     -fx-background-color: rgba(0, 100, 100, 0);
 }
 .fonteplacar{
-    -fx-font: 'DS-Digital';
+    -fx-font-family: "DS-Digital";
 }
