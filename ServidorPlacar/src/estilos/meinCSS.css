@@ -23,12 +23,6 @@ and open the template in the editor.
 .transparente{
     -fx-background-color: rgba(0, 100, 100, 0);
 }
-
-@font-face {
-    font-family: digital;
-    src: url('/fontes/digi.ttf');
-}
-
 .fonteplacar{
-    -fx-font-family: 'digital';
+    -fx-font: 'DS-Digital';
 }
