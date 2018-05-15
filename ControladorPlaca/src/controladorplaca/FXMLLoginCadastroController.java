@@ -70,6 +70,7 @@ public class FXMLLoginCadastroController implements Initializable {
             String msg = entrada.readUTF();
             System.out.println(msg);
 
+            
             if (msg.equals("ACESSO_PERMITIDO")) {
                 ScenePrincipal scene = new ScenePrincipal();
                 scene.getStage().close();
