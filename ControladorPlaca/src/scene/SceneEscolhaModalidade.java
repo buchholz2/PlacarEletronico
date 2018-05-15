@@ -16,20 +16,20 @@ import javafx.stage.StageStyle;
  *
  * @author danie
  */
-public class ScenePrincipal extends Application {
+public class SceneEscolhaModalidade extends Application {
 
-    static Stage stage;
-    
+    private static Stage stage;
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLLoginCadastro.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLEscolheModalidade.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Principal");
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
-        
+
         setStage(stage);
     }
 
@@ -40,5 +40,4 @@ public class ScenePrincipal extends Application {
     public static void setStage(Stage stage) {
         ScenePrincipal.stage = stage;
     }
-    
 }
