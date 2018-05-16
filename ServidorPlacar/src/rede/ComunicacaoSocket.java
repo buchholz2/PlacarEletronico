@@ -25,6 +25,7 @@ public class ComunicacaoSocket implements Runnable {
         this.teste = main;
     }
     
+    
     @Override
     public void run() {
         try {
