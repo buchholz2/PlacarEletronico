@@ -16,6 +16,7 @@ import main.Main;
  *
  * @author danie
  */
+
 public class ComunicacaoSocket implements Runnable {
 
     private Main teste;
