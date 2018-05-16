@@ -16,6 +16,7 @@ import main.Main;
  *
  * @author danie
  */
+
 public class ComunicacaoSocket implements Runnable {
 
     private Main teste;
@@ -23,6 +24,7 @@ public class ComunicacaoSocket implements Runnable {
     public ComunicacaoSocket(Main main) {
         this.teste = main;
     }
+    
     
     @Override
     public void run() {
