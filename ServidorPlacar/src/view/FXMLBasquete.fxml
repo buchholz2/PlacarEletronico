@@ -148,7 +148,7 @@
                   <Font name="DS-Digital Bold" size="150.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="44.0" prefWidth="700.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="SEGURA BOLA" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="700.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="TEMPO DE LANCAMENTO" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="DS-Digital Bold" size="43.0" />
                </font>
