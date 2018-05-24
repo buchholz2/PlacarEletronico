@@ -24,9 +24,9 @@ public class SceneControladorPlacar extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLControladorPlacar.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Controladr");
+        stage.setTitle("Controlador Basquete");
         stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
         stage.show();
 
