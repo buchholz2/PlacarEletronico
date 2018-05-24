@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -25,6 +26,8 @@ public class SceneControladorPlacar extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLControladorPlacar.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Controlador Basquete");
+        Font.loadFont(this.getClass().getResource("/estilos/fontes/DS-DIGIB.TTF").toExternalForm(), 23.8);
+        Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
         stage.setScene(scene);
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);

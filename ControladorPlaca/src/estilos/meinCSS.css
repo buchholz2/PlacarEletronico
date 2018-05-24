@@ -23,3 +23,11 @@ and open the template in the editor.
 .transparente{
     -fx-background-color: rgba(0, 100, 100, 0);
 }
+
+.fonteplacar{
+    -fx-font-family: "DS-Digital";
+}
+
+.fonteTitulo{
+    -fx-font-family: "Soccer League"
+}

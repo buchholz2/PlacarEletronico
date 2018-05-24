@@ -55,45 +55,6 @@ public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     void validaLogin(ActionEvent event) {
-        System.out.println("Chegou");
-        try {
-            Socket cliente = new Socket("10.140.1.224", 12345);
-
-            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-
-            saida.writeUTF("LOGIN$" + jTFUsuario.getText() + "$" + jTFSenha.getText());
-            saida.flush();
-            
-            
-            
-            String msg = entrada.readUTF();
-            System.out.println(msg);
-
-            
-            if (msg.equals("ACESSO_PERMITIDO")) {
-                ScenePrincipal scene = new ScenePrincipal();
-                scene.getStage().close();
-                new SceneEscolhaModalidade().start(new Stage());
-
-            } else if (msg.equals("NEGADO")) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("USUARIO INVALIDO");
-                alert.setHeaderText("ERRO AO ACESSAR O SISTEMA");
-                alert.setContentText("OTARIO DEU CERTO");
-                alert.showAndWait();
-            }
-
-            saida.close();
-            entrada.close();
-            System.out.println("Conexão encerrada");
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-//       String usuario = jTFUsuario.getText();
-//       String senha = jTFSenha.getText();
-//       
-//       if ((usuario))
 
     }
 

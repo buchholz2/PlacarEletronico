@@ -12,289 +12,289 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="522.0" maxWidth="1080.0" prefHeight="446.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLControladorPlacarController">
-   <children>
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="865.0" layoutY="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="127.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="607.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="808.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="607.0" layoutY="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="245.0" />
-      <Label layoutX="371.0" layoutY="14.0" text="Controlador Placar Basquete">
-         <font>
-            <Font name="Soccer League Regular" size="25.0" />
-         </font>
-      </Label>
-      <Pane layoutX="14.0" layoutY="74.0" prefHeight="309.0" prefWidth="569.0" style="-fx-background-color: black;">
-         <children>
-            <Label layoutX="162.0" layoutY="16.0" text="00:00:00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="70.0" />
-               </font>
-            </Label>
-            <Label layoutX="225.0" layoutY="76.0" text="CRONOMETRO" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" text="00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="68.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" text="00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="68.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" text="00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="68.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" text="00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="68.0" />
-               </font>
-            </Label>
-            <Label layoutX="51.0" layoutY="91.0" text="LOCAL" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="433.0" layoutY="92.0" text="VISITANTE" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="45.0" layoutY="190.0" text="FALTAS" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="445.0" layoutY="190.0" text="FALTAS" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label fx:id="jLRodada1" alignment="CENTER" layoutX="44.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../../../ServidorPlacar/src/estilos/meinCSS.css" text="00 x 00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="jLRodada11" alignment="CENTER" layoutX="139.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../../../ServidorPlacar/src/estilos/meinCSS.css" text="00 x 00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="jLRodada12" alignment="CENTER" layoutX="236.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../../../ServidorPlacar/src/estilos/meinCSS.css" text="00 x 00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="jLRodada13" alignment="CENTER" layoutX="331.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../../../ServidorPlacar/src/estilos/meinCSS.css" text="00 x 00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="jLRodada14" alignment="CENTER" layoutX="426.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../../../ServidorPlacar/src/estilos/meinCSS.css" text="00 x 00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="77.0" layoutY="247.0" text="1/4" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="169.0" layoutY="247.0" text="2/4" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="266.0" layoutY="247.0" text="3/4" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="361.0" layoutY="247.0" text="4/4" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label layoutX="462.0" layoutY="247.0" text="EX" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="113.0" prefHeight="71.0" prefWidth="77.0" text="00" textFill="RED">
-               <font>
-                  <Font name="DS-Digital Bold" size="68.0" />
-               </font>
-            </Label>
-            <Label layoutX="180.0" layoutY="173.0" text="TEMPO DE LANCAMENTO" textFill="WHITE">
-               <font>
-                  <Font name="DS-Digital Bold" size="23.0" />
-               </font>
-            </Label>
-         </children></Pane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="58.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="70.0" text="Alterar Nomes" textAlignment="CENTER" wrapText="true" />
-      <Label layoutX="673.0" layoutY="116.0" text="Faltas">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="615.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+1">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="615.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-1">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="674.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="675.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="734.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+3">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="734.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-3">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Label alignment="CENTER" layoutX="615.0" layoutY="232.0" prefHeight="26.0" prefWidth="171.0" text="Local">
-         <font>
-            <Font name="Ebrima Bold" size="20.0" />
-         </font>
-      </Label>
-      <TextField layoutX="613.0" layoutY="75.0" prefHeight="25.0" prefWidth="171.0" promptText="Nome Time Local" />
-      <Label layoutX="668.0" layoutY="203.0" text="Pontos">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="874.0" layoutY="116.0" text="Faltas">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="814.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+1">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="815.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-1">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="875.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="875.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-2">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="934.0" layoutY="165.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+3">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="934.0" layoutY="258.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-3">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Label alignment="CENTER" layoutX="814.0" layoutY="232.0" prefHeight="26.0" prefWidth="171.0" text="Visitante">
-         <font>
-            <Font name="Ebrima Bold" size="20.0" />
-         </font>
-      </Label>
-      <TextField layoutX="814.0" layoutY="75.0" prefHeight="25.0" prefWidth="171.0" promptText="Nome Time Visitante" />
-      <Label layoutX="869.0" layoutY="203.0" text="Pontos">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="615.0" layoutY="112.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="734.0" layoutY="112.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="815.0" layoutY="112.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="+">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="934.0" layoutY="112.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="50.0" text="-">
-         <font>
-            <Font name="Agency FB" size="20.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="192.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="70.0" text="Novo Quarto" textAlignment="CENTER" wrapText="true" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="429.0" text="buchholz: 22/05/2018 - 23:01">
-         <font>
-            <Font name="Ebrima" size="11.0" />
-         </font>
-      </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="613.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Iniciar" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="882.0" layoutY="354.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Reiniciar ">
-         <tooltip>
-            <Tooltip anchorLocation="CONTENT_BOTTOM_LEFT" text="Pressione &quot;5&quot; para reiniciar!" textAlignment="CENTER" />
-         </tooltip></Button>
-      <Label layoutX="611.0" layoutY="43.0" style="-fx-background-color: white;" text="Local">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="812.0" layoutY="43.0" style="-fx-background-color: white;" text="Visitante">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="611.0" layoutY="315.0" style="-fx-background-color: white;" text="Cronometro">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="775.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Reiniciar" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="774.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Definir" />
-      <ToggleButton accessibleHelp="Space" accessibleRole="TOOLTIP" accessibleRoleDescription="Space" accessibleText="Space" contentDisplay="CENTER" ellipsisString="" layoutX="694.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Pausar">
-         <cursor>
-            <Cursor fx:constant="DISAPPEAR" />
-         </cursor>
-         <tooltip>
-            <Tooltip anchorLocation="CONTENT_BOTTOM_LEFT" contentDisplay="CENTER" text="Pressione &quot;Espaço&quot; para pausar/retomar!" textAlignment="CENTER" textOverrun="CLIP" />
-         </tooltip></ToggleButton>
-      <TextField alignment="CENTER" layoutX="613.0" layoutY="340.0" prefHeight="25.0" prefWidth="150.0" promptText="10:00" text="10:00" />
-      <Label layoutX="869.0" layoutY="315.0" style="-fx-background-color: white;" text="Lançamento">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="336.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="70.0" text="Restaurar Tudo" textAlignment="CENTER" wrapText="true" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="341.0" layoutX="6.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="585.0" />
-      <Label layoutX="14.0" layoutY="43.0" style="-fx-background-color: white;" text="Preview Painel">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Label>
-   </children>
+    <children>
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="341.0" layoutX="6.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="585.0" />
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="865.0" layoutY="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="127.0" />
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="607.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="808.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="607.0" layoutY="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="245.0" />
+        <Label layoutX="371.0" layoutY="14.0" styleClass="fonteTitulo" stylesheets="@../estilos/meinCSS.css" text="Controlador Placar Basquete">
+            <font>
+                <Font name="Soccer League Regular" size="25.0" />
+            </font>
+        </Label>
+        <Pane layoutX="14.0" layoutY="74.0" prefHeight="309.0" prefWidth="569.0" style="-fx-background-color: black;">
+            <children>
+                <Label fx:id="jLCronometro" layoutX="162.0" layoutY="16.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00:00:00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="70.0" />
+                    </font>
+                </Label>
+                <Label layoutX="225.0" layoutY="76.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="CRONOMETRO" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="68.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="68.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLFaltasVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="68.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLFaltasLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="68.0" />
+                    </font>
+                </Label>
+                <Label layoutX="51.0" layoutY="91.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="LOCAL" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="433.0" layoutY="92.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VISITANTE" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="45.0" layoutY="190.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="FALTAS" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="445.0" layoutY="190.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="FALTAS" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLRodada1" alignment="CENTER" layoutX="44.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLRodada2" alignment="CENTER" layoutX="139.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLRodada3" alignment="CENTER" layoutX="236.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLRodada4" alignment="CENTER" layoutX="331.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLRodadaEX" alignment="CENTER" layoutX="426.0" layoutY="220.0" prefHeight="38.0" prefWidth="95.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label layoutX="77.0" layoutY="247.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="1/4" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="169.0" layoutY="247.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="2/4" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="266.0" layoutY="247.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="3/4" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="361.0" layoutY="247.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="4/4" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label layoutX="462.0" layoutY="247.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="EX" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label fx:id="jLTempoLancamento" alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="113.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                    <font>
+                        <Font name="DS-Digital Bold" size="68.0" />
+                    </font>
+                </Label>
+                <Label layoutX="180.0" layoutY="173.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="TEMPO DE LANCAMENTO" textFill="WHITE">
+                    <font>
+                        <Font name="DS-Digital Bold" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Button fx:id="jBAlteraNome" alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#alteraNomes" prefHeight="59.0" prefWidth="70.0" text="Alterar Nomes" textAlignment="CENTER" wrapText="true" />
+        <Label layoutX="673.0" layoutY="116.0" text="Faltas">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBMaisUmPontosL" layoutX="615.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisUmL" prefHeight="38.0" prefWidth="50.0" text="+1">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosUmPontosL" layoutX="615.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosUmL" prefHeight="38.0" prefWidth="50.0" text="-1">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMaisDoisPontosL" layoutX="674.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisDoisL" prefHeight="38.0" prefWidth="50.0" text="+2">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosDoisPontosL" layoutX="675.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosDoisL" prefHeight="38.0" prefWidth="50.0" text="-2">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMaisTresPontosL" layoutX="734.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisTresL" prefHeight="38.0" prefWidth="50.0" text="+3">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosTresPontosL" layoutX="734.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosTresL" prefHeight="38.0" prefWidth="50.0" text="-3">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" layoutX="615.0" layoutY="232.0" prefHeight="26.0" prefWidth="171.0" text="Local">
+            <font>
+                <Font name="Ebrima Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="jTFAlteraNomeLocal" layoutX="613.0" layoutY="75.0" prefHeight="25.0" prefWidth="171.0" promptText="Nome Time Local" />
+        <Label layoutX="668.0" layoutY="203.0" text="Pontos">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="874.0" layoutY="116.0" text="Faltas">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBMaisUmPontosV" layoutX="814.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisUmV" prefHeight="38.0" prefWidth="50.0" text="+1">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosUmPontosV" layoutX="815.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosUmV" prefHeight="38.0" prefWidth="50.0" text="-1">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMaisDoisPontosV" layoutX="875.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisDoisV" prefHeight="38.0" prefWidth="50.0" text="+2">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosDoisPontosV" layoutX="875.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosDoisV" prefHeight="38.0" prefWidth="50.0" text="-2">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMaisTresPontosV" layoutX="934.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#maisTresV" prefHeight="38.0" prefWidth="50.0" text="+3">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosTresPontosV" layoutX="934.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#menosTresV" prefHeight="38.0" prefWidth="50.0" text="-3">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" layoutX="814.0" layoutY="232.0" prefHeight="26.0" prefWidth="171.0" text="Visitante">
+            <font>
+                <Font name="Ebrima Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="jTFAlteraNomeVisitante" layoutX="814.0" layoutY="75.0" prefHeight="25.0" prefWidth="171.0" promptText="Nome Time Visitante" />
+        <Label layoutX="869.0" layoutY="203.0" text="Pontos">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBMaisFaltaL" layoutX="615.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#maisFaltaL" prefHeight="38.0" prefWidth="50.0" text="+">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosFaltaL" layoutX="734.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#menosFaltaL" prefHeight="38.0" prefWidth="50.0" text="-">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMaisFaltaV" layoutX="815.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#maisFaltaV" prefHeight="38.0" prefWidth="50.0" text="+">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBMenosFaltaV" layoutX="934.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#menosFaltaV" prefHeight="38.0" prefWidth="50.0" text="-">
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="jBNovoQuarto" alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#novoQuarto" prefHeight="59.0" prefWidth="70.0" text="Novo Quarto" textAlignment="CENTER" wrapText="true" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="429.0" text="buchholz: 22/05/2018 - 23:01">
+            <font>
+                <Font name="Ebrima" size="11.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBIniciaCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="613.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#iniciaCrono" prefHeight="25.0" prefWidth="70.0" text="Iniciar" />
+        <Button fx:id="jBReiniciaLancamento" alignment="CENTER" contentDisplay="CENTER" layoutX="882.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#reiniciaLancamento" prefHeight="25.0" prefWidth="93.0" text="Reiniciar ">
+            <tooltip>
+                <Tooltip anchorLocation="CONTENT_BOTTOM_LEFT" text="Pressione &quot;5&quot; para reiniciar!" textAlignment="CENTER" />
+            </tooltip>
+        </Button>
+        <Label layoutX="611.0" layoutY="43.0" style="-fx-background-color: white;" text="Local">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="812.0" layoutY="43.0" style="-fx-background-color: white;" text="Visitante">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="611.0" layoutY="315.0" style="-fx-background-color: white;" text="Cronometro">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBReiniciaCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="775.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#reiniciaCrono" prefHeight="25.0" prefWidth="70.0" text="Reiniciar" />
+        <Button fx:id="jBDefineCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="774.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#defineValorCrono" prefHeight="25.0" prefWidth="70.0" text="Definir" />
+        <ToggleButton fx:id="jTBPausaCrono" accessibleHelp="Space" accessibleRole="TOOLTIP" accessibleRoleDescription="Space" accessibleText="Space" contentDisplay="CENTER" ellipsisString="" layoutX="694.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#pausaCrono" prefHeight="25.0" prefWidth="70.0" text="Pausar">
+            <tooltip>
+                <Tooltip anchorLocation="CONTENT_BOTTOM_LEFT" contentDisplay="CENTER" text="Pressione &quot;Espaço&quot; para pausar/retomar!" textAlignment="CENTER" textOverrun="CLIP" />
+            </tooltip>
+        </ToggleButton>
+        <TextField fx:id="jTFDefineCrono" alignment="CENTER" layoutX="613.0" layoutY="340.0" prefHeight="25.0" prefWidth="150.0" promptText="10:00" text="10:00" />
+        <Label layoutX="869.0" layoutY="315.0" style="-fx-background-color: white;" text="Lançamento">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="jBRestauraTudo" alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#restauraTudo" prefHeight="59.0" prefWidth="70.0" text="Restaurar Tudo" textAlignment="CENTER" wrapText="true" />
+        <Label layoutX="14.0" layoutY="43.0" style="-fx-background-color: white;" text="Preview Painel">
+            <font>
+                <Font name="Ebrima" size="20.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>
