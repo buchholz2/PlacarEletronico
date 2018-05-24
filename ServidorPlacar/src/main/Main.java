@@ -8,7 +8,7 @@ package main;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
-import rede.ComunicacaoSocket;
+import rede.ComunicacaoSocketServidor;
 import scene.SceneBasquete;
 
 import scene.ScenePrincipal;
@@ -23,9 +23,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         ScenePrincipal p = new ScenePrincipal();
         p.start(stage);
-        new Thread(new ComunicacaoSocket(this)).start();
-//          SceneBasquete b = new SceneBasquete();
-//          b.start(stage);
+        new Thread(new ComunicacaoSocketServidor(this)).start();
     }
 
     /**

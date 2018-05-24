@@ -9,13 +9,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
-
 
 /**
  *
@@ -24,8 +25,6 @@ import javafx.util.Duration;
  * @author danie
  */
 public class FXMLBasqueteController implements Initializable {
-
-    Server server1;
 
     @FXML
     private Label jLRodada1;
@@ -66,24 +65,24 @@ public class FXMLBasqueteController implements Initializable {
     @FXML
     private Label jLSeguraBola;
 
+    private Task iniciaCronos(Label l, int inicio, int tempo) {
+
+        Task task = new Task<Void>() {
+            @Override
+            public Void call() throws Exception {
+                int i = inicio;
+                while (true) {
+                    final int finalI = i++;
+                    Platform.runLater(() -> l.setText("" + finalI));
+                    Thread.sleep(tempo);
+                }
+            }
+        };
+        return task;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        new Thread(new Server(this)).start();
-        // TODO
+
     }
-
-    public void mudaMensagem(String msg) {
-        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            jLCronometroCentral.setText("00:00:" + msg);
-            jLTimeDireitoPontos.setText(msg);
-            jLTimeEsquerdoFaltas.setText(msg);
-            jLTimeDireitoFaltas.setText(msg);
-            jLTimeEsquerdoPontos.setText(msg);
-
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        tlCronometro.play();
-    }
-
 }

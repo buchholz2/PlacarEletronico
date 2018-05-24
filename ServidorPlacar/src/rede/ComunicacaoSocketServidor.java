@@ -16,16 +16,14 @@ import main.Main;
  *
  * @author danie
  */
-
-public class ComunicacaoSocket implements Runnable {
+public class ComunicacaoSocketServidor implements Runnable {
 
     private Main teste;
-    
-    public ComunicacaoSocket(Main main) {
+
+    public ComunicacaoSocketServidor(Main main) {
         this.teste = main;
     }
-    
-    
+
     @Override
     public void run() {
         try {
@@ -44,19 +42,24 @@ public class ComunicacaoSocket implements Runnable {
 
                 String msg = entrada.readUTF();
                 String[] escolha = msg.split("\\$");
+
                 if (escolha[0].equals("TIME_A")) {
                     saida.writeUTF(timeA(escolha));
                     saida.flush();
 
-                } else if (escolha[0].equals("LOGIN")){
+                } else if (escolha[0].equals("LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
+                } else if (escolha[0].equals("FECHAR")) {
+                    saida.writeUTF(fechaConexao(escolha));
+                    saida.flush();
+                    cliente.close();
                 }
-                
+
                 saida.close();
 
                 entrada.close();
-                cliente.close();
+
             }
 
         } catch (IOException e) {
@@ -88,11 +91,11 @@ public class ComunicacaoSocket implements Runnable {
         }
         return retorno;
     }
-    
+
     public static String login(String[] msg) {
         String tipo = msg[1];
         String retorno = "nada feito";
-        switch (tipo){
+        switch (tipo) {
             case "admin":
                 System.out.println("ACESSO ADMIN!");
                 retorno = "ACESSO_PERMITIDO";
@@ -101,7 +104,18 @@ public class ComunicacaoSocket implements Runnable {
                 retorno = "NEGADO";
                 break;
         }
-        
+
         return retorno;
+    }
+
+    public static String fechaConexao(String[] msg) {
+        return "";
+    }
+
+    public static String iniciaCronos(String[] msg) {
+        Thread th = new Thread();
+        th.setDaemon(true);
+        th.start();
+        return "";
     }
 }
