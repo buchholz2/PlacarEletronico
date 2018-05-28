@@ -5,6 +5,8 @@
  */
 package rede;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import control.FXMLBasqueteController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,6 +24,10 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     public ComunicacaoSocketServidor(Main main) {
         this.teste = main;
+    }
+
+    public ComunicacaoSocketServidor() {
+
     }
 
     @Override
@@ -46,7 +52,6 @@ public class ComunicacaoSocketServidor implements Runnable {
                 if (escolha[0].equals("TIME_A")) {
                     saida.writeUTF(timeA(escolha));
                     saida.flush();
-
                 } else if (escolha[0].equals("LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
@@ -54,6 +59,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.writeUTF(fechaConexao(escolha));
                     saida.flush();
                     cliente.close();
+                } else if (escolha[0].equals("INICIA_CRONO")) {
+                    System.out.println("Cgegou aq");
+                    saida.writeUTF(iniciaCronos(escolha));
+                    saida.flush();
                 }
 
                 saida.close();
@@ -113,9 +122,22 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public static String iniciaCronos(String[] msg) {
-        Thread th = new Thread();
-        th.setDaemon(true);
-        th.start();
-        return "";
+        System.out.println("Chego no corte");
+        String[] msm = msg[1].split("//:");
+        if (msm.length > 1) {
+            int minutos = Integer.parseInt(msm[0]);
+            int segundos = Integer.parseInt(msm[1]);
+            int milisegundos = Integer.parseInt(msm[2]);
+            FXMLBasqueteController bas = new FXMLBasqueteController();
+            bas.chamaCronos(minutos, segundos, milisegundos);
+            return "CRONOS_INICIADO";
+        } else {
+            int minutos = Integer.parseInt(msm[0]);
+            int segundos = Integer.parseInt(msm[1]);
+            FXMLBasqueteController bas = new FXMLBasqueteController();
+            bas.chamaCronos(minutos, segundos, 0);
+            return "CRONOS_INICIADO";
+        }
+
     }
 }
