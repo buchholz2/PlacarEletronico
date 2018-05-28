@@ -1,5 +1,8 @@
 package controladorplaca;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -9,8 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import rede.ComunicacaoSocketCliente;
 
-public class FXMLControladorPlacarController implements Initializable{
+public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     private Label jLCronometro;
@@ -138,6 +142,26 @@ public class FXMLControladorPlacarController implements Initializable{
 
     @FXML
     void iniciaCrono(MouseEvent event) {
+        System.out.println("Chegou");
+        try {
+            Socket cliente = new Socket("localhost", 12345);
+
+            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+
+            saida.writeUTF("INICIA_CRONO$"+jTFDefineCrono.getText());
+            saida.flush();
+
+            String msg = entrada.readUTF();
+            System.out.println(msg);
+            
+            entrada.close();
+            saida.close();
+            cliente.close();
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
 
     }
 
@@ -245,7 +269,6 @@ public class FXMLControladorPlacarController implements Initializable{
     void restauraTudo(MouseEvent event) {
 
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

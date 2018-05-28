@@ -8,10 +8,7 @@ package rede;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-import scene.SceneEscolhaModalidade;
-import scene.ScenePrincipal;
+import main.Main;
 
 /**
  *
@@ -19,44 +16,44 @@ import scene.ScenePrincipal;
  */
 public class ComunicacaoSocketCliente implements Runnable {
 
+    private String mensagem = "";
+    private Main teste;
+
+    public ComunicacaoSocketCliente(Main main) {
+        this.teste = main;
+    }
+
+    public ComunicacaoSocketCliente() {
+
+    }
+
     @Override
     public void run() {
         System.out.println("Chegou");
         try {
-            Socket cliente = new Socket("10.140.1.224", 12345);
+            Socket cliente = new Socket("localhost", 12345);
 
             ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+            while (true) {
+                if (mensagem != "") {
+                    saida.writeUTF(mensagem);
+                    saida.flush();
 
-            saida.writeUTF("LOGIN$" + jTFUsuario.getText() + "$" + jTFSenha.getText());
-            saida.flush();
-
-            String msg = entrada.readUTF();
-            System.out.println(msg);
-
-            if (msg.equals("ACESSO_PERMITIDO")) {
-                ScenePrincipal scene = new ScenePrincipal();
-                scene.getStage().close();
-                new SceneEscolhaModalidade().start(new Stage());
-
-            } else if (msg.equals("NEGADO")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("USUARIO INVALIDO");
-                alert.setHeaderText("ERRO AO ACESSAR O SISTEMA");
-                alert.setContentText("OTARIO DEU CERTO");
-                alert.showAndWait();
+                    String msg = entrada.readUTF();
+                    System.out.println(msg);
+                    mensagem = "";
+                }
+                Thread.sleep(10);
             }
 
-            saida.close();
-            entrada.close();
-            System.out.println("Conexão encerrada");
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
-//       String usuario = jTFUsuario.getText();
-//       String senha = jTFSenha.getText();
-//       
-//       if ((usuario))
 
+    }
+
+    public void esperaMSG(String msg) {
+        mensagem = msg;
     }
 }

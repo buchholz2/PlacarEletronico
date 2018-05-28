@@ -29,7 +29,7 @@ public class SceneControladorPlacar extends Application {
         Font.loadFont(this.getClass().getResource("/estilos/fontes/DS-DIGIB.TTF").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
 
