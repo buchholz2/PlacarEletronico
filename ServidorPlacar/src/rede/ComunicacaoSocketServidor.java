@@ -12,7 +12,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import main.Main;
+import scene.SceneBasquete;
 
 /**
  *
@@ -21,9 +27,14 @@ import main.Main;
 public class ComunicacaoSocketServidor implements Runnable {
 
     private Main teste;
+    SceneBasquete p;
 
     public ComunicacaoSocketServidor(Main main) {
         this.teste = main;
+    }
+
+    public ComunicacaoSocketServidor(SceneBasquete p) {
+        this.p = p;
     }
 
     public ComunicacaoSocketServidor() {
@@ -36,6 +47,7 @@ public class ComunicacaoSocketServidor implements Runnable {
             // Instancia o ServerSocket ouvindo a porta 12345
             ServerSocket servidor = new ServerSocket(12345);
             System.out.println("Servidor ouvindo a porta 12345");
+            System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
 
             while (true) {
                 // o método accept() bloqueia a execução até que
@@ -76,7 +88,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
-    public static String timeA(String[] msg) {
+    public String timeA(String[] msg) {
         String tipo = msg[1];
         String retorno = "nada feito";
         switch (tipo) {
@@ -101,7 +113,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         return retorno;
     }
 
-    public static String login(String[] msg) {
+    public String login(String[] msg) {
         String tipo = msg[1];
         String retorno = "nada feito";
         switch (tipo) {
@@ -117,27 +129,94 @@ public class ComunicacaoSocketServidor implements Runnable {
         return retorno;
     }
 
-    public static String fechaConexao(String[] msg) {
+    public String fechaConexao(String[] msg) {
         return "";
     }
 
-    public static String iniciaCronos(String[] msg) {
+    public String iniciaCronos(String[] msg) {
         System.out.println("Chego no corte");
         String[] msm = msg[1].split("\\:");
         if (msm.length > 1) {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-            
-            FXMLBasqueteController bas = new FXMLBasqueteController();
-            bas.chamaCronos(minutos, segundos, 0);
+
+//            FXMLBasqueteController bas = new FXMLBasqueteController();
+//            bas.chamaCronos(minutos, segundos, 0);
+            chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         } else {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-            FXMLBasqueteController bas = new FXMLBasqueteController();
-            bas.chamaCronos(minutos, segundos, 0);
+
+//            stage.getScene().getRoot().getParent().getChildrenUnmodifiable().
+//            FXMLBasqueteController bas = new FXMLBasqueteController();
+//            bas.chamaCronos(minutos, segundos, 0);
+            chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         }
 
     }
+
+    public void chamaCronos(Label label, int min, int seg, int mili) {
+        Thread th = new Thread(iniciaCronos(label, min, seg, mili));
+        th.setDaemon(true);
+        th.start();
+        System.out.println("Thread Iniciada" + label.getText());
+    }
+
+    private Task iniciaCronos(Label l, int min, int seg, int mili) {
+
+        Task task = new Task<Void>() {
+            int m = min;
+            int s = seg;
+            int ms = mili;
+            String minutos;
+            String segundos;
+            String milisegundos;
+
+            @Override
+            public Void call() throws Exception {
+                while (true) {
+                    System.out.println("Thread Iniciada While" + l.getText());
+
+                    if (m > 9) {
+                        minutos = "" + m;
+                    } else {
+                        minutos = "0" + m;
+                    }
+                    if (s > 9) {
+                        segundos = "" + s;
+                    } else {
+                        segundos = "0" + s;
+                    }
+                    if (ms > 9) {
+                        milisegundos = "" + ms;
+                    } else {
+                        milisegundos = "0" + ms;
+                    }
+                    Platform.runLater(() -> {
+                        l.setText(minutos+":" + segundos +":"+ milisegundos);
+                    });
+                    
+                    
+                    ms--;
+                    
+                    if (ms < 0) {
+                        ms = 99;
+                        s--;
+                    }
+                    if (s < 0) {
+                        s = 59;
+                        m--;
+                    }
+                
+                    Thread.sleep(2000);
+                }
+
+            }
+        };
+
+        return task;
+    }
+
 }

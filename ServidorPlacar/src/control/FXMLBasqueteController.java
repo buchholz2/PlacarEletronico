@@ -65,65 +65,6 @@ public class FXMLBasqueteController implements Initializable {
     @FXML
     private Label jLSeguraBola;
 
-    public void chamaCronos(int min, int seg, int mili) {
-        Thread th = new Thread(iniciaCronos(jLCronometroCentral, min, seg, mili));
-        th.setDaemon(true);
-        th.start();
-
-    }
-
-    private Task iniciaCronos(Label l, int min, int seg, int mili) {
-
-        Task task = new Task<Void>() {
-            int m = min;
-            int s = seg;
-            int ms = mili;
-            String minutos;
-            String segundos;
-            String milisegundos;
-
-            @Override
-            public Void call() throws Exception {
-                while (true) {
-                    
-                    if (m > 9) {
-                        minutos = "" + m;
-                    } else {
-                        minutos = "0" + m;
-                    }
-                    if (s > 9) {
-                        segundos = "" + s;
-                    } else {
-                        segundos = "0" + s;
-                    }
-                    if (ms > 9) {
-                        milisegundos = "" + ms;
-                    } else {
-                        milisegundos = "0" + ms;
-                    }
-                    
-                    if (ms == 0){
-                        ms = 99;
-                        s = s--;
-                    }
-                    if (s == 0){
-                        s = 59;
-                        m = m--;
-                    }
-                    
-                    ms = ms--;
-                    
-                    Platform.runLater(() -> {
-                        l.setText(minutos + segundos + milisegundos);
-                                });
-                    Thread.sleep(1000);
-                }
-
-            }
-        };
-
-        return task;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

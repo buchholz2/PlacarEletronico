@@ -18,12 +18,13 @@ import javafx.stage.Stage;
  */
 public class SceneBasquete extends Application {
 
-    private static Stage stage;
-
+    private Stage stage;
+    private Scene scene;
+private Parent root;
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLBasquete.fxml"));
-        Scene scene = new Scene(root);
+        root = FXMLLoader.load(getClass().getResource("/view/FXMLBasquete.fxml"));
+        scene = new Scene(root);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
         stage.setTitle("Basquete");
         stage.setScene(scene);
@@ -32,6 +33,26 @@ public class SceneBasquete extends Application {
         stage.setFullScreen(true);
     }
 
+    public Parent getRoot() {
+        return root;
+    }
+
+    public void setRoot(Parent root) {
+        this.root = root;
+    }
+
+    
+    
+    
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+      
     public Stage getStage() {
         return stage;
     }

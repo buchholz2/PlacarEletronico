@@ -23,7 +23,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         SceneBasquete p = new SceneBasquete();
         p.start(stage);
-        new Thread(new ComunicacaoSocketServidor(this)).start();
+      //  new Thread(new ComunicacaoSocketServidor(this)).start();
+        new Thread(new ComunicacaoSocketServidor(p)).start();
     }
 
     /**
