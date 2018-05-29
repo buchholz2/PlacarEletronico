@@ -15,7 +15,9 @@ import javafx.scene.input.MouseEvent;
 import rede.ComunicacaoSocketCliente;
 
 public class FXMLControladorPlacarController implements Initializable {
-
+    private String mensagem;
+    private ComunicacaoSocketCliente msg;
+    
     @FXML
     private Label jLCronometro;
 
@@ -142,27 +144,7 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void iniciaCrono(MouseEvent event) {
-        System.out.println("Chegou");
-        try {
-            Socket cliente = new Socket("localhost", 12345);
-
-            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-
-            saida.writeUTF("INICIA_CRONO$"+jTFDefineCrono.getText());
-            saida.flush();
-
-            String msg = entrada.readUTF();
-            System.out.println(msg);
-            
-            entrada.close();
-            saida.close();
-            cliente.close();
-
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-
+        recebeMensagem("INICIA_CONO$"+jTFDefineCrono.getText());
     }
 
     @FXML
@@ -273,5 +255,17 @@ public class FXMLControladorPlacarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public String temMSG(){
+        return mensagem;
+    }
+    
+    public void recebeMensagem(String msg){
+        this.mensagem = msg;
+    }
+    
+    public void apagaMSG(){
+        this.mensagem = "";
     }
 }

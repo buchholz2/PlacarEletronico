@@ -21,6 +21,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         SceneControladorPlacar p = new SceneControladorPlacar();
         p.start(stage);
+        new Thread(new ComunicacaoSocketCliente(p)).start();
     }
 
     /**

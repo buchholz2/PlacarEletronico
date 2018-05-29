@@ -8,7 +8,7 @@ package rede;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import main.Main;
+import scene.SceneControladorPlacar;
 
 /**
  *
@@ -17,10 +17,10 @@ import main.Main;
 public class ComunicacaoSocketCliente implements Runnable {
 
     private String mensagem = "";
-    private Main teste;
+    SceneControladorPlacar p;
 
-    public ComunicacaoSocketCliente(Main main) {
-        this.teste = main;
+    public ComunicacaoSocketCliente(SceneControladorPlacar p) {
+        this.p = p;
     }
 
     public ComunicacaoSocketCliente() {
@@ -32,7 +32,7 @@ public class ComunicacaoSocketCliente implements Runnable {
         System.out.println("Chegou");
         try {
             Socket cliente = new Socket("localhost", 12345);
-
+            
             ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             while (true) {
@@ -44,7 +44,7 @@ public class ComunicacaoSocketCliente implements Runnable {
                     System.out.println(msg);
                     mensagem = "";
                 }
-                Thread.sleep(10);
+                Thread.sleep(100);
             }
 
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class ComunicacaoSocketCliente implements Runnable {
 
     }
 
-    public void esperaMSG(String msg) {
-        mensagem = msg;
+    public void esperaMSG() {
+        
     }
 }
