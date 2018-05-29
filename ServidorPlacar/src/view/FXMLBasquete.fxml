@@ -98,9 +98,9 @@
                   <Font name="DS-Digital Bold" size="43.0" />
                </font>
             </Label>
-            <Label fx:id="jLCronometroCentral" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="700.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00:00:00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Label fx:id="jLCronometroCentral" alignment="CENTER" contentDisplay="BOTTOM" prefHeight="152.0" prefWidth="700.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00:00:00" textAlignment="JUSTIFY" textFill="RED" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="DS-Digital Bold" size="150.0" />
+                  <Font name="LCD AT&amp;T Phone Time/Date" size="150.0" />
                </font>
             </Label>
             <Label alignment="CENTER" prefHeight="44.0" prefWidth="700.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="Cronometro" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">

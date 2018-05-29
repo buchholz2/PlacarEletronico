@@ -5,18 +5,19 @@
  */
 package rede;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
-import control.FXMLBasqueteController;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import static javafx.scene.input.DataFormat.URL;
+
 import main.Main;
 import scene.SceneBasquete;
 
@@ -26,12 +27,8 @@ import scene.SceneBasquete;
  */
 public class ComunicacaoSocketServidor implements Runnable {
 
-    private Main teste;
+    private boolean fimcrono = true;
     SceneBasquete p;
-
-    public ComunicacaoSocketServidor(Main main) {
-        this.teste = main;
-    }
 
     public ComunicacaoSocketServidor(SceneBasquete p) {
         this.p = p;
@@ -48,7 +45,7 @@ public class ComunicacaoSocketServidor implements Runnable {
             ServerSocket servidor = new ServerSocket(12345);
             System.out.println("Servidor ouvindo a porta 12345");
             System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
-
+            
             while (true) {
                 // o método accept() bloqueia a execução até que
                 // o servidor receba um pedido de conexão
@@ -139,18 +136,11 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (msm.length > 1) {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-
-//            FXMLBasqueteController bas = new FXMLBasqueteController();
-//            bas.chamaCronos(minutos, segundos, 0);
             chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         } else {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-
-//            stage.getScene().getRoot().getParent().getChildrenUnmodifiable().
-//            FXMLBasqueteController bas = new FXMLBasqueteController();
-//            bas.chamaCronos(minutos, segundos, 0);
             chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         }
@@ -176,7 +166,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 
             @Override
             public Void call() throws Exception {
-                while (true) {
+                while (fimCrono()) {
                     System.out.println("Thread Iniciada While" + l.getText());
 
                     if (m > 9) {
@@ -195,12 +185,22 @@ public class ComunicacaoSocketServidor implements Runnable {
                         milisegundos = "0" + ms;
                     }
                     Platform.runLater(() -> {
-                        l.setText(minutos+":" + segundos +":"+ milisegundos);
+                        l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
-                    
-                    
+
+                    if (m == 0) {
+                        if (s == 0) {
+                            if (ms == 0) {
+                                fimcrono = false;
+                                URL url = getClass().getResource("/estilos/apito.wav");
+                                AudioClip audio = Applet.newAudioClip(url);
+                                audio.play();
+                            }
+                        }
+                    }
+
                     ms--;
-                    
+
                     if (ms < 0) {
                         ms = 99;
                         s--;
@@ -209,14 +209,16 @@ public class ComunicacaoSocketServidor implements Runnable {
                         s = 59;
                         m--;
                     }
-                
-                    Thread.sleep(2000);
+                    Thread.sleep(10);
                 }
-
+                return null;
             }
         };
-
         return task;
+    }
+
+    public boolean fimCrono() {
+        return fimcrono;
     }
 
 }
