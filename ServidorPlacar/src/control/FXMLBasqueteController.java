@@ -69,6 +69,7 @@ public class FXMLBasqueteController implements Initializable {
         Thread th = new Thread(iniciaCronos(jLCronometroCentral, min, seg, mili));
         th.setDaemon(true);
         th.start();
+
     }
 
     private Task iniciaCronos(Label l, int min, int seg, int mili) {
@@ -112,8 +113,10 @@ public class FXMLBasqueteController implements Initializable {
                     
                     ms = ms--;
                     
-                    Platform.runLater(() -> l.setText(minutos + segundos + milisegundos));
-                    Thread.sleep(10);
+                    Platform.runLater(() -> {
+                        l.setText(minutos + segundos + milisegundos);
+                                });
+                    Thread.sleep(1000);
                 }
 
             }

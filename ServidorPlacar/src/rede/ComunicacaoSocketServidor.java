@@ -123,13 +123,13 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     public static String iniciaCronos(String[] msg) {
         System.out.println("Chego no corte");
-        String[] msm = msg[1].split("//:");
+        String[] msm = msg[1].split("\\:");
         if (msm.length > 1) {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-            int milisegundos = Integer.parseInt(msm[2]);
+            
             FXMLBasqueteController bas = new FXMLBasqueteController();
-            bas.chamaCronos(minutos, segundos, milisegundos);
+            bas.chamaCronos(minutos, segundos, 0);
             return "CRONOS_INICIADO";
         } else {
             int minutos = Integer.parseInt(msm[0]);
