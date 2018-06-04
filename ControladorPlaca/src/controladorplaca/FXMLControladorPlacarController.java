@@ -1,10 +1,15 @@
 package controladorplaca;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,11 +17,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
-import rede.ComunicacaoSocketCliente;
+import javafx.scene.layout.AnchorPane;
 
 public class FXMLControladorPlacarController implements Initializable {
-    private String mensagem;
-    private ComunicacaoSocketCliente msg;
+
+    private boolean fimcrono = true;
+
+    
+    @FXML
+    private AnchorPane aPJanelaP;
     
     @FXML
     private Label jLCronometro;
@@ -143,18 +152,36 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     @FXML
-    void iniciaCrono(MouseEvent event) {
-        recebeMensagem("INICIA_CONO$"+jTFDefineCrono.getText());
+    void iniciaCrono(MouseEvent event) throws IOException {
+        String retorno = mandaMensagem("#INICIA_CRONO$" + jTFDefineCrono.getText());
+        if (retorno.equals("CRONOS_INICIADO")) {
+            String corte[] = jTFDefineCrono.getText().split("\\:");
+            int min = Integer.parseInt(corte[0]);
+            int seg = Integer.parseInt(corte[1]);
+            //int mili = Integer.parseInt(corte[3]);
+            System.out.println("Chegou Incia Cronos Preview");
+            Thread th = new Thread(iniciaCronosPreview(jLCronometro, min, seg, 00));
+            th.setDaemon(true);
+            th.start();
+        }
     }
 
     @FXML
-    void maisDoisL(MouseEvent event) {
-
+    void maisDoisL(MouseEvent event) throws IOException {
+       String retorno = mandaMensagem("#TIME$LOCAL$SOMA_PONTO$DOIS$");
+       if(retorno.equals("SOMADO")){
+           int pontos = Integer.parseInt(jLPontosLocal.getText()) + 2;
+           jLPontosLocal.setText(""+pontos);
+       }
     }
 
     @FXML
-    void maisDoisV(MouseEvent event) {
-
+    void maisDoisV(MouseEvent event) throws IOException {
+               String retorno = mandaMensagem("#TIME$VISITANTE$SOMA_PONTO$DOIS$");
+       if(retorno.equals("SOMADO")){
+           int pontos = Integer.parseInt(jLPontosVisitante.getText()) + 2;
+           jLPontosVisitante.setText(""+pontos);
+       }
     }
 
     @FXML
@@ -168,33 +195,33 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     @FXML
-    void maisTresL(MouseEvent event) {
-
+    void maisTresL(MouseEvent event) throws IOException {
+        mandaMensagem("#LOCAL$PONTO_MAIS$TRES$");
     }
 
     @FXML
-    void maisTresV(MouseEvent event) {
-
+    void maisTresV(MouseEvent event) throws IOException {
+        mandaMensagem("#VISITANTE$PONTO_MAIS$TRES$");
     }
 
     @FXML
-    void maisUmL(MouseEvent event) {
-
+    void maisUmL(MouseEvent event) throws IOException {
+        mandaMensagem("#LOCAL$PONTO_MAIS$UM$");
     }
 
     @FXML
-    void maisUmV(MouseEvent event) {
-
+    void maisUmV(MouseEvent event) throws IOException {
+        mandaMensagem("#VISITANTE$PONTO_MAIS$DOIS$");
     }
 
     @FXML
-    void menosDoisL(MouseEvent event) {
-
+    void menosDoisL(MouseEvent event) throws IOException {
+        mandaMensagem("#LOCAL$PONTO_MENOS$DOIS$");
     }
 
     @FXML
-    void menosDoisV(MouseEvent event) {
-
+    void menosDoisV(MouseEvent event) throws IOException {
+        mandaMensagem("#VISITANTE$PONTO_MENOS$DOIS$");
     }
 
     @FXML
@@ -208,23 +235,23 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     @FXML
-    void menosTresL(MouseEvent event) {
-
+    void menosTresL(MouseEvent event) throws IOException {
+        mandaMensagem("#LOCAL$PONTO_MENOS$TRES$");
     }
 
     @FXML
-    void menosTresV(MouseEvent event) {
-
+    void menosTresV(MouseEvent event) throws IOException {
+        mandaMensagem("#VISITANTE$PONTO_MENOS$DOIS$");
     }
 
     @FXML
-    void menosUmL(MouseEvent event) {
-
+    void menosUmL(MouseEvent event) throws IOException {
+        mandaMensagem("#LOCAL$PONTO_MENOS$UM$");
     }
 
     @FXML
-    void menosUmV(MouseEvent event) {
-
+    void menosUmV(MouseEvent event) throws IOException {
+        mandaMensagem("#VISITANTE$PONTO_MENOS$UM$");
     }
 
     @FXML
@@ -256,16 +283,86 @@ public class FXMLControladorPlacarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
-    public String temMSG(){
-        return mensagem;
+
+    public String mandaMensagem(String msg) throws IOException {
+
+        Socket cliente = new Socket("localhost", 12345);
+
+        ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+        ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+
+        saida.writeUTF(msg);
+        saida.flush();
+
+        String retorno = entrada.readUTF();
+        System.out.println(retorno);
+
+        return retorno;
     }
-    
-    public void recebeMensagem(String msg){
-        this.mensagem = msg;
+
+    private Task iniciaCronosPreview(Label l, int min, int seg, int mili) {
+
+        Task task = new Task<Void>() {
+            int m = min;
+            int s = seg;
+            int ms = mili;
+            String minutos;
+            String segundos;
+            String milisegundos;
+
+            @Override
+            public Void call() throws Exception {
+                while (fimCrono()) {
+
+                    if (m > 9) {
+                        minutos = "" + m;
+                    } else {
+                        minutos = "0" + m;
+                    }
+                    if (s > 9) {
+                        segundos = "" + s;
+                    } else {
+                        segundos = "0" + s;
+                    }
+                    if (ms > 9) {
+                        milisegundos = "" + ms;
+                    } else {
+                        milisegundos = "0" + ms;
+                    }
+                    Platform.runLater(() -> {
+                        l.setText(minutos + ":" + segundos + ":" + milisegundos);
+                    });
+
+                    if (m == 0) {
+                        if (s == 0) {
+                            if (ms == 0) {
+                                fimcrono = false;
+                                URL url = getClass().getResource("/estilos/apito.wav");
+                                AudioClip audio = Applet.newAudioClip(url);
+                                audio.play();
+                            }
+                        }
+                    }
+
+                    ms--;
+
+                    if (ms < 0) {
+                        ms = 99;
+                        s--;
+                    }
+                    if (s < 0) {
+                        s = 59;
+                        m--;
+                    }
+                    Thread.sleep(10);
+                }
+                return null;
+            }
+        };
+        return task;
     }
-    
-    public void apagaMSG(){
-        this.mensagem = "";
+
+    public boolean fimCrono() {
+        return fimcrono;
     }
 }
