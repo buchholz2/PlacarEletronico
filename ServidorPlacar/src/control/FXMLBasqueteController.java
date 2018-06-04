@@ -5,18 +5,11 @@
  */
 package control;
 
+import br.com.fandrauss.fx.gui.WindowControllerFx;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 /**
  *
@@ -24,7 +17,7 @@ import javafx.util.Duration;
  *
  * @author danie
  */
-public class FXMLBasqueteController implements Initializable {
+public class FXMLBasqueteController extends WindowControllerFx {
 
     @FXML
     private Label jLRodada1;
@@ -65,6 +58,10 @@ public class FXMLBasqueteController implements Initializable {
     @FXML
     private Label jLSeguraBola;
 
+    @Override
+    public String getFXML() {
+        return "/view/FXMLBasquete.fxml";
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

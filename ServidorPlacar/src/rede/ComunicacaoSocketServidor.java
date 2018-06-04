@@ -15,11 +15,10 @@ import java.net.Socket;
 import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import static javafx.scene.input.DataFormat.URL;
-
+import javafx.stage.Stage;
 import main.Main;
-import scene.SceneBasquete;
 
 /**
  *
@@ -28,9 +27,9 @@ import scene.SceneBasquete;
 public class ComunicacaoSocketServidor implements Runnable {
 
     private boolean fimcrono = true;
-    SceneBasquete p;
+    Main p;
 
-    public ComunicacaoSocketServidor(SceneBasquete p) {
+    public ComunicacaoSocketServidor(Main p) {
         this.p = p;
     }
 
@@ -44,8 +43,8 @@ public class ComunicacaoSocketServidor implements Runnable {
             // Instancia o ServerSocket ouvindo a porta 12345
             ServerSocket servidor = new ServerSocket(12345);
             System.out.println("Servidor ouvindo a porta 12345");
-            System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
-            
+            //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
+
             while (true) {
                 // o método accept() bloqueia a execução até que
                 // o servidor receba um pedido de conexão
@@ -56,20 +55,16 @@ public class ComunicacaoSocketServidor implements Runnable {
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
                 String msg = entrada.readUTF();
+
                 String[] escolha = msg.split("\\$");
 
-                if (escolha[0].equals("TIME_A")) {
-                    saida.writeUTF(timeA(escolha));
+                if (escolha[0].equals("#TIME")) {
+                    saida.writeUTF(time(escolha));
                     saida.flush();
                 } else if (escolha[0].equals("LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
-                } else if (escolha[0].equals("FECHAR")) {
-                    saida.writeUTF(fechaConexao(escolha));
-                    saida.flush();
-                    cliente.close();
-                } else if (escolha[0].equals("INICIA_CRONO")) {
-                    System.out.println("Cgegou aq");
+                } else if (escolha[0].equals("#INICIA_CRONO")) {
                     saida.writeUTF(iniciaCronos(escolha));
                     saida.flush();
                 }
@@ -85,44 +80,42 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
-    public String timeA(String[] msg) {
-        String tipo = msg[1];
+    public String time(String[] msg) {
+        String opcao = msg[1];
         String retorno = "nada feito";
-        switch (tipo) {
-            case "PONTOS":
-                String quantidade = msg[2];
-                switch (quantidade) {
-                    case "1":
-                        System.out.println("RECEBEU SUCESSO 1");
-                        retorno = "Adicionado 1 Ponto";
+        switch (opcao) {
+            case "VISITANTE":
+                String funcao = msg[2];
+                switch (funcao) {
+                    case "SOMA_PONTO":
+                        if (msg[3].equals("UM")) {
+
+                        } else if (msg[3].equals("DOIS")) {
+
+                        } else {
+
+                        }
+                        retorno = "#SOMA$OK";
                         break;
-                    case "2":
+                    case "SUB_PONTO":
                         System.out.println("RECEBEU SUCESSO 2");
                         retorno = "Adicionado 2 Ponto";
                         break;
-                    case "3":
-                        System.out.println("RECEBEU SUCESSO 3");
-                        retorno = "Adicionado 3 Ponto";
-                        break;
                 }
+                break;
+
+            case "LOCAL":
+
                 break;
         }
         return retorno;
     }
 
-    public String login(String[] msg) {
-        String tipo = msg[1];
-        String retorno = "nada feito";
-        switch (tipo) {
-            case "admin":
-                System.out.println("ACESSO ADMIN!");
-                retorno = "ACESSO_PERMITIDO";
-                break;
-            default:
-                retorno = "NEGADO";
-                break;
-        }
+    public String login(String[] msg) throws IOException {
 
+        Main.loadScene("/view/FXMLBasquete.fxml");
+
+        String retorno = "LOGADO";
         return retorno;
     }
 
@@ -136,12 +129,12 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (msm.length > 1) {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-            chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+//            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         } else {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-            chamaCronos((Label) p.getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+//            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         }
 
@@ -167,7 +160,6 @@ public class ComunicacaoSocketServidor implements Runnable {
             @Override
             public Void call() throws Exception {
                 while (fimCrono()) {
-                    System.out.println("Thread Iniciada While" + l.getText());
 
                     if (m > 9) {
                         minutos = "" + m;
