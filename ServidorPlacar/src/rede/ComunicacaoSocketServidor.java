@@ -27,6 +27,8 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     private boolean fimcrono = true;
     Stage p;
+    public int pontosL = 0;
+    public int pontosV = 0;
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -43,15 +45,15 @@ public class ComunicacaoSocketServidor implements Runnable {
             ServerSocket servidor = new ServerSocket(12345);
             System.out.println("Servidor ouvindo a porta 12345");
             //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
+            // o método accept() bloqueia a execução até que
+            // o servidor receba um pedido de conexão
+            Socket cliente = servidor.accept();
+            System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
 
+            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+            
             while (true) {
-                // o método accept() bloqueia a execução até que
-                // o servidor receba um pedido de conexão
-                Socket cliente = servidor.accept();
-                System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
-
-                ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-                ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
                 String msg = entrada.readUTF();
 
@@ -60,7 +62,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                 if (escolha[0].equals("#TIME")) {
                     saida.writeUTF(time(escolha));
                     saida.flush();
-                } else if (escolha[0].equals("LOGIN")) {
+                } else if (escolha[0].equals("#LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
                 } else if (escolha[0].equals("#INICIA_CRONO")) {
@@ -68,10 +70,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.flush();
                 }
 
-                saida.close();
-
-                entrada.close();
-
+//                saida.close();
+//                entrada.close();
             }
 
         } catch (IOException e) {
@@ -84,36 +84,21 @@ public class ComunicacaoSocketServidor implements Runnable {
         String retorno = "nada feito";
         switch (opcao) {
             case "VISITANTE":
-                String funcao = msg[2];
-                switch (funcao) {
-                    case "SOMA_PONTO":
-                        if (msg[3].equals("UM")) {
-
-                        } else if (msg[3].equals("DOIS")) {
-
-                        } else {
-
-                        }
-                        retorno = "#SOMA$OK";
-                        break;
-                    case "SUB_PONTO":
-                        System.out.println("RECEBEU SUCESSO 2");
-                        retorno = "Adicionado 2 Ponto";
-                        break;
-                }
+                mudaPontosV((Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos"), msg[3], msg[2]);
+                retorno = "#OK";
                 break;
 
             case "LOCAL":
-
+                mudaPontosL((Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos"), msg[3], msg[2]);
+                retorno = "#OK";
                 break;
         }
+
         return retorno;
     }
 
     public String login(String[] msg) throws IOException {
-
         Main.loadScene("/view/FXMLBasquete.fxml");
-
         String retorno = "LOGADO";
         return retorno;
     }
@@ -210,6 +195,68 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     public boolean fimCrono() {
         return fimcrono;
+    }
+
+    private void mudaPontosV(Label l, String pontos, String funcao) {
+
+        if (funcao.equals("SOMA_PONTO")) {
+            if (pontos.equals("UM")) {
+                pontosV++;
+            } else if (pontos.equals("DOIS")) {
+                pontosV = pontosV + 2;
+            } else {
+                pontosV = pontosV + 3;
+            }
+        } else {
+            if (pontos.equals("UM")) {
+                pontosV--;
+            } else if (pontos.equals("DOIS")) {
+                pontosV = pontosV - 2;
+            } else {
+                pontosV = pontosV - 3;
+            }
+        }
+
+        if (pontosV > 9) {
+            Platform.runLater(() -> {
+                l.setText("" + pontosV);
+            });
+        } else {
+            Platform.runLater(() -> {
+                l.setText("0" + pontosV);
+            });
+        }
+    }
+
+    private void mudaPontosL(Label l, String pontos, String funcao) {
+
+        if (funcao.equals("SOMA_PONTO")) {
+            if (pontos.equals("UM")) {
+                pontosL++;
+            } else if (pontos.equals("DOIS")) {
+                pontosL = pontosL + 2;
+            } else {
+                pontosL = pontosL + 3;
+            }
+        } else {
+            if (pontos.equals("UM")) {
+                pontosL--;
+            } else if (pontos.equals("DOIS")) {
+                pontosL = pontosL - 2;
+            } else {
+                pontosL = pontosL - 3;
+            }
+        }
+
+        if (pontosL > 9) {
+            Platform.runLater(() -> {
+                l.setText("" + pontosL);
+            });
+        } else {
+            Platform.runLater(() -> {
+                l.setText("0" + pontosL);
+            });
+        }
     }
 
 }

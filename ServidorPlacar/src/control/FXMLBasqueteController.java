@@ -5,10 +5,10 @@
  */
 package control;
 
-import br.com.fandrauss.fx.gui.WindowControllerFx;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 /**
@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
  *
  * @author danie
  */
-public class FXMLBasqueteController extends WindowControllerFx {
+public class FXMLBasqueteController implements Initializable{
 
     @FXML
     private Label jLRodada1;
@@ -57,11 +57,6 @@ public class FXMLBasqueteController extends WindowControllerFx {
 
     @FXML
     private Label jLSeguraBola;
-
-    @Override
-    public String getFXML() {
-        return "/view/FXMLBasquete.fxml";
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

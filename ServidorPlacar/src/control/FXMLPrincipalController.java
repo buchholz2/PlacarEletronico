@@ -5,21 +5,18 @@
  */
 package control;
 
-import br.com.fandrauss.fx.gui.WindowControllerFx;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
  * FXML Controller class
  *
  * @author danie
  */
-public class FXMLPrincipalController extends WindowControllerFx {
+public class FXMLPrincipalController implements Initializable {
 
-    @Override
-    public String getFXML() {
-        return "/view/FXMLPrincipal.fxml";
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
