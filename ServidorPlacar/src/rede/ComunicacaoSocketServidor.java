@@ -15,7 +15,6 @@ import java.net.Socket;
 import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import main.Main;
@@ -27,9 +26,9 @@ import main.Main;
 public class ComunicacaoSocketServidor implements Runnable {
 
     private boolean fimcrono = true;
-    Main p;
+    Stage p;
 
-    public ComunicacaoSocketServidor(Main p) {
+    public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
     }
 
@@ -129,12 +128,12 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (msm.length > 1) {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-//            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         } else {
             int minutos = Integer.parseInt(msm[0]);
             int segundos = Integer.parseInt(msm[1]);
-//            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
             return "CRONOS_INICIADO";
         }
 

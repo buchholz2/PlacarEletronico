@@ -32,7 +32,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         setStage(primaryStage);
 
-        new Thread(new ComunicacaoSocketServidor(this)).start();
+        new Thread(new ComunicacaoSocketServidor(primaryStage)).start();
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
 
         loadScene("/view/FXMLPrincipal.fxml");
