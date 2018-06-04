@@ -18,15 +18,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import main.Main;
 
 public class FXMLControladorPlacarController implements Initializable {
 
     private boolean fimcrono = true;
+    private int pontosV = 0;
+    private int pontosL = 0;
 
-    
     @FXML
     private AnchorPane aPJanelaP;
-    
+
     @FXML
     private Label jLCronometro;
 
@@ -153,7 +155,7 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void iniciaCrono(MouseEvent event) throws IOException {
-        String retorno = mandaMensagem("#INICIA_CRONO$" + jTFDefineCrono.getText());
+        String retorno = Main.mandaMSG("#INICIA_CRONO$" + jTFDefineCrono.getText());
         if (retorno.equals("CRONOS_INICIADO")) {
             String corte[] = jTFDefineCrono.getText().split("\\:");
             int min = Integer.parseInt(corte[0]);
@@ -168,20 +170,30 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void maisDoisL(MouseEvent event) throws IOException {
-       String retorno = mandaMensagem("#TIME$LOCAL$SOMA_PONTO$DOIS$");
-       if(retorno.equals("SOMADO")){
-           int pontos = Integer.parseInt(jLPontosLocal.getText()) + 2;
-           jLPontosLocal.setText(""+pontos);
-       }
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$DOIS$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL + 2;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+
+        }
     }
 
     @FXML
     void maisDoisV(MouseEvent event) throws IOException {
-               String retorno = mandaMensagem("#TIME$VISITANTE$SOMA_PONTO$DOIS$");
-       if(retorno.equals("SOMADO")){
-           int pontos = Integer.parseInt(jLPontosVisitante.getText()) + 2;
-           jLPontosVisitante.setText(""+pontos);
-       }
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$DOIS$");
+        if (retorno.equals("#OK")) {
+            pontosV = pontosV + 2;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+
+        }
     }
 
     @FXML
@@ -196,32 +208,85 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void maisTresL(MouseEvent event) throws IOException {
-        mandaMensagem("#LOCAL$PONTO_MAIS$TRES$");
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$TRES$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL + 3;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+
+        }
     }
 
     @FXML
     void maisTresV(MouseEvent event) throws IOException {
-        mandaMensagem("#VISITANTE$PONTO_MAIS$TRES$");
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$TRES$");
+        if (retorno.equals("#OK")) {
+            pontosV = pontosV + 3;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+
+        }
     }
 
     @FXML
     void maisUmL(MouseEvent event) throws IOException {
-        mandaMensagem("#LOCAL$PONTO_MAIS$UM$");
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$UM$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL + 1;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+
+        }
     }
 
     @FXML
     void maisUmV(MouseEvent event) throws IOException {
-        mandaMensagem("#VISITANTE$PONTO_MAIS$DOIS$");
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$UM$");
+        if (retorno.equals("#OK")) {
+            pontosV = pontosV + 1;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+
+        }
     }
 
     @FXML
     void menosDoisL(MouseEvent event) throws IOException {
-        mandaMensagem("#LOCAL$PONTO_MENOS$DOIS$");
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$DOIS$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL - 2;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+
+        }
     }
 
     @FXML
     void menosDoisV(MouseEvent event) throws IOException {
-        mandaMensagem("#VISITANTE$PONTO_MENOS$DOIS$");
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$DOIS$");
+        if (retorno.equals("#OK")) {
+            pontosV = pontosV - 2;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+        }
     }
 
     @FXML
@@ -236,22 +301,55 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void menosTresL(MouseEvent event) throws IOException {
-        mandaMensagem("#LOCAL$PONTO_MENOS$TRES$");
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$TRES$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL - 3;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+        }
     }
 
     @FXML
     void menosTresV(MouseEvent event) throws IOException {
-        mandaMensagem("#VISITANTE$PONTO_MENOS$DOIS$");
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$TRES$");
+        if (retorno.equals("#OK")) {
+            pontosV = pontosV - 3;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+        }
     }
 
     @FXML
     void menosUmL(MouseEvent event) throws IOException {
-        mandaMensagem("#LOCAL$PONTO_MENOS$UM$");
+        String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$UM$");
+        if (retorno.equals("#OK")) {
+            pontosL = pontosL - 1;
+            if (pontosL > 9) {
+                jLPontosLocal.setText("" + pontosL);
+            } else {
+                jLPontosLocal.setText("0" + pontosL);
+            }
+        }
     }
 
     @FXML
     void menosUmV(MouseEvent event) throws IOException {
-        mandaMensagem("#VISITANTE$PONTO_MENOS$UM$");
+        String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$UM$");
+        if (retorno.equals("#OK")) {
+
+            pontosV = pontosV - 1;
+            if (pontosV > 9) {
+                jLPontosVisitante.setText("" + pontosV);
+            } else {
+                jLPontosVisitante.setText("0" + pontosV);
+            }
+        }
     }
 
     @FXML

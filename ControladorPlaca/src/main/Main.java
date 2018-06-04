@@ -28,33 +28,36 @@ public class Main extends Application {
      */
     public Main() throws IOException {
         thisClass = getClass();
-        cliente = new Socket("localhost", 12345);
-        entrada = new ObjectInputStream(cliente.getInputStream());
-        saida = new ObjectOutputStream(cliente.getOutputStream());
     }
 
     /**
      * Inicia o layout da aplicação
+     *
+     * @throws java.io.IOException
      */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         setStage(primaryStage);
 
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
 
         loadScene("/view/FXMLLoginCadastro.fxml");
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        setSocket(new Socket("localhost", 12345));
+        entrada = new ObjectInputStream(getSocket().getInputStream());
+        saida = new ObjectOutputStream(getSocket().getOutputStream());
         launch(args);
     }
 
     public void setStage(Stage s) {
         this.primaryStage = s;
     }
-    
-    public static Stage getStage(){
+
+    public static Stage getStage() {
         return primaryStage;
     }
 
@@ -72,25 +75,28 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        try {
-//            Parent root = FXMLLoader.load(thisClass.getClass().getResource("/view/FXMLBasquete.fxml"));
-//            sceneBasquete = new Scene(root);
-//            Stage novaStage = (Stage) primaryStage.getScene().getWindow();
-//
-//            novaStage.setScene(sceneBasquete);
-//            
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
     public static String mandaMSG(String msg) throws IOException {
+
         saida.writeUTF(msg);
         saida.flush();
 
         String retorno = entrada.readUTF();
         System.out.println(retorno);
+
+//        entrada.close();
+//        saida.close();
         return retorno;
     }
+
+    private static void setSocket(Socket sok) {
+        Main.cliente = sok;
+    }
+
+    private static Socket getSocket() {
+        return Main.cliente;
+    }
+
 }

@@ -12,23 +12,14 @@ import java.net.Socket;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
-import static main.Main.scenePrincipal;
-import static main.Main.thisClass;
-import scene.SceneControladorPlacar;
-import scene.ScenePrincipal;
 
 /**
  * FXML Controller class
@@ -66,7 +57,7 @@ public class FXMLLoginCadastroController implements Initializable {
 //        AnchorPane p = FXMLLoader.load(thisClass.getClass().getResource("/view/FXMLControladorPlacar.fxml"));
 //        jPLogin.getScene().setRoot(p);
 //        ;
-        if (Main.mandaMSG("LOGIN").equals("LOGADO")) {
+        if (Main.mandaMSG("#LOGIN").equals("LOGADO")) {
             Main.loadScene("/view/FXMLControladorPlacar.fxml");
         }
     }

@@ -34,22 +34,22 @@
                         <Font name="DS-Digital Bold" size="23.0" />
                     </font>
                 </Label>
-                <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="32.0" prefHeight="71.0" prefWidth="108.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                     <font>
                         <Font name="DS-Digital Bold" size="68.0" />
                     </font>
                 </Label>
-                <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="32.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="431.0" layoutY="32.0" prefHeight="71.0" prefWidth="108.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                     <font>
                         <Font name="DS-Digital Bold" size="68.0" />
                     </font>
                 </Label>
-                <Label fx:id="jLFaltasVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                <Label fx:id="jLFaltasVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="431.0" layoutY="130.0" prefHeight="71.0" prefWidth="108.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                     <font>
                         <Font name="DS-Digital Bold" size="68.0" />
                     </font>
                 </Label>
-                <Label fx:id="jLFaltasLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="130.0" prefHeight="71.0" prefWidth="77.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+                <Label fx:id="jLFaltasLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="130.0" prefHeight="71.0" prefWidth="108.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                     <font>
                         <Font name="DS-Digital Bold" size="68.0" />
                     </font>
