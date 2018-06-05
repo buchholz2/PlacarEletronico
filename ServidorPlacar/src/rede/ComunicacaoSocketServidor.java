@@ -29,6 +29,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     Stage p;
     public int pontosL = 0;
     public int pontosV = 0;
+    public boolean cronosPausado = false;
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -52,7 +53,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-            
+
             while (true) {
 
                 String msg = entrada.readUTF();
@@ -67,6 +68,20 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.flush();
                 } else if (escolha[0].equals("#INICIA_CRONO")) {
                     saida.writeUTF(iniciaCronos(escolha));
+                    saida.flush();
+                } else if (escolha[0].equals("#PAUSA_CRONOS")) {
+                    cronosPausado = true;
+                    saida.writeUTF("PAUSADO");
+                    saida.flush();
+                } else if (escolha[0].equals("#CONTINUA_CRONOS")) {
+                    cronosPausado = false;
+                    saida.writeUTF("CONTINUA");
+                    saida.flush();
+                } else if (escolha[0].equals("#REINICIA_CRONOS")) {
+                    fimcrono = false;
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+                    l.setText("00:00:00");
+                    saida.writeUTF("REINICIADO");
                     saida.flush();
                 }
 
@@ -163,6 +178,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                     Platform.runLater(() -> {
                         l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
+                    
+                    while(cronosPausado != false){
+                        Thread.sleep(100);
+                    }
 
                     if (m == 0) {
                         if (s == 0) {
