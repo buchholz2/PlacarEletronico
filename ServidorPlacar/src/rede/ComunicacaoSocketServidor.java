@@ -25,7 +25,7 @@ import main.Main;
  */
 public class ComunicacaoSocketServidor implements Runnable {
 
-    private boolean fimcrono = true;
+    private boolean fimCrono = false;
     Stage p;
     public int pontosL = 0;
     public int pontosV = 0;
@@ -77,10 +77,31 @@ public class ComunicacaoSocketServidor implements Runnable {
                     cronosPausado = false;
                     saida.writeUTF("CONTINUA");
                     saida.flush();
-                } else if (escolha[0].equals("#REINICIA_CRONOS")) {
-                    fimcrono = false;
+                } else if (escolha[0].equals("#REINICIA_CRONO")) {
+                    System.out.println("Reinicia");
+                    fimCrono = true;
                     Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
-                    l.setText("00:00:00");
+                    String[] tempo = escolha[1].split("\\:");
+                    String m;
+                    String s;
+                    int min = Integer.parseInt(tempo[0]);
+                    int seg = Integer.parseInt(tempo[1]);
+
+                    if (min > 9) {
+                        m = "" + min;
+                    } else {
+                        m = "0" + min;
+                    }
+
+                    if (seg > 9) {
+                        s = "" + seg;
+                    } else {
+                        s = "0" + seg;
+                    }
+
+                    Platform.runLater(() -> {
+                        l.setText(m + ":" + s + ":" + "00");
+                    });
                     saida.writeUTF("REINICIADO");
                     saida.flush();
                 }
@@ -158,7 +179,8 @@ public class ComunicacaoSocketServidor implements Runnable {
 
             @Override
             public Void call() throws Exception {
-                while (fimCrono()) {
+
+                while (fimCrono() != true) {
 
                     if (m > 9) {
                         minutos = "" + m;
@@ -178,15 +200,15 @@ public class ComunicacaoSocketServidor implements Runnable {
                     Platform.runLater(() -> {
                         l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
-                    
-                    while(cronosPausado != false){
+
+                    while (cronosPausado != false) {
                         Thread.sleep(100);
                     }
 
-                    if (m == 0) {
+                    if ((m == 0) && (s ==0) && (ms == 0)) {
                         if (s == 0) {
                             if (ms == 0) {
-                                fimcrono = false;
+                                fimCrono = true;
                                 URL url = getClass().getResource("/estilos/apito.wav");
                                 AudioClip audio = Applet.newAudioClip(url);
                                 audio.play();
@@ -194,7 +216,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         }
                     }
 
-                    ms--;
+                    --ms;
 
                     if (ms < 0) {
                         ms = 99;
@@ -206,6 +228,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     }
                     Thread.sleep(10);
                 }
+                fimCrono = false;
                 return null;
             }
         };
@@ -213,7 +236,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public boolean fimCrono() {
-        return fimcrono;
+        return fimCrono;
     }
 
     private void mudaPontosV(Label l, String pontos, String funcao) {
