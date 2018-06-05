@@ -359,17 +359,23 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void pausaCrono(MouseEvent event) throws IOException {
-        if(jTBPausaCrono.isSelected() == true){
+        if(jTBPausaCrono.isSelected()){
             Main.mandaMSG("#PAUSA_CRONOS");
-        } else if (jTBPausaCrono.isSelected() == false){
+        } else{
             Main.mandaMSG("#CONTINUA_CRONOS");
         }
-        
+     //991417179   
     }
 
     @FXML
-    void reiniciaCrono(MouseEvent event) {
-
+    void reiniciaCrono(MouseEvent event) throws IOException {
+        System.out.println("Reinicia");
+        if(jTFDefineCrono.getText().equals("")){
+            
+            Main.mandaMSG("#REINICIA_CRONO$"+"10:00:00");
+        } else {
+        Main.mandaMSG("#REINICIA_CRONO$"+jTFDefineCrono.getText());
+        }
     }
 
     @FXML
