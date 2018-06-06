@@ -79,7 +79,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.flush();
                 } else if (escolha[0].equals("#REINICIA_CRONO")) {
                     System.out.println("Reinicia");
-                    fimCrono = true;
+                    fimCrono = false;
+                    cronosPausado = false;
                     Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
                     String[] tempo = escolha[1].split("\\:");
                     String m;
@@ -144,20 +145,25 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String iniciaCronos(String[] msg) {
-        System.out.println("Chego no corte");
-        String[] msm = msg[1].split("\\:");
-        if (msm.length > 1) {
-            int minutos = Integer.parseInt(msm[0]);
-            int segundos = Integer.parseInt(msm[1]);
-            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
-            return "CRONOS_INICIADO";
+        if (fimCrono != true) {
+            fimCrono = true;
+            System.out.println("Chego no corte");
+            String[] msm = msg[1].split("\\:");
+            if (msm.length > 1) {
+                int minutos = Integer.parseInt(msm[0]);
+                int segundos = Integer.parseInt(msm[1]);
+                chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+                return "CRONOS_INICIADO";
+            } else {
+                int minutos = Integer.parseInt(msm[0]);
+                int segundos = Integer.parseInt(msm[1]);
+                chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
+                return "CRONOS_INICIADO";
+            }
         } else {
-            int minutos = Integer.parseInt(msm[0]);
-            int segundos = Integer.parseInt(msm[1]);
-            chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
-            return "CRONOS_INICIADO";
+            return "CRONOS_EXECUTANDO";
         }
-
+        
     }
 
     public void chamaCronos(Label label, int min, int seg, int mili) {
@@ -180,7 +186,7 @@ public class ComunicacaoSocketServidor implements Runnable {
             @Override
             public Void call() throws Exception {
 
-                while (fimCrono() != true) {
+                while (fimCrono()) {
 
                     if (m > 9) {
                         minutos = "" + m;
@@ -201,19 +207,15 @@ public class ComunicacaoSocketServidor implements Runnable {
                         l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
 
-                    while (cronosPausado != false) {
+                    while (cronosPausado) {
                         Thread.sleep(100);
                     }
 
-                    if ((m == 0) && (s ==0) && (ms == 0)) {
-                        if (s == 0) {
-                            if (ms == 0) {
-                                fimCrono = true;
-                                URL url = getClass().getResource("/estilos/apito.wav");
-                                AudioClip audio = Applet.newAudioClip(url);
-                                audio.play();
-                            }
-                        }
+                    if ((m == 0) && (s == 0) && (ms == 0)) {
+                        fimCrono = true;
+                        URL url = getClass().getResource("/estilos/apito.wav");
+                        AudioClip audio = Applet.newAudioClip(url);
+                        audio.play();
                     }
 
                     --ms;
