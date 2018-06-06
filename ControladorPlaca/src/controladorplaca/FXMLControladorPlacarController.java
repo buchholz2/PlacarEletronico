@@ -22,9 +22,10 @@ import main.Main;
 
 public class FXMLControladorPlacarController implements Initializable {
 
-    private boolean fimcrono = true;
+    private boolean fimCrono = true;
     private int pontosV = 0;
     private int pontosL = 0;
+    private boolean cronosPausado = false;
 
     @FXML
     private AnchorPane aPJanelaP;
@@ -157,6 +158,7 @@ public class FXMLControladorPlacarController implements Initializable {
     void iniciaCrono(MouseEvent event) throws IOException {
         String retorno = Main.mandaMSG("#INICIA_CRONO$" + jTFDefineCrono.getText());
         if (retorno.equals("CRONOS_INICIADO")) {
+            fimCrono = true;
             String corte[] = jTFDefineCrono.getText().split("\\:");
             int min = Integer.parseInt(corte[0]);
             int seg = Integer.parseInt(corte[1]);
@@ -359,22 +361,56 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void pausaCrono(MouseEvent event) throws IOException {
-        if(jTBPausaCrono.isSelected()){
-            Main.mandaMSG("#PAUSA_CRONOS");
-        } else{
-            Main.mandaMSG("#CONTINUA_CRONOS");
+        if (jTBPausaCrono.isSelected()) {
+            if (Main.mandaMSG("#PAUSA_CRONOS").equals("PAUSADO")) {
+                cronosPausado = true;
+            }
+        } else {
+            if (Main.mandaMSG("#CONTINUA_CRONOS").equals("CONTINUA")) {
+                cronosPausado = false;
+            }
         }
-     //991417179   
+        //991417179   
     }
 
     @FXML
-    void reiniciaCrono(MouseEvent event) throws IOException {
+    void reiniciaCrono(MouseEvent event) throws IOException, InterruptedException {
         System.out.println("Reinicia");
-        if(jTFDefineCrono.getText().equals("")){
-            
-            Main.mandaMSG("#REINICIA_CRONO$"+"10:00:00");
+        fimCrono = false;
+        jTBPausaCrono.setSelected(false);
+        cronosPausado = false;
+        if (jTFDefineCrono.getText().equals("")) {
+            if (Main.mandaMSG("#REINICIA_CRONO$" + "10:00:00").equals("REINICIADO")) {
+                fimCrono = false;
+                jTBPausaCrono.setSelected(false);
+                cronosPausado = false;
+                jLCronometro.setText("10:00:00");
+            }
         } else {
-        Main.mandaMSG("#REINICIA_CRONO$"+jTFDefineCrono.getText());
+            if (Main.mandaMSG("#REINICIA_CRONO$" + jTFDefineCrono.getText()).equals("REINICIADO")) {
+                String[] tempo = jTFDefineCrono.getText().split("\\:");
+                String m;
+                String s;
+                int min = Integer.parseInt(tempo[0]);
+                int seg = Integer.parseInt(tempo[1]);
+
+                if (min > 9) {
+                    m = "" + min;
+                } else {
+                    m = "0" + min;
+                }
+                if (seg > 9) {
+                    s = "" + seg;
+                } else {
+                    s = "0" + seg;
+                }
+                fimCrono = false;
+                jTBPausaCrono.setSelected(false);
+                cronosPausado = false;
+                jLCronometro.setText(m + ":" + s + ":" + "00");
+
+            }
+
         }
     }
 
@@ -391,22 +427,6 @@ public class FXMLControladorPlacarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    public String mandaMensagem(String msg) throws IOException {
-
-        Socket cliente = new Socket("localhost", 12345);
-
-        ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-        ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-
-        saida.writeUTF(msg);
-        saida.flush();
-
-        String retorno = entrada.readUTF();
-        System.out.println(retorno);
-
-        return retorno;
     }
 
     private Task iniciaCronosPreview(Label l, int min, int seg, int mili) {
@@ -442,15 +462,15 @@ public class FXMLControladorPlacarController implements Initializable {
                         l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
 
-                    if (m == 0) {
-                        if (s == 0) {
-                            if (ms == 0) {
-                                fimcrono = false;
-                                URL url = getClass().getResource("/estilos/apito.wav");
-                                AudioClip audio = Applet.newAudioClip(url);
-                                audio.play();
-                            }
-                        }
+                    while (cronosPausado) {
+                        Thread.sleep(100);
+                    }
+
+                    if ((m == 0) && (s == 0) && (ms == 0)) {
+                        fimCrono = true;
+                        URL url = getClass().getResource("/estilos/apito.wav");
+                        AudioClip audio = Applet.newAudioClip(url);
+                        audio.play();
                     }
 
                     ms--;
@@ -472,6 +492,6 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     public boolean fimCrono() {
-        return fimcrono;
+        return fimCrono;
     }
 }
