@@ -33,6 +33,8 @@ public class ComunicacaoSocketServidor implements Runnable {
     public int pontosL = 0;
     public int pontosV = 0;
     public boolean cronosPausado = false;
+    private int tempoLan = 24;
+    private int muda = 60;
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -84,6 +86,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     System.out.println("Reinicia");
                     fimCrono = false;
                     cronosPausado = false;
+                    tempoLan = 24;
+                    Label t = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
                     Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
                     String[] tempo = escolha[1].split("\\:");
                     String m;
@@ -104,7 +108,16 @@ public class ComunicacaoSocketServidor implements Runnable {
                     }
 
                     Platform.runLater(() -> {
+                        t.setText("24");
                         l.setText(m + ":" + s + ":" + "00");
+                    });
+                    saida.writeUTF("REINICIADO");
+                    saida.flush();
+                } else if (escolha[0].equals("#REINICIA_TEMPO")) {
+                    tempoLan = 24;
+                    Platform.runLater(() -> {
+                        Label l = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
+                        l.setText("24");
                     });
                     saida.writeUTF("REINICIADO");
                     saida.flush();
@@ -138,21 +151,22 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String login(String[] msg) throws IOException {
-        String login = msg[1];
-        String senha = msg[2];
-
-        User user = new User();
-
-        if (validaLogin(login, senha, user)) {
-            if (user.isUserAdm()) {
-                return ("#LOGADO$ADM");
-            } else if (user.isUserPlacar()) {
-                return ("#LOGADO$PLACAR");
-            } else if (user.isUserPropaganda()) {
-                return ("#LOGADO$PROPAGANDA");
-            }
-        }
-        return ("#INVALIDO");
+        Main.loadScene("/view/FXMLBasquete.fxml");
+//        String login = msg[1];
+//        String senha = msg[2];
+//
+//        User user = new User();
+//
+//        if (validaLogin(login, senha, user)) {
+//            if (user.isUserAdm()) {
+//                return ("#LOGADO$ADM");
+//            } else if (user.isUserPlacar()) {
+//                return ("#LOGADO$PLACAR");
+//            } else if (user.isUserPropaganda()) {
+//                return ("#LOGADO$PROPAGANDA");
+//            }
+//        }
+        return ("#LOGADO");
     }
 
     public String fechaConexao(String[] msg) {
@@ -185,7 +199,6 @@ public class ComunicacaoSocketServidor implements Runnable {
         Thread th = new Thread(iniciaCronos(label, min, seg, mili));
         th.setDaemon(true);
         th.start();
-        System.out.println("Thread Iniciada" + label.getText());
     }
 
     private Task iniciaCronos(Label l, int min, int seg, int mili) {
@@ -219,6 +232,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                         milisegundos = "0" + ms;
                     }
                     Platform.runLater(() -> {
+                        if (muda != s) {
+                            muda = s;
+                            iniciaTempoLPreview((Label) p.getScene().getRoot().lookup("#jLSeguraBola"));
+                        }
                         l.setText(minutos + ":" + segundos + ":" + milisegundos);
                     });
 
@@ -316,6 +333,28 @@ public class ComunicacaoSocketServidor implements Runnable {
                 l.setText("0" + pontosL);
             });
         }
+    }
+
+    private void iniciaTempoLPreview(Label l) {
+        String muda;
+
+        if (tempoLan > 9) {
+            muda = ("" + tempoLan);
+        } else {
+            muda = ("0" + tempoLan);
+        }
+
+        Platform.runLater(() -> {
+            l.setText(muda);
+        });
+
+        if (--tempoLan < 0) {
+            cronosPausado = true;
+            URL url = getClass().getResource("/estilos/grito.wav");
+            AudioClip audio = Applet.newAudioClip(url);
+            audio.play();
+        }
+
     }
 
     private static boolean validaLogin(String login, String senha, User usuario) {
