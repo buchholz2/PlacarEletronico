@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -53,12 +55,23 @@ public class FXMLLoginCadastroController implements Initializable {
     @FXML
     void validaLogin(ActionEvent event) throws IOException, Exception {
 
-//        Main.loadScene("/view/FXMLControladorPlacar.fxml");
-//        AnchorPane p = FXMLLoader.load(thisClass.getClass().getResource("/view/FXMLControladorPlacar.fxml"));
-//        jPLogin.getScene().setRoot(p);
-//        ;
-        if (Main.mandaMSG("#LOGIN").equals("LOGADO")) {
-            Main.loadScene("/view/FXMLControladorPlacar.fxml");
+        String login = jTFUsuario.getText();
+        String senha = jTFSenha.getText();
+        String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
+        if (msg[0].equals("#LOGADO")) {
+            if (msg[1].equals("ADM")) {
+
+            } else if (msg[1].equals("PLACAR")) {
+                Main.loadScene("/view/FXMLControladorPlacar.fxml");
+            } else {
+
+            }
+
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("ERRO DE LOGIN");
+            alert.setHeaderText(null);
+            alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
         }
     }
 
@@ -66,21 +79,4 @@ public class FXMLLoginCadastroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
-    public String mandaMensagem(String msg) throws IOException {
-
-        Socket cliente = new Socket("localhost", 12345);
-
-        ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-        ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-
-        saida.writeUTF(msg);
-        saida.flush();
-
-        String retorno = entrada.readUTF();
-        System.out.println(retorno);
-
-        return retorno;
-    }
-    
 }

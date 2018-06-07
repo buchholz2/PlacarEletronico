@@ -293,7 +293,7 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void menosFaltaL(MouseEvent event) {
-
+        System.out.println(jLCronometro.getText());
     }
 
     @FXML
@@ -388,6 +388,7 @@ public class FXMLControladorPlacarController implements Initializable {
             }
         } else {
             if (Main.mandaMSG("#REINICIA_CRONO$" + jTFDefineCrono.getText()).equals("REINICIADO")) {
+                System.out.println("AQUI");
                 String[] tempo = jTFDefineCrono.getText().split("\\:");
                 String m;
                 String s;
@@ -407,7 +408,11 @@ public class FXMLControladorPlacarController implements Initializable {
                 fimCrono = false;
                 jTBPausaCrono.setSelected(false);
                 cronosPausado = false;
-                jLCronometro.setText(m + ":" + s + ":" + "00");
+
+                Platform.runLater(() -> {
+                    jLCronometro.setText(m + ":" + s + ":" + "00");
+                    
+                });
 
             }
 
