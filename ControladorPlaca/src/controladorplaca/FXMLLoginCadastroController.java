@@ -55,24 +55,27 @@ public class FXMLLoginCadastroController implements Initializable {
     @FXML
     void validaLogin(ActionEvent event) throws IOException, Exception {
 
-        String login = jTFUsuario.getText();
-        String senha = jTFSenha.getText();
-        String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
-        if (msg[0].equals("#LOGADO")) {
-            if (msg[1].equals("ADM")) {
-
-            } else if (msg[1].equals("PLACAR")) {
-                Main.loadScene("/view/FXMLControladorPlacar.fxml");
-            } else {
-
-            }
-
-        } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("ERRO DE LOGIN");
-            alert.setHeaderText(null);
-            alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
+        if (Main.mandaMSG("#LOGIN$").equals("#LOGADO")) {
+            Main.loadScene("/view/FXMLControladorPlacar.fxml");
         }
+//        String login = jTFUsuario.getText();
+//        String senha = jTFSenha.getText();
+//        String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
+//        if (msg[0].equals("#LOGADO")) {
+//            if (msg[1].equals("ADM")) {
+//
+//            } else if (msg[1].equals("PLACAR")) {
+//                Main.loadScene("/view/FXMLControladorPlacar.fxml");
+//            } else {
+//
+//            }
+//
+//        } else {
+//            Alert alert = new Alert(AlertType.ERROR);
+//            alert.setTitle("ERRO DE LOGIN");
+//            alert.setHeaderText(null);
+//            alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
+//        }
     }
 
     @Override
