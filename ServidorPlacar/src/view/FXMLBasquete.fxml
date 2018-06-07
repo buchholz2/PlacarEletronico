@@ -64,7 +64,7 @@
                   <Font name="DS-Digital Bold" size="38.0" />
                </font>
             </Label>
-            <Label fx:id="jLRodadaExtra" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED" GridPane.columnIndex="5" GridPane.valignment="BOTTOM">
+            <Label fx:id="jLRodada5" alignment="CENTER" prefHeight="45.0" prefWidth="224.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00 x 00" textFill="RED" GridPane.columnIndex="5" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="DS-Digital Bold" size="45.0" />
                </font>
@@ -123,7 +123,7 @@
                   <Font name="DS-Digital Bold" size="125.0" />
                </font>
             </Label>
-            <Label fx:id="jLTimeDireito" alignment="CENTER" prefHeight="44.0" prefWidth="517.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="Local" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Label fx:id="jLTimeDireito" alignment="CENTER" prefHeight="44.0" prefWidth="517.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VISITANTE" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="DS-Digital Bold" size="43.0" />
                </font>

@@ -35,6 +35,11 @@ public class ComunicacaoSocketServidor implements Runnable {
     public boolean cronosPausado = false;
     private int tempoLan = 24;
     private int muda = 60;
+    private int faltasL = 0;
+    private int faltasV = 0;
+    private int rodada = 1;
+    private int somaRodadaV = 0;
+    private int somaRodadaL = 0;
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -121,10 +126,89 @@ public class ComunicacaoSocketServidor implements Runnable {
                     });
                     saida.writeUTF("REINICIADO");
                     saida.flush();
-                }
+                } else if (escolha[0].equals("#MUDA_FALTA")) {
+                    saida.writeUTF(mudaFalta(escolha));
+                    saida.flush();
+                } else if (escolha[0].equals("#ALTERA_NOME")) {
+                    Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+                    Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+                    if (escolha.length > 0) {
+                        if (escolha[1].equals("") != true) {
+                            Platform.runLater(() -> {
+                                local.setText(escolha[1]);
+                            });
+                        }
+                        if (escolha[2].equals("") != true) {
+                            Platform.runLater(() -> {
+                                visitante.setText(escolha[2]);
+                            });
+                        }
+                    }
+                    saida.writeUTF("ALTERADO");
+                    saida.flush();
+                } else if (escolha[0].equals("#NOVA_RODADA")) {
+                    Label local = (Label) p.getScene().getRoot().lookup("#jLRodada" + rodada);
+                    if (rodada == 1) {
 
-//                saida.close();
-//                entrada.close();
+                        rodada++;
+
+                        cronosPausado = false;
+                        fimCrono = false;
+
+                        somaRodadaL = pontosL;
+                        somaRodadaV = pontosV;
+
+                        if (somaRodadaL > 9 && somaRodadaV > 9) {
+                            Platform.runLater(() -> {
+                                local.setText(somaRodadaL + " : " + somaRodadaV);
+                            });
+                        } else if (somaRodadaL < 9 && somaRodadaV < 9) {
+                            Platform.runLater(() -> {
+                                local.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
+                            });
+                        } else if (somaRodadaL > 9 && somaRodadaV < 9) {
+                            Platform.runLater(() -> {
+                                local.setText(somaRodadaL + " : 0" + somaRodadaV);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                local.setText("0" + somaRodadaL + " : " + somaRodadaV);
+                            });
+                        }
+
+                    } else {
+                        rodada++;
+
+                        cronosPausado = false;
+                        fimCrono = false;
+
+                        somaRodadaL = pontosL - somaRodadaL;
+                        somaRodadaV = pontosV - somaRodadaV;
+
+                        if (somaRodadaL > 9 && somaRodadaV > 9) {
+                            Platform.runLater(() -> {
+                                local.setText(somaRodadaL + " : " + somaRodadaV);
+                            });
+                        } else if (somaRodadaL < 9 && somaRodadaV < 9) {
+                            Platform.runLater(() -> {
+                                local.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
+                            });
+                        } else if (somaRodadaL > 9 && somaRodadaV < 9) {
+                            Platform.runLater(() -> {
+                                local.setText(somaRodadaL + " : 0" + somaRodadaV);
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                local.setText("0" + somaRodadaL + " : " + somaRodadaV);
+                            });
+                        }
+                        somaRodadaL = pontosL + somaRodadaL;
+                        somaRodadaV = pontosV + somaRodadaV;
+                    }
+                    saida.writeUTF("INICIADA_RODADA");
+                    saida.flush();
+
+                }
             }
 
         } catch (IOException e) {
@@ -293,6 +377,10 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
         }
 
+        if (pontosV < 0) {
+            pontosV = 0;
+        }
+
         if (pontosV > 9) {
             Platform.runLater(() -> {
                 l.setText("" + pontosV);
@@ -322,6 +410,10 @@ public class ComunicacaoSocketServidor implements Runnable {
             } else {
                 pontosL = pontosL - 3;
             }
+        }
+
+        if (pontosL < 0) {
+            pontosL = 0;
         }
 
         if (pontosL > 9) {
@@ -384,4 +476,50 @@ public class ComunicacaoSocketServidor implements Runnable {
         return false;
     }
 
+    private String mudaFalta(String[] msg) {
+        if (msg[1].equals("LOCAL")) {
+            Label l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoFaltas");
+            if (msg[2].equals("SOMA")) {
+                faltasL++;
+            } else {
+                faltasL--;
+            }
+            if (faltasL < 0) {
+                faltasL = 0;
+            }
+
+            if (faltasL > 9) {
+                Platform.runLater(() -> {
+                    l.setText("" + faltasL);
+                });
+            } else {
+                Platform.runLater(() -> {
+                    l.setText("0" + faltasL);
+                });
+            }
+            return "MUDADO";
+
+        } else {
+            Label l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoFaltas");
+            if (msg[2].equals("SOMA")) {
+                faltasV++;
+            } else {
+                faltasV--;
+            }
+            if (faltasV < 0) {
+                faltasV = 0;
+            }
+
+            if (faltasV > 9) {
+                Platform.runLater(() -> {
+                    l.setText("" + faltasV);
+                });
+            } else {
+                Platform.runLater(() -> {
+                    l.setText("0" + faltasV);
+                });
+            }
+            return "MUDADO";
+        }
+    }
 }

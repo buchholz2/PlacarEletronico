@@ -32,7 +32,7 @@ public class FXMLBasqueteController implements Initializable{
     private Label jLRodada4;
 
     @FXML
-    private Label jLRodadaExtra;
+    private Label jLRodada5;
 
     @FXML
     private Label jLCronometroCentral;
