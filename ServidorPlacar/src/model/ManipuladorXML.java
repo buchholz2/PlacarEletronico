@@ -13,7 +13,7 @@ public class ManipuladorXML {
 
     //listar aqui todos os arquivos existentes e seus caminhos
     static {
-        arquivo.put("ListaUsuarios", "src/xml/users.xml");
+        arquivo.put("ListUser", "src/xml/users.xml");
     }
 
     public static Object select(String arquivo) throws JAXBException {

@@ -18,6 +18,9 @@ import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import main.Main;
+import model.ListUser;
+import model.ManipuladorXML;
+import model.User;
 
 /**
  *
@@ -135,9 +138,21 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String login(String[] msg) throws IOException {
-        Main.loadScene("/view/FXMLBasquete.fxml");
-        String retorno = "LOGADO";
-        return retorno;
+        String login = msg[1];
+        String senha = msg[2];
+
+        User user = new User();
+
+        if (validaLogin(login, senha, user)) {
+            if (user.isUserAdm()) {
+                return ("#LOGADO$ADM");
+            } else if (user.isUserPlacar()) {
+                return ("#LOGADO$PLACAR");
+            } else if (user.isUserPropaganda()) {
+                return ("#LOGADO$PROPAGANDA");
+            }
+        }
+        return ("#INVALIDO");
     }
 
     public String fechaConexao(String[] msg) {
@@ -163,7 +178,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         } else {
             return "CRONOS_EXECUTANDO";
         }
-        
+
     }
 
     public void chamaCronos(Label label, int min, int seg, int mili) {
@@ -301,6 +316,33 @@ public class ComunicacaoSocketServidor implements Runnable {
                 l.setText("0" + pontosL);
             });
         }
+    }
+
+    private static boolean validaLogin(String login, String senha, User usuario) {
+        try {
+            if (login == null || senha == null) {
+                return false;
+            } else {
+                ListUser users = (ListUser) ManipuladorXML.select("ListUser");
+
+                for (User user : users.getUsers()) {
+                    if (login.equals(user.getUser()) && senha.equals(user.getPassword())) {
+                        usuario.setUser(user.getUser());
+                        usuario.setPassword(user.getPassword());
+                        usuario.setUserAdm(user.isUserAdm());
+                        usuario.setUserPlacar(user.isUserPlacar());
+                        usuario.setUserPropaganda(user.isUserPropaganda());
+
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {//(JAXBException ex) {
+            // IMPLEMENTAR LOGIN
+            return false;
+        }
+
+        return false;
     }
 
 }

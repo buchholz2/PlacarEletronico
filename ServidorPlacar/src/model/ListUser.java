@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "listaUsuarios")
 @XmlAccessorType(XmlAccessType.FIELD)
+
 public class ListUser {
     @XmlElement(name = "usuario")
     private List<User> users = new ArrayList<>();
