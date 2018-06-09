@@ -5,8 +5,10 @@
  */
 package rede;
 
+import model.Usuario;
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,10 +19,12 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import main.Main;
-import model.ListUser;
-import model.ManipuladorXML;
-import model.User;
+import model.ListaUsuarios;
 
 /**
  *
@@ -76,6 +80,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else if (escolha[0].equals("#LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
+                } else if (escolha[0].equals("#ESCOLHAMOD")) {
+                    saida.writeUTF(escolhamod(escolha));
                 } else if (escolha[0].equals("#INICIA_CRONO")) {
                     saida.writeUTF(iniciaCronos(escolha));
                     saida.flush();
@@ -235,22 +241,70 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String login(String[] msg) throws IOException {
-        Main.loadScene("/view/FXMLBasquete.fxml");
-//        String login = msg[1];
-//        String senha = msg[2];
-//
-//        User user = new User();
-//
-//        if (validaLogin(login, senha, user)) {
-//            if (user.isUserAdm()) {
-//                return ("#LOGADO$ADM");
-//            } else if (user.isUserPlacar()) {
-//                return ("#LOGADO$PLACAR");
-//            } else if (user.isUserPropaganda()) {
-//                return ("#LOGADO$PROPAGANDA");
-//            }
-//        }
-        return ("#LOGADO");
+        String login = msg[1];
+        String senha = msg[2];
+        Usuario usuario = new Usuario();
+        if (validaLogin(login, senha, usuario)) {
+            System.out.println("verificou usuario e senha");
+            if (usuario.isUserAdm()) {
+                return ("#LOGADO$ADM");
+            } else if (usuario.isUserPlacar()) {
+                System.out.println("é usuario placar");
+                System.out.println("logado - aguarda escolha modalidade");
+                return ("#LOGADO$PLACAR");
+            } else if (usuario.isUserPropaganda()) {
+                return ("#LOGADO$PROPAGANDA");
+            } else {
+                return ("#NOT$LOGADO");
+            }
+        }
+        return ("#NOT$LOGADO");
+
+    }
+
+    private boolean validaLogin(String login, String senha, Usuario usuario) {
+        if (login == null || senha == null) {
+            return false;
+        } else {
+            ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
+            ListaUsuarios users = c.leituraXML();
+
+            for (Usuario u : users.getUsuarios()) {
+                if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
+                    usuario.setUsuario(u.getUsuario());
+                    usuario.setSenha(u.getSenha());
+                    usuario.setUserAdm(u.isUserAdm());
+                    usuario.setUserPlacar(u.isUserPlacar());
+                    usuario.setUserPropaganda(u.isUserPropaganda());
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+        
+    private String escolhamod(String[] msg) {
+        String opcao = msg[1];
+        String retorno = "nada feito";
+        switch (opcao) {
+            case "BASQUETE":
+                Main.loadScene("/view/FXMLBasquete.fxml");
+                retorno = "#OK";
+                break;
+
+            case "VOLEI":
+
+                retorno = "#OK";
+                break;
+            case "FUTSAL":
+
+                retorno = "#OK";
+                break;
+        }
+
+        return retorno;
     }
 
     public String fechaConexao(String[] msg) {
@@ -449,33 +503,6 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     }
 
-    private static boolean validaLogin(String login, String senha, User usuario) {
-        try {
-            if (login == null || senha == null) {
-                return false;
-            } else {
-                ListUser users = (ListUser) ManipuladorXML.select("ListUser");
-
-                for (User user : users.getUsers()) {
-                    if (login.equals(user.getUser()) && senha.equals(user.getPassword())) {
-                        usuario.setUser(user.getUser());
-                        usuario.setPassword(user.getPassword());
-                        usuario.setUserAdm(user.isUserAdm());
-                        usuario.setUserPlacar(user.isUserPlacar());
-                        usuario.setUserPropaganda(user.isUserPropaganda());
-
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {//(JAXBException ex) {
-            // IMPLEMENTAR LOGIN
-            return false;
-        }
-
-        return false;
-    }
-
     private String mudaFalta(String[] msg) {
         if (msg[1].equals("LOCAL")) {
             Label l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoFaltas");
@@ -522,4 +549,39 @@ public class ComunicacaoSocketServidor implements Runnable {
             return "MUDADO";
         }
     }
+
+    public ListaUsuarios leituraXML() {
+        ListaUsuarios lista = null;
+        try {
+            File file = new File("src/xml/usuarios.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            lista = (ListaUsuarios) jaxbUnmarshaller.unmarshal(file);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public void gravarXML(ListaUsuarios l) {
+        try {
+
+            File file = new File("src/xml/usuarios.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(l, file);
+            // Se desejar mostrar no console o xml gerado
+//            jaxbMarshaller.marshal(usuarios, System.out);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
