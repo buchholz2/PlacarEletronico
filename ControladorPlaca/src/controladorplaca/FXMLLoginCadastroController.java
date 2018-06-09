@@ -6,9 +6,6 @@
 package controladorplaca;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,28 +51,26 @@ public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     void validaLogin(ActionEvent event) throws IOException, Exception {
+        String login = jTFUsuario.getText();
+        String senha = jTFSenha.getText();
+        if (!login.isEmpty() || senha.isEmpty()) {
+            String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
+            if (msg[0].equals("#LOGADO")) {
+                if (msg[1].equals("ADM")) {
 
-        if (Main.mandaMSG("#LOGIN$").equals("#LOGADO")) {
-            Main.loadScene("/view/FXMLControladorPlacar.fxml");
+                } else if (msg[1].equals("PLACAR")) {
+                    Main.loadScene("/view/FXMLEscolheModalidade.fxml");
+                } else {
+
+                }
+
+            } else {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("ERRO DE LOGIN");
+                alert.setHeaderText(null);
+                alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
+            }
         }
-//        String login = jTFUsuario.getText();
-//        String senha = jTFSenha.getText();
-//        String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
-//        if (msg[0].equals("#LOGADO")) {
-//            if (msg[1].equals("ADM")) {
-//
-//            } else if (msg[1].equals("PLACAR")) {
-//                Main.loadScene("/view/FXMLControladorPlacar.fxml");
-//            } else {
-//
-//            }
-//
-//        } else {
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setTitle("ERRO DE LOGIN");
-//            alert.setHeaderText(null);
-//            alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
-//        }
     }
 
     @Override

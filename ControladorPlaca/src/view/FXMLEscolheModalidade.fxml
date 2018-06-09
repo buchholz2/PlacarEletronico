@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="57.0" layoutY="83.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="BASQUETE" wrapText="true">
+      <Button layoutX="79.0" layoutY="50.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="BASQUETE" wrapText="true">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -21,7 +20,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="248.0" layoutY="231.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="PADRÃO" wrapText="true">
+      <Button layoutX="243.0" layoutY="214.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="PADRÃO" wrapText="true">
          <graphic>
             <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +32,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="440.0" layoutY="83.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="VOLEI" wrapText="true">
+      <Button layoutX="421.0" layoutY="50.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="227.0" text="VOLEI" wrapText="true">
          <graphic>
             <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
