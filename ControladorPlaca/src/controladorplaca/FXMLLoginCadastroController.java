@@ -53,11 +53,17 @@ public class FXMLLoginCadastroController implements Initializable {
     void validaLogin(ActionEvent event) throws IOException, Exception {
         String login = jTFUsuario.getText();
         String senha = jTFSenha.getText();
-        if (!login.isEmpty() || senha.isEmpty()) {
+        if (login.isEmpty() || senha.isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("ERRO DE LOGIN");
+            alert.setHeaderText(null);
+            alert.setContentText("CAMPO DE LOGIN OU SENHA VAZIOS!");
+            alert.show();
+        } else {
             String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
             if (msg[0].equals("#LOGADO")) {
                 if (msg[1].equals("ADM")) {
-
+                    Main.loadScene("/view/FXMLCadastro.fxml");
                 } else if (msg[1].equals("PLACAR")) {
                     Main.loadScene("/view/FXMLEscolheModalidade.fxml");
                 } else {
@@ -68,8 +74,10 @@ public class FXMLLoginCadastroController implements Initializable {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("ERRO DE LOGIN");
                 alert.setHeaderText(null);
-                alert.setContentText("LOGIN OU SENHA INVALIDA! OTRARIO");
+                alert.setContentText("LOGIN OU SENHA INVALIDA!");
+                alert.show();
             }
+
         }
     }
 

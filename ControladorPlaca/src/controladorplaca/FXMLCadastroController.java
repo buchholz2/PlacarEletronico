@@ -7,7 +7,11 @@ package controladorplaca;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import main.Main;
 
 /**
  * FXML Controller class
@@ -16,12 +20,17 @@ import javafx.fxml.Initializable;
  */
 public class FXMLCadastroController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button jBLogout;
+
+    @FXML
+    void sairTelaCadastro(MouseEvent event) {
+        Main.loadScene("/view/FXMLLoginCadastro.fxml");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

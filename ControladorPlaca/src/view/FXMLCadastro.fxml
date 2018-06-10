@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
-    
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
+   <children>
+      <TreeTableView layoutX="14.0" layoutY="128.0" prefHeight="458.0" prefWidth="412.0">
+        <columns>
+          <TreeTableColumn prefWidth="205.0" text="Nome de Usuario" />
+          <TreeTableColumn prefWidth="206.0" text="Função" />
+        </columns>
+      </TreeTableView>
+      <Button layoutX="164.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Listar Usuarios" />
+      <Label layoutX="307.0" layoutY="14.0" text="CADASTRO USUARIOS">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button layoutX="626.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Excluir" />
+      <TextField layoutX="531.0" layoutY="164.0" prefHeight="25.0" prefWidth="274.0" />
+      <Label layoutX="599.0" layoutY="115.0" text="Excluir Usuario">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="586.0" layoutY="241.0" text="Adicionar Usuario">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField layoutX="529.0" layoutY="294.0" prefHeight="25.0" prefWidth="274.0" />
+      <Button layoutX="626.0" layoutY="467.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Adicionar" />
+      <CheckBox layoutX="717.0" layoutY="434.0" mnemonicParsing="false" text="Propaganda" />
+      <CheckBox layoutX="529.0" layoutY="434.0" mnemonicParsing="false" text="Placar" />
+      <CheckBox layoutX="623.0" layoutY="434.0" mnemonicParsing="false" text="ADM" />
+      <PasswordField layoutX="529.0" layoutY="344.0" prefHeight="25.0" prefWidth="274.0" />
+      <PasswordField layoutX="529.0" layoutY="393.0" prefHeight="25.0" prefWidth="274.0" />
+      <Label layoutX="531.0" layoutY="277.0" text="Usuario" />
+      <Label layoutX="531.0" layoutY="149.0" text="Usuario" />
+      <Label layoutX="531.0" layoutY="327.0" text="Senha" />
+      <Label layoutX="531.0" layoutY="376.0" text="Repita Senha" />
+      <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairTelaCadastro" text="Logout" />
+   </children>
 </AnchorPane>

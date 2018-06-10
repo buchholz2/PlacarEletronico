@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -67,8 +68,10 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(thisClass.getClass().getResource(local));
             scenePrincipal = new Scene(root);
             Platform.runLater(() -> {
+                
                 primaryStage.setScene(scenePrincipal);
                 primaryStage.centerOnScreen();
+                primaryStage.setResizable(false);
                 primaryStage.setTitle("Controlador");
                 primaryStage.show();
             });

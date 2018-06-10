@@ -466,21 +466,21 @@ public class FXMLControladorPlacarController implements Initializable {
                 somaRodadaL = pontosL;
                 somaRodadaV = pontosV;
 
-                if (somaRodadaL > 9 && somaRodadaV > 9) {
+                if (somaRodadaL > 9 & somaRodadaV > 9) {
                     Platform.runLater(() -> {
-                        jLRodada1.setText(somaRodadaL + " : " + somaRodadaV);
+                        jLRodada1.setText(somaRodadaL + " x " + somaRodadaV);
                     });
-                } else if (somaRodadaL < 9 && somaRodadaV < 9) {
+                } else if (somaRodadaL < 9 & somaRodadaV < 9) {
                     Platform.runLater(() -> {
-                        jLRodada1.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
+                        jLRodada1.setText("0" + somaRodadaL + " x 0" + somaRodadaV);
                     });
-                } else if (somaRodadaL > 9 && somaRodadaV < 9) {
+                } else if (somaRodadaL > 9 & somaRodadaV < 9) {
                     Platform.runLater(() -> {
-                        jLRodada1.setText(somaRodadaL + " : 0" + somaRodadaV);
+                        jLRodada1.setText(somaRodadaL + " x 0" + somaRodadaV);
                     });
-                } else {
+                } else if (somaRodadaL < 9 & somaRodadaV > 9) {
                     Platform.runLater(() -> {
-                        jLRodada1.setText("0" + somaRodadaL + " : " + somaRodadaV);
+                        jLRodada1.setText("0" + somaRodadaL + " x " + somaRodadaV);
                     });
                 }
             } else if (rodada > 1 && rodada < 5) {
@@ -504,26 +504,28 @@ public class FXMLControladorPlacarController implements Initializable {
                 somaRodadaL = pontosL - somaRodadaL;
                 somaRodadaV = pontosV - somaRodadaV;
 
-                if (somaRodadaL > 9 && somaRodadaV > 9) {
-                    Platform.runLater(() -> {
-                        rod.setText(somaRodadaL + " : " + somaRodadaV);
-                    });
-                } else if (somaRodadaL < 9 && somaRodadaV < 9) {
-                    Platform.runLater(() -> {
-                        rod.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
-                    });
-                } else if (somaRodadaL > 9 && somaRodadaV < 9) {
-                    Platform.runLater(() -> {
-                        rod.setText(somaRodadaL + " : 0" + somaRodadaV);
-                    });
-                } else {
-                    Platform.runLater(() -> {
-                        rod.setText("0" + somaRodadaL + " : " + somaRodadaV);
-                    });
+                System.out.println(somaRodadaL + " = " + somaRodadaV);
+
+                if (somaRodadaL > 9 & somaRodadaV > 9) {
+                    //  Platform.runLater(() -> {
+                    rod.setText(somaRodadaL + " x " + somaRodadaV);
+                    //});
+                } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+                    //Platform.runLater(() -> {
+                    rod.setText("0" + somaRodadaL + " x 0" + somaRodadaV);
+                    //});
+                } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+                    //Platform.runLater(() -> {
+                    rod.setText(somaRodadaL + " x 0" + somaRodadaV);
+                    //});
+                } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+                    //Platform.runLater(() -> {
+                    rod.setText("0" + somaRodadaL + " x " + somaRodadaV);
+                    //});
                 }
 
-                somaRodadaL = pontosL + somaRodadaL;
-                somaRodadaV = pontosV + somaRodadaV;
+                somaRodadaL = pontosL;
+                somaRodadaV = pontosV;
             } else {
 
                 cronosPausado = false;
@@ -532,25 +534,26 @@ public class FXMLControladorPlacarController implements Initializable {
                 somaRodadaL = pontosL - somaRodadaL;
                 somaRodadaV = pontosV - somaRodadaV;
 
-                if (somaRodadaL > 9 && somaRodadaV > 9) {
-                    Platform.runLater(() -> {
-                        jLRodada5.setText(somaRodadaL + " : " + somaRodadaV);
-                    });
-                } else if (somaRodadaL < 9 && somaRodadaV < 9) {
-                    Platform.runLater(() -> {
-                        jLRodada5.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
-                    });
-                } else if (somaRodadaL > 9 && somaRodadaV < 9) {
-                    Platform.runLater(() -> {
-                        jLRodada5.setText(somaRodadaL + " : 0" + somaRodadaV);
-                    });
-                } else {
-                    Platform.runLater(() -> {
-                        jLRodada5.setText("0" + somaRodadaL + " : " + somaRodadaV);
-                    });
+                if (somaRodadaL > 9 & somaRodadaV > 9) {
+                    //Platform.runLater(() -> {
+                    jLRodada5.setText(somaRodadaL + " x " + somaRodadaV);
+                    //});
+                } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+                    // Platform.runLater(() -> {
+                    jLRodada5.setText("0" + somaRodadaL + " x 0" + somaRodadaV);
+                    //});
+                } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+                    //Platform.runLater(() -> {
+                    jLRodada5.setText(somaRodadaL + " x 0" + somaRodadaV);
+                    //});
+                } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+                    //Platform.runLater(() -> {
+                    jLRodada5.setText("0" + somaRodadaL + " x " + somaRodadaV);
+                    // });
+
                 }
-                somaRodadaL = pontosL + somaRodadaL;
-                somaRodadaV = pontosV + somaRodadaV;
+                somaRodadaL = pontosL;
+                somaRodadaV = pontosV;
                 jBNovoQuarto.setDisable(true);
             }
         }
@@ -626,6 +629,7 @@ public class FXMLControladorPlacarController implements Initializable {
     void reiniciaLancamento(MouseEvent event) throws IOException {
         if (Main.mandaMSG("#REINICIA_TEMPO").equals("REINICIADO")) {
             tempoLan = 24;
+            cronosPausado = false;
             jLTempoLancamento.setText("24");
         }
     }
