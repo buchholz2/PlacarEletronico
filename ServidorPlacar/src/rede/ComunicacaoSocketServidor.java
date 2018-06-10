@@ -18,6 +18,7 @@ import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -44,6 +45,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int rodada = 1;
     private int somaRodadaV = 0;
     private int somaRodadaL = 0;
+    String resultadoFinal = "";
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -63,6 +65,10 @@ public class ComunicacaoSocketServidor implements Runnable {
             // o método accept() bloqueia a execução até que
             // o servidor receba um pedido de conexão
             Socket cliente = servidor.accept();
+
+            ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
+            pro.setOpacity(0);
+
             System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
 
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
@@ -80,8 +86,6 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else if (escolha[0].equals("#LOGIN")) {
                     saida.writeUTF(login(escolha));
                     saida.flush();
-                } else if (escolha[0].equals("#ESCOLHAMOD")) {
-                    saida.writeUTF(escolhamod(escolha));
                 } else if (escolha[0].equals("#INICIA_CRONO")) {
                     saida.writeUTF(iniciaCronos(escolha));
                     saida.flush();
@@ -126,6 +130,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.flush();
                 } else if (escolha[0].equals("#REINICIA_TEMPO")) {
                     tempoLan = 24;
+                    cronosPausado = false;
                     Platform.runLater(() -> {
                         Label l = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
                         l.setText("24");
@@ -164,25 +169,29 @@ public class ComunicacaoSocketServidor implements Runnable {
                         somaRodadaL = pontosL;
                         somaRodadaV = pontosV;
 
-                        if (somaRodadaL > 9 && somaRodadaV > 9) {
-                            Platform.runLater(() -> {
-                                local.setText(somaRodadaL + " : " + somaRodadaV);
-                            });
-                        } else if (somaRodadaL < 9 && somaRodadaV < 9) {
-                            Platform.runLater(() -> {
-                                local.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
-                            });
-                        } else if (somaRodadaL > 9 && somaRodadaV < 9) {
-                            Platform.runLater(() -> {
-                                local.setText(somaRodadaL + " : 0" + somaRodadaV);
-                            });
-                        } else {
-                            Platform.runLater(() -> {
-                                local.setText("0" + somaRodadaL + " : " + somaRodadaV);
-                            });
+                        if (somaRodadaL > 9 & somaRodadaV > 9) {
+
+                            resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
+
+                        } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+
+                            resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
+
+                        } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+
+                            resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
+
+                        } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+
+                            resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
+
                         }
+                        Platform.runLater(() -> {
+                            local.setText(resultadoFinal);
+                        });
 
                     } else {
+
                         rodada++;
 
                         cronosPausado = false;
@@ -191,29 +200,35 @@ public class ComunicacaoSocketServidor implements Runnable {
                         somaRodadaL = pontosL - somaRodadaL;
                         somaRodadaV = pontosV - somaRodadaV;
 
-                        if (somaRodadaL > 9 && somaRodadaV > 9) {
-                            Platform.runLater(() -> {
-                                local.setText(somaRodadaL + " : " + somaRodadaV);
-                            });
-                        } else if (somaRodadaL < 9 && somaRodadaV < 9) {
-                            Platform.runLater(() -> {
-                                local.setText("0" + somaRodadaL + " : 0" + somaRodadaV);
-                            });
-                        } else if (somaRodadaL > 9 && somaRodadaV < 9) {
-                            Platform.runLater(() -> {
-                                local.setText(somaRodadaL + " : 0" + somaRodadaV);
-                            });
-                        } else {
-                            Platform.runLater(() -> {
-                                local.setText("0" + somaRodadaL + " : " + somaRodadaV);
-                            });
+                        if (somaRodadaL > 9 & somaRodadaV > 9) {
+
+                            resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
+
+                        } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+
+                            resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
+
+                        } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+
+                            resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
+
+                        } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+
+                            resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
+
                         }
-                        somaRodadaL = pontosL + somaRodadaL;
-                        somaRodadaV = pontosV + somaRodadaV;
+                        Platform.runLater(() -> {
+                            local.setText(resultadoFinal);
+                        });
+                        somaRodadaL = pontosL;
+                        somaRodadaV = pontosV;
                     }
                     saida.writeUTF("INICIADA_RODADA");
                     saida.flush();
 
+                } else if (escolha[0].equals("#ESCOLHE_MODALIDADE")) {
+                    saida.writeUTF(escolhaModalidade(escolha));
+                    saida.flush();
                 }
             }
 
@@ -284,23 +299,24 @@ public class ComunicacaoSocketServidor implements Runnable {
 
         return false;
     }
-        
-    private String escolhamod(String[] msg) {
+
+    private String escolhaModalidade(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
         switch (opcao) {
             case "BASQUETE":
                 Main.loadScene("/view/FXMLBasquete.fxml");
-                retorno = "#OK";
+                retorno = "ESCOLHIDA";
                 break;
 
             case "VOLEI":
-
-                retorno = "#OK";
+                Main.loadScene("/view/FXMLBasquete.fxml");
+                retorno = "ESCOLHIDA";
                 break;
-            case "FUTSAL":
 
-                retorno = "#OK";
+            case "FUTSAL":
+                Main.loadScene("/view/FXMLBasquete.fxml");
+                retorno = "ESCOLHIDA";
                 break;
         }
 
@@ -582,6 +598,5 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
 
     }
-
 
 }

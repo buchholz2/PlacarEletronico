@@ -1,7 +1,5 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
@@ -10,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.ListaUsuarios;
-import model.Usuario;
 import rede.ComunicacaoSocketServidor;
 
 public class Main extends Application {
