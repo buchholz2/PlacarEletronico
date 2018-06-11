@@ -15,6 +15,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
@@ -229,6 +231,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else if (escolha[0].equals("#ESCOLHE_MODALIDADE")) {
                     saida.writeUTF(escolhaModalidade(escolha));
                     saida.flush();
+                } else if (escolha[0].equals("#ADICIONAR_USUARIO")) {
+                    saida.writeUTF(adicionaUsuario(escolha));
+                    saida.flush();
+                } else if (escolha[0].equals("#EXCLUIR_USUARIO")) {
+                    saida.writeUTF(excluirUsuario(escolha));
+                    saida.flush();
                 }
             }
 
@@ -281,8 +289,8 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (login == null || senha == null) {
             return false;
         } else {
-            ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
-            ListaUsuarios users = c.leituraXML();
+            //  ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
+            ListaUsuarios users = leituraXML();
 
             for (Usuario u : users.getUsuarios()) {
                 if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
@@ -321,6 +329,63 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
 
         return retorno;
+    }
+
+    private String adicionaUsuario(String[] msg) {
+        String opcao = msg[1];
+        List<Usuario> l = new ArrayList<>();
+        ListaUsuarios lista = leituraXML();
+
+        if (opcao.equals("ADMINISTRADOR")) {
+            lista.getUsuarios().forEach((u) -> {
+                l.add(u);
+            });
+            Usuario adm = new Usuario();
+            adm.setUserAdm(true);
+            adm.setUserPlacar(false);
+            adm.setUserPropaganda(false);
+            adm.setUsuario(msg[2]);
+            adm.setSenha(msg[3]);
+            l.add(adm);
+            lista.setUsuarios(l);
+            gravarXML(lista);
+            return ("#OK");
+        } else if (opcao.equals("PLACAR")) {
+            lista.getUsuarios().forEach((u) -> {
+                l.add(u);
+            });
+            Usuario placar = new Usuario();
+            placar.setUserAdm(false);
+            placar.setUserPlacar(true);
+            placar.setUserPropaganda(false);
+            placar.setUsuario(msg[2]);
+            placar.setSenha(msg[3]);
+            l.add(placar);
+            lista.setUsuarios(l);
+            gravarXML(lista);
+            return ("#OK");
+        } else if (opcao.equals("PROPAGANDA")) {
+            lista.getUsuarios().forEach((u) -> {
+                l.add(u);
+            });
+            Usuario propaganda = new Usuario();
+            propaganda.setUserAdm(false);
+            propaganda.setUserPlacar(false);
+            propaganda.setUserPropaganda(true);
+            propaganda.setUsuario(msg[2]);
+            propaganda.setSenha(msg[3]);
+            l.add(propaganda);
+            lista.setUsuarios(l);
+            gravarXML(lista);
+            return ("#OK");
+        } else {
+            return ("#NOT$OK");
+        }
+    }
+
+    private String excluirUsuario(String[] msg) {
+
+        return ("#NOT$OK");
     }
 
     public String fechaConexao(String[] msg) {

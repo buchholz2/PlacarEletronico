@@ -10,43 +10,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
    <children>
+      <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairTelaCadastro" text="Logout" />
+      <Button fx:id="jBListaUsuarios" layoutX="164.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#listarUsuarios" prefHeight="25.0" prefWidth="109.0" text="Listar Usuarios" />
       <TreeTableView layoutX="14.0" layoutY="128.0" prefHeight="458.0" prefWidth="412.0">
         <columns>
           <TreeTableColumn prefWidth="205.0" text="Nome de Usuario" />
           <TreeTableColumn prefWidth="206.0" text="Função" />
         </columns>
       </TreeTableView>
-      <Button layoutX="164.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Listar Usuarios" />
       <Label layoutX="307.0" layoutY="14.0" text="CADASTRO USUARIOS">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button layoutX="626.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Excluir" />
-      <TextField layoutX="531.0" layoutY="164.0" prefHeight="25.0" prefWidth="274.0" />
-      <Label layoutX="599.0" layoutY="115.0" text="Excluir Usuario">
+      <Label fx:id="jLExcluirUsuario" layoutX="599.0" layoutY="115.0" text="Excluir Usuario">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Label layoutX="586.0" layoutY="241.0" text="Adicionar Usuario">
+      <Label fx:id="jLUsuarioEx" layoutX="531.0" layoutY="149.0" text="Usuario" />
+      <TextField fx:id="jTFExcluirUsuario" layoutX="531.0" layoutY="164.0" prefHeight="25.0" prefWidth="274.0" />
+      <Button fx:id="jBExlcuir" layoutX="626.0" layoutY="202.0" mnemonicParsing="false" onMouseClicked="#excluirUsuario" prefHeight="25.0" prefWidth="84.0" text="Excluir" />
+      <Label fx:id="jLAdicionarUsuario" layoutX="586.0" layoutY="241.0" text="Adicionar Usuario">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <TextField layoutX="529.0" layoutY="294.0" prefHeight="25.0" prefWidth="274.0" />
-      <Button layoutX="626.0" layoutY="467.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Adicionar" />
-      <CheckBox layoutX="717.0" layoutY="434.0" mnemonicParsing="false" text="Propaganda" />
-      <CheckBox layoutX="529.0" layoutY="434.0" mnemonicParsing="false" text="Placar" />
-      <CheckBox layoutX="623.0" layoutY="434.0" mnemonicParsing="false" text="ADM" />
-      <PasswordField layoutX="529.0" layoutY="344.0" prefHeight="25.0" prefWidth="274.0" />
-      <PasswordField layoutX="529.0" layoutY="393.0" prefHeight="25.0" prefWidth="274.0" />
-      <Label layoutX="531.0" layoutY="277.0" text="Usuario" />
-      <Label layoutX="531.0" layoutY="149.0" text="Usuario" />
-      <Label layoutX="531.0" layoutY="327.0" text="Senha" />
-      <Label layoutX="531.0" layoutY="376.0" text="Repita Senha" />
-      <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairTelaCadastro" text="Logout" />
+      <Label fx:id="jLUsuarioAdd" layoutX="531.0" layoutY="277.0" text="Usuario" />
+      <TextField fx:id="jTFAdicionarUsuario" layoutX="529.0" layoutY="294.0" prefHeight="25.0" prefWidth="274.0" />
+      <Label fx:id="jLSenha" layoutX="531.0" layoutY="327.0" text="Senha" />
+      <PasswordField fx:id="jPFSenha" layoutX="529.0" layoutY="344.0" prefHeight="25.0" prefWidth="274.0" />
+      <Label fx:id="jLRepitaSenha" layoutX="531.0" layoutY="376.0" text="Repita Senha" />
+      <PasswordField fx:id="jPFRepitaSenha" layoutX="529.0" layoutY="393.0" prefHeight="25.0" prefWidth="274.0" />
+      <CheckBox fx:id="jCBPlacar" layoutX="529.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#selecionadoPlacar" text="Placar" />
+      <CheckBox fx:id="jCBAdministrador" layoutX="623.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#selecionadoAdministrador" text="ADM" />
+      <CheckBox fx:id="jCBPropaganda" layoutX="717.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#selecionadoPropaganda" text="Propaganda" />
+      <Button fx:id="jBAdicionar" layoutX="626.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#adicionarUsuario" prefHeight="25.0" prefWidth="84.0" text="Adicionar" />
    </children>
 </AnchorPane>

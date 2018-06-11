@@ -635,14 +635,12 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     @FXML
-    void restauraTudo(MouseEvent event
-    ) {
+    void restauraTudo(MouseEvent event) {
 
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb
-    ) {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
