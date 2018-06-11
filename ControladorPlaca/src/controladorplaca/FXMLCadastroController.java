@@ -32,11 +32,6 @@ public class FXMLCadastroController implements Initializable {
     private Button jBLogout;
 
     @FXML
-    void sairTelaCadastro(MouseEvent event) {
-        Main.loadScene("/view/FXMLLoginCadastro.fxml");
-    }
-
-    @FXML
     private Button jBListaUsuarios;
 
     @FXML
@@ -85,16 +80,36 @@ public class FXMLCadastroController implements Initializable {
     private Button jBAdicionar;
 
     @FXML
+    void sairTelaCadastro(MouseEvent event) {
+        Main.loadScene("/view/FXMLLoginCadastro.fxml");
+    }
+
+    @FXML
     void excluirUsuario(MouseEvent event) throws IOException {
         String retorno = "";
-        retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
-        if (retorno.equals("#OK")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("EXCLUIR");
-            alert.setHeaderText(null);
-            alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
-            alert.show();
-            limpaCampos();
+        if (!jTFExcluirUsuario.getText().isEmpty()) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("EXCLUIR");
+//            alert.setHeaderText(null);
+//            alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
+//            alert.show();
+//
+//        } else {
+            retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
+            if (retorno.equals("#OK")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUIR");
+                alert.setHeaderText(null);
+                alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
+                alert.show();
+                limpaCampos();
+            } else if (retorno.equals("#NOT$OK")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("EXCLUIR");
+                alert.setHeaderText(null);
+                alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
+                alert.show();
+            }
         }
     }
 
@@ -110,31 +125,51 @@ public class FXMLCadastroController implements Initializable {
         String repsenha = jPFRepitaSenha.getText();
         String login = jTFAdicionarUsuario.getText();
 
-        if (senha.equals(repsenha)) {
-            if (jCBAdministrador.isSelected()) {
-                retorno = Main.mandaMSG("#ADICIONAR_USUARIO$ADMINISTRADOR$" + login + "$" + senha);
-            } else if (jCBPlacar.isSelected()) {
-                retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PLACAR$" + login + "$" + senha);
-            } else if (jCBPropaganda.isSelected()) {
-                retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PROPAGANDA$" + login + "$" + senha);
-            }
-            if (retorno.equals("#OK")) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("CADASTRO");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO CADASTRADO COM SUCESSO!");
-                alert.show();
-                limpaCampos();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERRO");
+        if (login.isEmpty() | senha.isEmpty() | repsenha.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("CADASTRO");
             alert.setHeaderText(null);
-            alert.setContentText("SENHAS NÃO CONFEREM!");
+            alert.setContentText("VOCÊ DEIXOU ALGUM CAMPO VAZIO!");
             alert.show();
+        } else {
+            if (senha.equals(repsenha)) {
+                if (jCBAdministrador.isSelected()) {
+                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$ADMINISTRADOR$" + login + "$" + senha);
+                } else if (jCBPlacar.isSelected()) {
+                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PLACAR$" + login + "$" + senha);
+                } else if (jCBPropaganda.isSelected()) {
+                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PROPAGANDA$" + login + "$" + senha);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("CADASTRO");
+                    alert.setHeaderText(null);
+                    alert.setContentText("POR FAVOR SELECIONE O TIPO DE USUÁRIO.");
+                    alert.show();
+                }
+                if (retorno.equals("#OK")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("CADASTRO");
+                    alert.setHeaderText(null);
+                    alert.setContentText("USUÁRIO CADASTRADO COM SUCESSO!");
+                    alert.show();
+                    limpaCampos();
+                } else if (retorno.equals("#USUARIO_EXISTENTE")) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("CADASTRO");
+                    alert.setHeaderText(null);
+                    alert.setContentText("NOME DE USUÁRIO JÁ CADASTRADO NO SISTEMA!");
+                    alert.show();
+                    limpaCampoSenha();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRO");
+                alert.setHeaderText(null);
+                alert.setContentText("SENHAS NÃO CONFEREM!");
+                alert.show();
 //            limpaCampoSenha();
+            }
         }
-
     }
 
     void limpaCampos() {
@@ -147,34 +182,38 @@ public class FXMLCadastroController implements Initializable {
         jCBPropaganda.setSelected(false);
     }
 
-//    void limpaCampoSenha() {
-//        jPFSenha.setText("");
-//        jPFRepitaSenha.setText("");
-//    }
+    void limpaCampoSenha() {
+        jPFSenha.setText("");
+        jPFRepitaSenha.setText("");
+    }
 
     @FXML
-    void selecionadoAdministrador(MouseEvent event) {
+    void selecionadoAdministrador(MouseEvent event
+    ) {
         jCBPlacar.setSelected(false);
         jCBPropaganda.setSelected(false);
 
     }
 
     @FXML
-    void selecionadoPlacar(MouseEvent event) {
+    void selecionadoPlacar(MouseEvent event
+    ) {
         jCBAdministrador.setSelected(false);
         jCBPropaganda.setSelected(false);
 
     }
 
     @FXML
-    void selecionadoPropaganda(MouseEvent event) {
+    void selecionadoPropaganda(MouseEvent event
+    ) {
         jCBAdministrador.setSelected(false);
         jCBPlacar.setSelected(false);
 
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb
+    ) {
         // TODO
     }
 

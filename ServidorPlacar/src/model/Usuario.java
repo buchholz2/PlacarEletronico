@@ -16,6 +16,14 @@ public class Usuario {
     private boolean userPlacar;
     private boolean userPropaganda;
 
+    public Usuario() {
+        this.userAdm = false;
+        this.userPlacar = false;
+        this.userPropaganda = false;
+    }
+    
+    
+
     public boolean isUserAdm() {
         return userAdm;
     }
