@@ -14,6 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
+ */
 public class Main extends Application {
 
     public static Stage primaryStage;
@@ -46,6 +52,11 @@ public class Main extends Application {
 
     }
 
+    /**
+     * 
+     * @param args
+     * @throws IOException 
+     */
     public static void main(String[] args) throws IOException {
         setSocket(new Socket("localhost", 12345));
         entrada = new ObjectInputStream(getSocket().getInputStream());
@@ -53,14 +64,26 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * 
+     * @param s 
+     */
     public void setStage(Stage s) {
-        this.primaryStage = s;
+        Main.primaryStage = s;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static Stage getStage() {
         return primaryStage;
     }
 
+    /**
+     * Carrega views
+     * @param local 
+     */
     public static void loadScene(String local) {
 
         try {
@@ -74,12 +97,18 @@ public class Main extends Application {
                 primaryStage.setTitle("Controlador");
                 primaryStage.show();
             });
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            //IMPLEMENTAR LOG            
         }
 
     }
 
+    /**
+     * 
+     * @param msg
+     * @return
+     * @throws IOException 
+     */
     public static String mandaMSG(String msg) throws IOException {
 
         saida.writeUTF(msg);
@@ -93,10 +122,18 @@ public class Main extends Application {
         return retorno;
     }
 
+    /**
+     * 
+     * @param sok 
+     */
     private static void setSocket(Socket sok) {
         Main.cliente = sok;
     }
 
+    /**
+     * 
+     * @return 
+     */
     private static Socket getSocket() {
         return Main.cliente;
     }

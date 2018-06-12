@@ -24,7 +24,10 @@ import main.Main;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class FXMLCadastroController implements Initializable {
 
@@ -79,99 +82,130 @@ public class FXMLCadastroController implements Initializable {
     @FXML
     private Button jBAdicionar;
 
+    /**
+     * Evento do botão Logout Recarrega view anterior.
+     *
+     * @param event
+     */
     @FXML
     void sairTelaCadastro(MouseEvent event) {
         Main.loadScene("/view/FXMLLoginCadastro.fxml");
     }
 
+    /**
+     * Evento do botão excluir usuário. Verifica campo excluir usuario. Se não
+     * estiver vazio, executa função de exclusão. retorno = #NOT$OK - usuário
+     * não encontrado no lado servidor.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void excluirUsuario(MouseEvent event) throws IOException {
+    void excluirUsuario(MouseEvent event) {
         String retorno = "";
-        if (!jTFExcluirUsuario.getText().isEmpty()) {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("EXCLUIR");
-//            alert.setHeaderText(null);
-//            alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
-//            alert.show();
-//
-//        } else {
-            retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
-            if (retorno.equals("#OK")) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("EXCLUIR");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
-                alert.show();
-                limpaCampos();
-            } else if (retorno.equals("#NOT$OK")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("EXCLUIR");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
-                alert.show();
+        try {
+            if (!jTFExcluirUsuario.getText().isEmpty()) {
+                retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
+                if (retorno.equals("#OK")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("EXCLUIR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
+                    alert.show();
+                    limpaCampos();
+                } else if (retorno.equals("#NOT$OK")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("EXCLUIR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
+                    alert.show();
+                }
             }
+        } catch (IOException ex) {
+           //IMPLEMENTAR LOG
         }
     }
 
+    /**
+     * Evento do botão Lista Usuarios. Solicita lista de usuários do servidor,
+     * organiza as informações e exibe na Table View.
+     *
+     * @param event
+     */
     @FXML
     void listarUsuarios(MouseEvent event) {
 
     }
 
+    /**
+     * Evento do botão Adiciona Usuário. Verifica se algum campo ficou vazio.
+     * Verifica o conteúdo do campo senha e repita senha se iguais executa ação;
+     * ssenão exibe dialog; Verifica o retorno retorno = #usuario_existente não
+     * adiciona. retorno = #ok adiociona;
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void adicionarUsuario(MouseEvent event) throws IOException {
+    void adicionarUsuario(MouseEvent event) {
         String retorno = "";
         String senha = jPFSenha.getText();
         String repsenha = jPFRepitaSenha.getText();
         String login = jTFAdicionarUsuario.getText();
-
-        if (login.isEmpty() | senha.isEmpty() | repsenha.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("CADASTRO");
-            alert.setHeaderText(null);
-            alert.setContentText("VOCÊ DEIXOU ALGUM CAMPO VAZIO!");
-            alert.show();
-        } else {
-            if (senha.equals(repsenha)) {
-                if (jCBAdministrador.isSelected()) {
-                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$ADMINISTRADOR$" + login + "$" + senha);
-                } else if (jCBPlacar.isSelected()) {
-                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PLACAR$" + login + "$" + senha);
-                } else if (jCBPropaganda.isSelected()) {
-                    retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PROPAGANDA$" + login + "$" + senha);
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("CADASTRO");
-                    alert.setHeaderText(null);
-                    alert.setContentText("POR FAVOR SELECIONE O TIPO DE USUÁRIO.");
-                    alert.show();
-                }
-                if (retorno.equals("#OK")) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("CADASTRO");
-                    alert.setHeaderText(null);
-                    alert.setContentText("USUÁRIO CADASTRADO COM SUCESSO!");
-                    alert.show();
-                    limpaCampos();
-                } else if (retorno.equals("#USUARIO_EXISTENTE")) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("CADASTRO");
-                    alert.setHeaderText(null);
-                    alert.setContentText("NOME DE USUÁRIO JÁ CADASTRADO NO SISTEMA!");
-                    alert.show();
-                    limpaCampoSenha();
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERRO");
+        try {
+            if (login.isEmpty() | senha.isEmpty() | repsenha.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("CADASTRO");
                 alert.setHeaderText(null);
-                alert.setContentText("SENHAS NÃO CONFEREM!");
+                alert.setContentText("VOCÊ DEIXOU ALGUM CAMPO VAZIO!");
                 alert.show();
-//            limpaCampoSenha();
+            } else {
+                if (senha.equals(repsenha)) {
+                    if (jCBAdministrador.isSelected()) {
+                        retorno = Main.mandaMSG("#ADICIONAR_USUARIO$ADMINISTRADOR$" + login + "$" + senha);
+                    } else if (jCBPlacar.isSelected()) {
+                        retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PLACAR$" + login + "$" + senha);
+                    } else if (jCBPropaganda.isSelected()) {
+                        retorno = Main.mandaMSG("#ADICIONAR_USUARIO$PROPAGANDA$" + login + "$" + senha);
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("CADASTRO");
+                        alert.setHeaderText(null);
+                        alert.setContentText("POR FAVOR SELECIONE O TIPO DE USUÁRIO.");
+                        alert.show();
+                    }
+                    if (retorno.equals("#OK")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("CADASTRO");
+                        alert.setHeaderText(null);
+                        alert.setContentText("USUÁRIO CADASTRADO COM SUCESSO!");
+                        alert.show();
+                        limpaCampos();
+                    } else if (retorno.equals("#USUARIO_EXISTENTE")) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("CADASTRO");
+                        alert.setHeaderText(null);
+                        alert.setContentText("NOME DE USUÁRIO JÁ CADASTRADO NO SISTEMA!");
+                        alert.show();
+                        limpaCampoSenha();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRO");
+                    alert.setHeaderText(null);
+                    alert.setContentText("SENHAS NÃO CONFEREM!");
+                    alert.show();
+                }
             }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
         }
     }
 
+    /**
+     * Método para limpar campos da tela cadastro. Seta campos com String vazia
+     * e CheckBox false.
+     */
     void limpaCampos() {
         jTFAdicionarUsuario.setText("");
         jTFExcluirUsuario.setText("");
@@ -182,27 +216,46 @@ public class FXMLCadastroController implements Initializable {
         jCBPropaganda.setSelected(false);
     }
 
+    /**
+     * Método para limpar campos de senha somente.
+     */
     void limpaCampoSenha() {
         jPFSenha.setText("");
         jPFRepitaSenha.setText("");
     }
 
+    /**
+     * Evento do CheckBox Ao ser selecionado remove a seleção dos outros
+     * CheckBox.
+     *
+     * @param event
+     */
     @FXML
     void selecionadoAdministrador(MouseEvent event
     ) {
         jCBPlacar.setSelected(false);
         jCBPropaganda.setSelected(false);
-
     }
 
+    /**
+     * Evento do CheckBox Ao ser selecionado remove a seleção dos outros
+     * CheckBox.
+     *
+     * @param event
+     */
     @FXML
     void selecionadoPlacar(MouseEvent event
     ) {
         jCBAdministrador.setSelected(false);
         jCBPropaganda.setSelected(false);
-
     }
 
+    /**
+     * Evento do CheckBox Ao ser selecionado remove a seleção dos outros
+     * CheckBox.
+     *
+     * @param event
+     */
     @FXML
     void selecionadoPropaganda(MouseEvent event
     ) {
@@ -211,6 +264,12 @@ public class FXMLCadastroController implements Initializable {
 
     }
 
+    /**
+     * Inicializar
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb
     ) {

@@ -14,13 +14,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class SceneControladorPlacar extends Application {
 
     static Stage stage;
 
+    /**
+     * 
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLControladorPlacar.fxml"));
@@ -36,10 +43,18 @@ public class SceneControladorPlacar extends Application {
         setStage(stage);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static Stage getStage() {
         return stage;
     }
 
+    /**
+     * 
+     * @param stage 
+     */
     public static void setStage(Stage stage) {
         ScenePrincipal.stage = stage;
     }
