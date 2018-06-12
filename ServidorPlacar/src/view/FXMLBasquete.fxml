@@ -165,9 +165,9 @@
           <RowConstraints minHeight="100.0" prefHeight="300.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="111.0" text="CAMINHANDO CAMINHANDO CAMINHANDO CAMINHANDO" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="72.0" maxWidth="2000.0" prefHeight="72.0" prefWidth="1000.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PLACAR BASQUETE" textFill="WHITE">
                <font>
-                  <Font name="Virtual Pet Sans" size="72.0" />
+                  <Font size="96.0" />
                </font></Label>
          </children>
       </GridPane>
