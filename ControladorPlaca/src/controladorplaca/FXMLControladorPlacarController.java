@@ -3,9 +3,6 @@ package controladorplaca;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -233,6 +230,7 @@ public class FXMLControladorPlacarController implements Initializable {
     void iniciaCrono(MouseEvent event) throws IOException {
         String retorno = Main.mandaMSG("#INICIA_CRONO$" + jTFDefineCrono.getText());
         if (retorno.equals("CRONOS_INICIADO")) {
+            tempoLan = 24;
             fimCrono = true;
             String corte[] = jTFDefineCrono.getText().split("\\:");
             int min = Integer.parseInt(corte[0]);
@@ -635,8 +633,36 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     @FXML
-    void restauraTudo(MouseEvent event) {
-
+    void restauraTudo(MouseEvent event) throws IOException {
+        if (Main.mandaMSG("#RESTAURA_TUDO").equals("RESTAURADO")) {
+            cronosPausado = false;
+            fimCrono = false;
+            pontosV = 0;
+            pontosL = 0;
+            tempoLan = 24;
+            muda = 60;
+            faltasV = 0;
+            faltasL = 0;
+            rodada = 1;
+            somaRodadaL = 0;
+            somaRodadaV = 0;
+            jBNovoQuarto.setDisable(true);
+            Platform.runLater(() -> {
+                jLCronometro.setText("00:00:00");
+                jLRodada1.setText("00 X 00");
+                jLRodada2.setText("00 X 00");
+                jLRodada3.setText("00 X 00");
+                jLRodada4.setText("00 X 00");
+                jLRodada5.setText("00 X 00");
+                jLTempoLancamento.setText("00");
+                jLPontosVisitante.setText("00");
+                jLPontosLocal.setText("00");
+                jLFaltasLocal.setText("00");
+                jLFaltasVisitante.setText("00");
+                jLNomeLocal.setText("LOCAL");
+                jLNomeVisitante.setText("VISITANTE");
+            });
+        }
     }
 
     @Override
