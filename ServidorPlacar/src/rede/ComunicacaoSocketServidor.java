@@ -238,6 +238,9 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else if (escolha[0].equals("#EXCLUIR_USUARIO")) {
                     saida.writeUTF(excluirUsuario(escolha));
                     saida.flush();
+                } else if (escolha[0].equals("#RESTAURA_TUDO")) {
+                    saida.writeUTF(restauraTudo());
+                    saida.flush();
                 }
             }
 
@@ -336,7 +339,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
         Iterator<Usuario> iterator = lista.getUsuarios().iterator();
-         while (iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Usuario user = iterator.next();
             if (user.getUsuario().equals(msg[2])) {
                 return ("#USUARIO_EXISTENTE");
@@ -396,11 +399,13 @@ public class ComunicacaoSocketServidor implements Runnable {
             System.out.println("Chego no corte");
             String[] msm = msg[1].split("\\:");
             if (msm.length > 1) {
+                tempoLan = 24;
                 int minutos = Integer.parseInt(msm[0]);
                 int segundos = Integer.parseInt(msm[1]);
                 chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
                 return "CRONOS_INICIADO";
             } else {
+                tempoLan = 24;
                 int minutos = Integer.parseInt(msm[0]);
                 int segundos = Integer.parseInt(msm[1]);
                 chamaCronos((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"), minutos, segundos, 0);
@@ -660,6 +665,49 @@ public class ComunicacaoSocketServidor implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    private String restauraTudo() {
+        cronosPausado = false;
+        fimCrono = false;
+        pontosV = 0;
+        pontosL = 0;
+        tempoLan = 24;
+        muda = 60;
+        faltasV = 0;
+        faltasL = 0;
+        rodada = 1;
+        somaRodadaL = 0;
+        somaRodadaV = 0;
+        Platform.runLater(() -> {
+            Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00:00:00");
+            l = (Label) p.getScene().getRoot().lookup("#jLRodada1");
+            l.setText("00 X 00");
+            l = (Label) p.getScene().getRoot().lookup("#jLRodada2");
+            l.setText("00 X 00");
+            l = (Label) p.getScene().getRoot().lookup("#jLRodada3");
+            l.setText("00 X 00");
+            l = (Label) p.getScene().getRoot().lookup("#jLRodada4");
+            l.setText("00 X 00");
+            l = (Label) p.getScene().getRoot().lookup("#jLRodada5");
+            l.setText("00 X 00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("LOCAL");
+            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("VISITANTE");
+        });
+        return "RESTAURADO";
     }
 
 }
