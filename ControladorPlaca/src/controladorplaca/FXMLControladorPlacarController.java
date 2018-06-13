@@ -862,7 +862,7 @@ public class FXMLControladorPlacarController implements Initializable {
             rodada = 1;
             somaRodadaL = 0;
             somaRodadaV = 0;
-            jBNovoQuarto.setDisable(true);
+            jBNovoQuarto.setDisable(false);
             Platform.runLater(() -> {
                 jLCronometro.setText("00:00:00");
                 jLRodada1.setText("00 X 00");
