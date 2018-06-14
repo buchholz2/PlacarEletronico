@@ -124,42 +124,45 @@ public class FXMLCadastroController implements Initializable {
     void excluirUsuario(MouseEvent event) {
         String retorno = "";
         try {
-            if (jTFExcluirUsuario.getText().equals("adm")) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("EXCLUIR");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
-                alert.show();
-                limpaCampos();
-            } else if (jTFExcluirUsuario.getText().equals("placar")) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("EXCLUIR");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
-                alert.show();
-                limpaCampos();
-            } else if (jTFExcluirUsuario.getText().equals("propaganda")) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("EXCLUIR");
-                alert.setHeaderText(null);
-                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
-                alert.show();
-                limpaCampos();
-            } else if (!jTFExcluirUsuario.getText().isEmpty()) {
-                retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
-                if (retorno.equals("#OK")) {
+            if (!jTFExcluirUsuario.getText().isEmpty()) {
+                if (jTFExcluirUsuario.getText().equals("adm")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("EXCLUIR");
                     alert.setHeaderText(null);
-                    alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
+                    alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
                     alert.show();
                     limpaCampos();
-                } else if (retorno.equals("#NOT$OK")) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                } else if (jTFExcluirUsuario.getText().equals("placar")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("EXCLUIR");
                     alert.setHeaderText(null);
-                    alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
+                    alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
                     alert.show();
+                    limpaCampos();
+                } else if (jTFExcluirUsuario.getText().equals("propaganda")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("EXCLUIR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
+                    alert.show();
+                    limpaCampos();
+                } else {
+                    retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
+
+                    if (retorno.equals("#OK")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("EXCLUIR");
+                        alert.setHeaderText(null);
+                        alert.setContentText("USUÁRIO EXCLUIDO COM SUCESSO!");
+                        alert.show();
+                        limpaCampos();
+                    } else if (retorno.equals("#NOT$OK")) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("EXCLUIR");
+                        alert.setHeaderText(null);
+                        alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
+                        alert.show();
+                    }
                 }
             }
         } catch (IOException ex) {

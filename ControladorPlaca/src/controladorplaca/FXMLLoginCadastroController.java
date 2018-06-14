@@ -98,6 +98,11 @@ public class FXMLLoginCadastroController implements Initializable {
     }
 
     private void chamaLogin() {
+        try {
+            Main.conectar();
+        } catch (IOException ex) {
+            //Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String login = jTFUsuario.getText();
         String senha = jTFSenha.getText();
         if (login.isEmpty() || senha.isEmpty()) {
