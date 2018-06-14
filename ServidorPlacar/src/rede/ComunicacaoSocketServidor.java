@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
@@ -27,8 +28,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import main.Main;
 import model.ListaUsuarios;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -241,6 +249,9 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else if (escolha[0].equals("#RESTAURA_TUDO")) {
                     saida.writeUTF(restauraTudo());
                     saida.flush();
+                } else if (escolha[0].equals("#LISTAR_USUARIOS")) {
+                    saida.writeUTF(listaUsuario(escolha));
+                    saida.flush();
                 }
             }
 
@@ -389,6 +400,33 @@ public class ComunicacaoSocketServidor implements Runnable {
         return ("#NOT$OK");
     }
 
+    private String listaUsuario(String[] msg) {
+        String opcao = msg[1];
+        String funcao;
+        String retorno = "";
+
+        if (opcao.equals("#LISTAR_USUARIOS")) {
+
+            ListaUsuarios lista = leituraXML();
+            for (Usuario u : lista.getUsuarios()) {
+                if (u.isUserAdm()) {
+                    funcao = "$ADMINISTRADOR?";
+                    retorno = retorno.concat(u.getUsuario() + "$" + funcao);
+                } else if (u.isUserPlacar()) {
+                    funcao = "$PLACAR?";
+                    retorno = retorno.concat(u.getUsuario() + "$" + funcao);
+                } else if (u.isUserPropaganda()) {
+                    funcao = "$PROPAGANDA?";
+                    retorno = retorno.concat(u.getUsuario() + "$" + funcao);
+                }
+            }
+            return retorno;
+        }
+
+        return ("#NOT$OK");
+    }
+
+   
     public String fechaConexao(String[] msg) {
         return "";
     }
