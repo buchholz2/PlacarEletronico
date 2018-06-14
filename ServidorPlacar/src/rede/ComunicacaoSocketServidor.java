@@ -401,7 +401,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     private String listaUsuario(String[] msg) {
-        String opcao = msg[1];
+        String opcao = msg[0];
         String funcao;
         String retorno = "";
 
@@ -410,14 +410,14 @@ public class ComunicacaoSocketServidor implements Runnable {
             ListaUsuarios lista = leituraXML();
             for (Usuario u : lista.getUsuarios()) {
                 if (u.isUserAdm()) {
-                    funcao = "$ADMINISTRADOR?";
+                    funcao = "ADMINISTRADOR?";
                     retorno = retorno.concat(u.getUsuario() + "$" + funcao);
                 } else if (u.isUserPlacar()) {
-                    funcao = "$PLACAR?";
+                    funcao = "PLACAR?";
                     retorno = retorno.concat(u.getUsuario() + "$" + funcao);
                 } else if (u.isUserPropaganda()) {
-                    funcao = "$PROPAGANDA?";
-                    retorno = retorno.concat(u.getUsuario() + "$" + funcao);
+                    funcao = "PROPAGANDA?";
+                    retorno = retorno.concat(u.getUsuario() + "$" +  funcao);
                 }
             }
             return retorno;
