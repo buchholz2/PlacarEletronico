@@ -7,6 +7,7 @@ package controladorplaca;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +20,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import main.Main;
+import model.ListaUsuarios;
+import model.Usuario;
 
 /**
  * FXML Controller class
@@ -32,6 +37,15 @@ import main.Main;
  * @author Leandro Heck
  */
 public class FXMLCadastroController implements Initializable {
+
+     @FXML
+    private TableView<Usuario> jTVTabela;
+
+    @FXML
+    private TableColumn<Usuario, String> jTCNome;
+
+    @FXML
+    private TableColumn<Usuario, String> jTCFuncao;
 
     @FXML
     private Button jBLogout;
@@ -124,7 +138,7 @@ public class FXMLCadastroController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
@@ -138,17 +152,40 @@ public class FXMLCadastroController implements Initializable {
     void listarUsuarios(MouseEvent event) {
         try {
             String retorno = "";
-            String [] div;
+            String[] div;
             String opcao;
-            ObservableList<Object> userData = FXCollections.observableArrayList();
-            
+            ObservableList<Usuario> userData = FXCollections.observableArrayList();
+            ListaUsuarios lista = new ListaUsuarios();
+
             retorno = Main.mandaMSG("#LISTAR_USUARIOS");
-           
-            
+
+            if (retorno.equals("#NOT$OK")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("LISTAGEM");
+                alert.setHeaderText(null);
+                alert.setContentText("NADA ENCONTRADO, NENHUM USUÁRIO LISTADO!");
+                alert.show();
+            } else {
+                div = retorno.split("\\?");
+
+                for (int i = 0; i < div.length; i++) {
+                    String[] div2 = div[i].split("\\$");
+                    String nome = div2[0];
+                    String funcao = div2[1];
+                    Usuario user = new Usuario();
+                    user.setUsuario(nome);
+                    user.setFuncao(funcao);
+                    userData.add(user);
+                    System.out.println("Nome" + nome + " " + funcao);
+
+                }
+                
+               jTVTabela.setItems(userData);
+
+            }
         } catch (IOException ex) {
             //IMPLEMENTAR LOGGER
         }
-        
 
     }
 
