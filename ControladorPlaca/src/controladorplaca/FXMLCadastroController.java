@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -134,6 +136,19 @@ public class FXMLCadastroController implements Initializable {
      */
     @FXML
     void listarUsuarios(MouseEvent event) {
+        try {
+            String retorno = "";
+            String [] div;
+            String opcao;
+            ObservableList<Object> userData = FXCollections.observableArrayList();
+            
+            retorno = Main.mandaMSG("#LISTAR_USUARIOS");
+           
+            
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOGGER
+        }
+        
 
     }
 
