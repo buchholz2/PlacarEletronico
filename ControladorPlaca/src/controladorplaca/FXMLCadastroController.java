@@ -7,9 +7,13 @@ package controladorplaca;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -17,9 +21,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import main.Main;
+import model.ListaUsuarios;
+import model.Usuario;
 
 /**
  * FXML Controller class
@@ -30,6 +41,15 @@ import main.Main;
  * @author Leandro Heck
  */
 public class FXMLCadastroController implements Initializable {
+
+    @FXML
+    private TableView<Usuario> jTVTabela;
+
+    @FXML
+    private TableColumn<Usuario, String> jTCNome;
+
+    @FXML
+    private TableColumn<Usuario, String> jTCFuncao;
 
     @FXML
     private Button jBLogout;
@@ -104,7 +124,28 @@ public class FXMLCadastroController implements Initializable {
     void excluirUsuario(MouseEvent event) {
         String retorno = "";
         try {
-            if (!jTFExcluirUsuario.getText().isEmpty()) {
+            if (jTFExcluirUsuario.getText().equals("adm")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUIR");
+                alert.setHeaderText(null);
+                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
+                alert.show();
+                limpaCampos();
+            } else if (jTFExcluirUsuario.getText().equals("placar")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUIR");
+                alert.setHeaderText(null);
+                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
+                alert.show();
+                limpaCampos();
+            } else if (jTFExcluirUsuario.getText().equals("propaganda")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUIR");
+                alert.setHeaderText(null);
+                alert.setContentText("USUÁRIO PADRÃO IMPOSSIVEL EXCLUIR!");
+                alert.show();
+                limpaCampos();
+            } else if (!jTFExcluirUsuario.getText().isEmpty()) {
                 retorno = Main.mandaMSG("#EXCLUIR_USUARIO$" + jTFExcluirUsuario.getText());
                 if (retorno.equals("#OK")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -122,7 +163,7 @@ public class FXMLCadastroController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
@@ -134,6 +175,40 @@ public class FXMLCadastroController implements Initializable {
      */
     @FXML
     void listarUsuarios(MouseEvent event) {
+        try {
+            String retorno = "";
+            String[] div;
+            String opcao;
+            ObservableList<Usuario> userData = FXCollections.observableArrayList();
+            ListaUsuarios lista = new ListaUsuarios();
+
+            retorno = Main.mandaMSG("#LISTAR_USUARIOS");
+
+            if (retorno.equals("#NOT$OK")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("LISTAGEM");
+                alert.setHeaderText(null);
+                alert.setContentText("NADA ENCONTRADO, NENHUM USUÁRIO LISTADO!");
+                alert.show();
+            } else {
+                div = retorno.split("\\?");
+
+                for (int i = 0; i < div.length; i++) {
+                    String[] div2 = div[i].split("\\$");
+                    String nome = div2[0];
+                    String funcao = div2[1];
+                    Usuario user = new Usuario(nome, funcao);
+                    userData.add(user);
+                    System.out.println("Nome" + nome + " " + funcao);
+                    System.out.println(userData.get(i).getFuncao() + " = " + userData.get(i).getUsuario());
+                }
+
+                jTVTabela.setItems(userData);
+
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOGGER
+        }
 
     }
 
@@ -271,9 +346,10 @@ public class FXMLCadastroController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb
-    ) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {
+        jTCNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        jTCFuncao.setCellValueFactory(new PropertyValueFactory<>("funcao"));
+        jTVTabela.centerShapeProperty().set(true);
     }
 
 }
