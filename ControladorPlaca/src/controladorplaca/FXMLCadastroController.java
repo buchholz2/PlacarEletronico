@@ -18,6 +18,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import main.Main;
 
@@ -31,6 +33,15 @@ import main.Main;
  */
 public class FXMLCadastroController implements Initializable {
 
+    @FXML
+    private TreeTableView<?> jTViewListaUsers;
+
+    @FXML
+    private TreeTableColumn<?, ?> jTVNomeUser;
+
+    @FXML
+    private TreeTableColumn<?, ?> jTVFuncao;
+    
     @FXML
     private Button jBLogout;
 
@@ -122,7 +133,7 @@ public class FXMLCadastroController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
