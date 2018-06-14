@@ -31,3 +31,11 @@ and open the template in the editor.
 .fonteTitulo{
     -fx-font-family: "Soccer League"
 }
+
+.alinhamento{
+    -fx-alignment: CENTER;
+}
+
+#alinhamento{
+    -fx-alignment: CENTER;
+}

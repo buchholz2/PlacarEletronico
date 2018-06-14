@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
    <children>
       <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairTelaCadastro" text="Logout" />
       <Button fx:id="jBListaUsuarios" layoutX="164.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#listarUsuarios" prefHeight="25.0" prefWidth="109.0" text="Listar Usuarios" />
@@ -42,10 +42,10 @@
       <CheckBox fx:id="jCBAdministrador" layoutX="623.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#selecionadoAdministrador" text="ADM" />
       <CheckBox fx:id="jCBPropaganda" layoutX="717.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#selecionadoPropaganda" text="Propaganda" />
       <Button fx:id="jBAdicionar" layoutX="626.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#adicionarUsuario" prefHeight="25.0" prefWidth="84.0" text="Adicionar" />
-      <TableView fx:id="jTVTabela" layoutX="33.0" layoutY="141.0" prefHeight="428.0" prefWidth="374.0">
+      <TableView id="alinhamento" fx:id="jTVTabela" layoutX="33.0" layoutY="141.0" prefHeight="428.0" prefWidth="374.0" styleClass="alinhamento" stylesheets="@../estilos/meinCSS.css">
         <columns>
-          <TableColumn fx:id="jTCNome" prefWidth="187.0" text="C1" />
-          <TableColumn fx:id="jTCFuncao" prefWidth="186.0" text="C2" />
+          <TableColumn id="alinhamento" fx:id="jTCNome" prefWidth="187.0" text="Nome" />
+          <TableColumn id="alinhamento" fx:id="jTCFuncao" prefWidth="186.0" text="Função" />
         </columns>
       </TableView>
    </children>

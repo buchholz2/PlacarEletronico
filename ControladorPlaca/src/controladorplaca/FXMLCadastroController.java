@@ -23,6 +23,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import main.Main;
 import model.ListaUsuarios;
@@ -38,7 +39,7 @@ import model.Usuario;
  */
 public class FXMLCadastroController implements Initializable {
 
-     @FXML
+    @FXML
     private TableView<Usuario> jTVTabela;
 
     @FXML
@@ -172,15 +173,13 @@ public class FXMLCadastroController implements Initializable {
                     String[] div2 = div[i].split("\\$");
                     String nome = div2[0];
                     String funcao = div2[1];
-                    Usuario user = new Usuario();
-                    user.setUsuario(nome);
-                    user.setFuncao(funcao);
+                    Usuario user = new Usuario(nome, funcao);
                     userData.add(user);
                     System.out.println("Nome" + nome + " " + funcao);
-
+                    System.out.println(userData.get(i).getFuncao()+" = "+userData.get(i).getUsuario());
                 }
-                
-               jTVTabela.setItems(userData);
+
+                jTVTabela.setItems(userData);
 
             }
         } catch (IOException ex) {
@@ -323,9 +322,10 @@ public class FXMLCadastroController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb
-    ) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {
+        jTCNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        jTCFuncao.setCellValueFactory(new PropertyValueFactory<>("funcao"));
+        jTVTabela.centerShapeProperty().set(true);
     }
 
 }
