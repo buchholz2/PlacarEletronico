@@ -6,13 +6,12 @@
 package controladorplaca;
 
 import com.jfoenix.controls.JFXButton;
-import java.awt.event.KeyAdapter;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -42,19 +41,16 @@ public class FXMLLoginCadastroController implements Initializable {
     private Pane jPLogin;
 
     @FXML
-    private PasswordField jTFSenha;
+    private JFXButton jBEntrar;
 
     @FXML
-    private Button jBSair;
+    private JFXTextField jTFUsuario;
 
     @FXML
-    private TextField jTFUsuario;
+    private JFXButton jBSair;
 
     @FXML
-    private Button jBEntrar;
-    
-    @FXML
-    private JFXButton idBu;
+    private JFXPasswordField jTFSenha;
     
     /**
      * Evento do botão Sair. Fecha stage
