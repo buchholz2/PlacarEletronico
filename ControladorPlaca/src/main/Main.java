@@ -58,10 +58,16 @@ public class Main extends Application {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
+//        setSocket(new Socket("localhost", 12345));
+//        entrada = new ObjectInputStream(getSocket().getInputStream());
+//        saida = new ObjectOutputStream(getSocket().getOutputStream());
+        launch(args);
+    }
+    
+    public static void conectar() throws IOException{
         setSocket(new Socket("localhost", 12345));
         entrada = new ObjectInputStream(getSocket().getInputStream());
         saida = new ObjectOutputStream(getSocket().getOutputStream());
-        launch(args);
     }
 
     /**
