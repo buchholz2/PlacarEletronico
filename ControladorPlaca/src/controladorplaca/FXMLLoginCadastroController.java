@@ -51,7 +51,7 @@ public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     private JFXPasswordField jTFSenha;
-    
+
     /**
      * Evento do botão Sair. Fecha stage
      *
@@ -81,7 +81,7 @@ public class FXMLLoginCadastroController implements Initializable {
     void validaLoginK(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             chamaLogin();
-        } else if (event.getCode() == KeyCode.ESCAPE){
+        } else if (event.getCode() == KeyCode.ESCAPE) {
             Main.getStage().close();
         }
     }

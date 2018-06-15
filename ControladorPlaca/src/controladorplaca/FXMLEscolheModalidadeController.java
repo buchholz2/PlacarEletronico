@@ -5,14 +5,15 @@
  */
 package controladorplaca;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import main.Main;
 
@@ -27,23 +28,25 @@ import main.Main;
 public class FXMLEscolheModalidadeController implements Initializable {
 
     @FXML
-    private Button jBBasquete;
+    private JFXButton jBLogout;
 
     @FXML
-    private Button jBPadrao;
+    private JFXButton jBBasquete;
 
     @FXML
-    private Button jBVolei;
+    private JFXButton jBVolei;
+
+    @FXML
+    private JFXButton jBPadrao;
 
     /**
-     * Evento botão basquete
-     * Envia comando da modalidade escolhida para o servidor
-     * se retorno = escolhida
-     * carrega view controlador placar basquete
-     * @param event 
+     * Evento botão basquete Envia comando da modalidade escolhida para o
+     * servidor se retorno = escolhida carrega view controlador placar basquete
+     *
+     * @param event
      */
     @FXML
-    void iniciaBasquete(MouseEvent event){
+    void iniciaBasquete(MouseEvent event) {
         try {
             if (Main.mandaMSG("#ESCOLHE_MODALIDADE$BASQUETE").equals("ESCOLHIDA")) {
                 Main.loadScene("/view/FXMLControladorPlacar.fxml");
@@ -54,27 +57,37 @@ public class FXMLEscolheModalidadeController implements Initializable {
     }
 
     /**
-     * Evento botão padrão
-     * Envia comando da modalidade escolhida para o servidor
-     * se retorno = escolhida
-     * carrega view controlador placar padrão
-     * @param event 
+     * Evento botão padrão Envia comando da modalidade escolhida para o servidor
+     * se retorno = escolhida carrega view controlador placar padrão
+     *
+     * @param event
      */
     @FXML
-    void iniciaPPadrao(MouseEvent event) {
+    void iniciaPadrao(MouseEvent event) {
 
     }
 
     /**
-     * Evento botão basquete
-     * Envia comando da modalidade escolhida para o servidor
-     * se retorno = escolhida
-     * carrega view controlador placar vôlei
-     * @param event 
+     * Evento botão basquete Envia comando da modalidade escolhida para o
+     * servidor se retorno = escolhida carrega view controlador placar vôlei
+     *
+     * @param event
      */
     @FXML
-    void iniciaPVolei(MouseEvent event) {
+    void iniciaVolei(MouseEvent event) {
 
+    }
+
+    @FXML
+    void pressedKey(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            Main.loadScene("/view/FXMLLogin.fxml");
+        }
+    }
+
+    @FXML
+    void sairJanela(MouseEvent event) {
+        Main.loadScene("/view/FXMLLogin.fxml");
     }
 
     /**

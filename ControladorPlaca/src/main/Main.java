@@ -48,7 +48,7 @@ public class Main extends Application {
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
 
-        loadScene("/view/FXMLLoginCadastro.fxml");
+        loadScene("/view/FXMLLogin.fxml");
 
     }
 

@@ -4,7 +4,9 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,26 +20,46 @@
             <Image url="@../imagens/fundo.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="jBSair" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="536.0" layoutY="-1.0" onAction="#fecharTela" onKeyPressed="#validaLoginK" prefHeight="58.0" prefWidth="66.0" ripplerFill="#cb866e00" text=" " textFill="#ffffff00">
+         <graphic>
+            <MaterialDesignIconView glyphName="CLOSE_BOX_OUTLINE" size="50" wrappingWidth="49.0" />
+         </graphic>
+      </JFXButton>
       <Pane fx:id="jPLogin" layoutX="282.0" layoutY="124.0" onKeyPressed="#validaLoginK" prefHeight="200.0" prefWidth="287.0">
          <children>
-            <JFXButton fx:id="jBEntrar" buttonType="RAISED" layoutX="14.0" layoutY="157.0" onAction="#validaLogin" prefHeight="25.0" prefWidth="102.0" ripplerFill="#31013e" style="-fx-background-color: white;" text="Entrar" textAlignment="CENTER" textFill="#31013e" />
             <JFXTextField fx:id="jTFUsuario" alignment="CENTER" focusColor="#31013e" labelFloat="true" layoutX="18.0" layoutY="14.0" promptText="Usuário" styleClass="text-field" unFocusColor="WHITE" />
-            <JFXButton fx:id="jBSair" buttonType="RAISED" layoutX="171.0" layoutY="157.0" onAction="#fecharTela" prefHeight="25.0" prefWidth="102.0" ripplerFill="#31013e" style="-fx-background-color: white;" text="Sair" textAlignment="CENTER" textFill="#31013e" />
             <JFXPasswordField fx:id="jTFSenha" alignment="CENTER" focusColor="#31013e" labelFloat="true" layoutX="18.0" layoutY="85.0" promptText="Senha" unFocusColor="WHITE" />
+            <JFXButton fx:id="jBEntrar" buttonType="RAISED" layoutX="88.0" layoutY="161.0" onAction="#validaLogin" prefHeight="25.0" prefWidth="102.0" ripplerFill="#31013e" style="-fx-background-color: white;" text="Entrar" textAlignment="CENTER" textFill="#31013e" />
             <FontAwesomeIconView glyphName="USER" layoutX="18.0" layoutY="55.0" size="30" />
             <FontAwesomeIconView glyphName="KEY" layoutX="18.0" layoutY="126.0" size="30" />
          </children>
       </Pane>
-      <Label layoutX="97.0" layoutY="28.0" text="Login Controlador" textFill="WHITE">
+      <Label layoutX="94.0" layoutY="22.0" text="Login Controlador">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
+         <effect>
+            <Shadow height="30.0" radius="14.5" width="30.0" />
+         </effect>
+      </Label>
+      <Label layoutX="94.0" layoutY="22.0" text="Login Controlador" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="85.0" layoutY="307.0" text="Bem-Vindo">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <effect>
+            <Shadow height="30.0" radius="14.5" width="30.0" />
+         </effect>
       </Label>
       <Label layoutX="85.0" layoutY="307.0" text="Bem-Vindo" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <FontAwesomeIconView glyphName="USER_CIRCLE_ALT" layoutX="61.0" layoutY="270.0" size="170" wrappingWidth="173.9999975413084" />
+      <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE_ALT" layoutX="61.0" layoutY="270.0" size="170" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" wrappingWidth="173.9999975413084" />
    </children>
 </AnchorPane>

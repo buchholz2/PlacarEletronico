@@ -109,7 +109,7 @@ public class FXMLCadastroController implements Initializable {
      */
     @FXML
     void sairTelaCadastro(MouseEvent event) {
-        Main.loadScene("/view/FXMLLoginCadastro.fxml");
+        Main.loadScene("/view/FXMLLogin.fxml");
     }
 
     /**
