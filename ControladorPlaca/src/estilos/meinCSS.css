@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : 30/04/2018, 11:16:18
     Author     : danie
 */
+* {
+    -fx-primaty: white;
+    -fx-secundary: white;
+    -fx-primarytext: white;
+}
+
 .imagemBasq{
     -fx-background-image: url("/imagens/basq.png");
     -fx-background-size: 100%, 100%;
@@ -38,4 +44,19 @@ and open the template in the editor.
 
 #alinhamento{
     -fx-alignment: CENTER;
+}
+
+.image-login{
+    -fx-fill: white;
+}
+
+.glyph-icon{
+    -fx-fill: white;
+}
+
+.text-field{
+    -fx-prompt-text-fill: white;
+    -fx-prompt-text-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
 }

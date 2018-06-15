@@ -5,6 +5,7 @@
  */
 package controladorplaca;
 
+import com.jfoenix.controls.JFXButton;
 import java.awt.event.KeyAdapter;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -51,7 +52,10 @@ public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     private Button jBEntrar;
-
+    
+    @FXML
+    private JFXButton idBu;
+    
     /**
      * Evento do botão Sair. Fecha stage
      *
