@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * @author Cristiano Künas
@@ -100,6 +101,7 @@ public class Main extends Application {
                 primaryStage.setScene(scenePrincipal);
                 primaryStage.centerOnScreen();
                 primaryStage.setResizable(false);
+                primaryStage.initStyle(StageStyle.TRANSPARENT);
                 primaryStage.setTitle("Controlador");
                 primaryStage.show();
             });
