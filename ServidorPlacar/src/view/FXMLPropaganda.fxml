@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.media.MediaView?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.FXMLPropagandaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.FXMLPropagandaController">
     <stylesheets>
-        <URL value="@/estilos/meinCSS.css"/>
+        <URL value="@/estilos/meinCSS.css" />
     </stylesheets>
+   <children>
+      <BorderPane>
+         <top>
+            <Label fx:id="jLTitulo" text="TimeA 00 x 00 TimeB" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <MediaView fx:id="jMidiaView" fitHeight="200.0" fitWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
