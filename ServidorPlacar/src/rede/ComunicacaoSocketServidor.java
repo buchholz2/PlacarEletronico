@@ -593,6 +593,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 
             @Override
             public Void call() throws Exception {
+                String user = "";
                 ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
@@ -606,6 +607,9 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.writeUTF(time(escolha));
                         saida.flush();
                     } else if (escolha[0].equals("#LOGIN")) {
+                        if (login(escolha).contains("LOGADO")) {
+                            user = escolha[1];
+                        }
                         saida.writeUTF(login(escolha));
                         saida.flush();
                     } else if (escolha[0].equals("#INICIA_CRONO")) {
@@ -771,6 +775,9 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.close();
                         cliente.close();
                         System.out.println("Cliente se desconectou!");
+                    } else if (escolha[0].equals("#QUAL_USER")) {
+                        saida.writeUTF(user);
+                        saida.flush();
                     }
                 }
             }
