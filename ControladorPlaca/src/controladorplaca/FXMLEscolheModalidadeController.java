@@ -79,14 +79,16 @@ public class FXMLEscolheModalidadeController implements Initializable {
     }
 
     @FXML
-    void pressedKey(KeyEvent event) {
+    void pressedKey(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE) {
+            Main.mandaMSG("#DESCONECTAR");
             Main.loadScene("/view/FXMLLogin.fxml");
         }
     }
 
     @FXML
-    void sairJanela(MouseEvent event) {
+    void sairJanela(MouseEvent event) throws IOException {
+        Main.mandaMSG("#DESCONECTAR");
         Main.loadScene("/view/FXMLLogin.fxml");
     }
 

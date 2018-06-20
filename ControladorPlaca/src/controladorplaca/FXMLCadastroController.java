@@ -102,7 +102,8 @@ public class FXMLCadastroController implements Initializable {
      * @param event
      */
     @FXML
-    void sairTelaCadastro(MouseEvent event) {
+    void sairTelaCadastro(MouseEvent event) throws IOException {
+        Main.mandaMSG("#DESCONECTAR");
         Main.loadScene("/view/FXMLLogin.fxml");
     }
 

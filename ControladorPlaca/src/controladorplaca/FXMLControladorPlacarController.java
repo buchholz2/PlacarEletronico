@@ -4,6 +4,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -164,6 +165,9 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     private ToggleButton jTBIniciaProp;
+
+    @FXML
+    private Label jLLogger;
 
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
@@ -1052,6 +1056,12 @@ public class FXMLControladorPlacarController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            Date date = new Date();
+            jLLogger.setText(Main.mandaMSG("#QUAL_USER")+" : "+date.toGMTString());
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
