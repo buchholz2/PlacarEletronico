@@ -48,7 +48,7 @@ public class FXMLPropagandaController implements Initializable {
     private ArrayList<String> lista;
 
     public FXMLPropagandaController() {
-        this.diretorio = "C:\\Users\\danie\\Desktop\\Nova pasta";
+        this.diretorio = "E:\\Cursos\\Curso de Go (Golang)\\2. Fundamentos";
         this.lista = new ArrayList();
     }
 
