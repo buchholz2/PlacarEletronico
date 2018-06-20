@@ -64,6 +64,13 @@ public class FXMLLoginCadastroController implements Initializable {
      */
     @FXML
     void fecharTela(ActionEvent event) {
+        try {
+            if (chave != true) {
+                Main.mandaMSG("#DESCONECTAR");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Main.getStage().close();
     }
 
@@ -87,6 +94,13 @@ public class FXMLLoginCadastroController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             chamaLogin();
         } else if (event.getCode() == KeyCode.ESCAPE) {
+            try {
+                if (chave != true) {
+                    Main.mandaMSG("#DESCONECTAR");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Main.getStage().close();
         }
     }
@@ -139,6 +153,13 @@ public class FXMLLoginCadastroController implements Initializable {
                             } else if (msg[1].equals("PROPAGANDA")) {
 
                             }
+                        } else if (msg[0].equals("#MAXIMO_USER")) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("SERVIDOR LOTADO");
+                            alert.setHeaderText(null);
+                            alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
+                            alert.show();
+                            chave = true;
                         } else {
                             Alert alert = new Alert(AlertType.ERROR);
                             alert.setTitle("ERRO DE LOGIN");
