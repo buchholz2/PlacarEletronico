@@ -249,7 +249,7 @@
                 <Font name="Agency FB" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="jBNovoQuarto" alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#novoQuarto" prefHeight="59.0" prefWidth="70.0" text="Novo Quarto" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="jBNovoQuarto" alignment="CENTER" contentDisplay="CENTER" layoutX="1005.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#novoQuarto" prefHeight="59.0" prefWidth="70.0" text="Novo Quarto" textAlignment="CENTER" wrapText="true" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="429.0" text="buchholz: 22/05/2018 - 23:01">
             <font>
                 <Font name="Ebrima" size="11.0" />
@@ -295,5 +295,6 @@
                 <Font name="Ebrima" size="20.0" />
             </font>
         </Label>
+      <ToggleButton fx:id="jTBIniciaProp" layoutX="1005.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#iniciaPropaganda" prefHeight="59.0" prefWidth="70.0" text="Inicia Propag." textAlignment="CENTER" wrapText="true" />
     </children>
 </AnchorPane>

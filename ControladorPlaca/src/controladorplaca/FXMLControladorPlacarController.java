@@ -162,6 +162,9 @@ public class FXMLControladorPlacarController implements Initializable {
     @FXML
     private Label jLNomeVisitante;
 
+    @FXML
+    private ToggleButton jTBIniciaProp;
+
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
      * comando altera_nome para o servidor Aguarda retorno para atualizar placar
@@ -188,14 +191,19 @@ public class FXMLControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
+    @FXML
+    void iniciaPropaganda(MouseEvent event) {
+
+    }
+
     /**
-     * Evento do botão definir
-     * define valor para iniciar cronomentro
-     * @param event 
+     * Evento do botão definir define valor para iniciar cronomentro
+     *
+     * @param event
      */
     @FXML
     void defineValorCrono(MouseEvent event) {
@@ -249,18 +257,18 @@ public class FXMLControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
     /**
-     * Ação iniciar cronômetro.
-     * Envia comanto para servidor, 
-     * Aguarda retorno para atualizar preview
-     * @param event 
+     * Ação iniciar cronômetro. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     *
+     * @param event
      */
     @FXML
-    void iniciaCrono(MouseEvent event){
+    void iniciaCrono(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#INICIA_CRONO$" + jTFDefineCrono.getText());
             if (retorno.equals("CRONOS_INICIADO")) {
@@ -280,13 +288,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais dois pontos time local.
-     * Envia comanto para servidor, 
+     * Ação soma mais dois pontos time local. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void maisDoisL(MouseEvent event){
+    void maisDoisL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$DOIS$");
             if (retorno.equals("#OK")) {
@@ -296,7 +304,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosLocal.setText("0" + pontosL);
                 }
-                
+
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
@@ -304,13 +312,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais dois pontos time visitante.
-     * Envia comanto para servidor, 
+     * Ação soma mais dois pontos time visitante. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void maisDoisV(MouseEvent event){
+    void maisDoisV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$DOIS$");
             if (retorno.equals("#OK")) {
@@ -320,7 +328,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosVisitante.setText("0" + pontosV);
                 }
-                
+
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
@@ -328,30 +336,30 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma falta time local.
-     * Envia comanto para servidor, 
-     * Aguarda retorno para atualizar preview
-     * @param event 
+     * Ação soma falta time local. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     *
+     * @param event
      */
     @FXML
-    void maisFaltaL(MouseEvent event){
+    void maisFaltaL(MouseEvent event) {
         try {
             if (Main.mandaMSG("#MUDA_FALTA$LOCAL$SOMA").equals("MUDADO")) {
                 mudaFalta("LOCAL", "SOMA");
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
     /**
-     * Ação soma falta time visitante.
-     * Envia comanto para servidor, 
-     * Aguarda retorno para atualizar preview
-     * @param event 
+     * Ação soma falta time visitante. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
+     * @param event
      */
     @FXML
-    void maisFaltaV(MouseEvent event){
+    void maisFaltaV(MouseEvent event) {
         try {
             if (Main.mandaMSG("#MUDA_FALTA$VISITANTE$SOMA").equals("MUDADO")) {
                 mudaFalta("VISITANTE", "SOMA");
@@ -362,13 +370,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais três pontos time local.
-     * Envia comanto para servidor, 
+     * Ação soma mais três pontos time local. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void maisTresL(MouseEvent event){
+    void maisTresL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$TRES$");
             if (retorno.equals("#OK")) {
@@ -378,7 +386,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosLocal.setText("0" + pontosL);
                 }
-                
+
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
@@ -386,13 +394,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais três pontos time visitante.
-     * Envia comanto para servidor, 
+     * Ação soma mais três pontos time visitante. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void maisTresV(MouseEvent event){
+    void maisTresV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$TRES$");
             if (retorno.equals("#OK")) {
@@ -402,7 +410,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosVisitante.setText("0" + pontosV);
                 }
-                
+
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
@@ -410,13 +418,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais um ponto time local.
-     * Envia comanto para servidor, 
-     * Aguarda retorno para atualizar preview
-     * @param event 
+     * Ação soma mais um ponto time local. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
+     * @param event
      */
     @FXML
-    void maisUmL(MouseEvent event){
+    void maisUmL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SOMA_PONTO$UM$");
             if (retorno.equals("#OK")) {
@@ -426,7 +434,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosLocal.setText("0" + pontosL);
                 }
-                
+
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
@@ -434,13 +442,13 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * Ação soma mais um ponto time visitante.
-     * Envia comanto para servidor, 
+     * Ação soma mais um ponto time visitante. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void maisUmV(MouseEvent event){
+    void maisUmV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SOMA_PONTO$UM$");
             if (retorno.equals("#OK")) {
@@ -450,19 +458,19 @@ public class FXMLControladorPlacarController implements Initializable {
                 } else {
                     jLPontosVisitante.setText("0" + pontosV);
                 }
-                
+
             }
         } catch (IOException ex) {
-           //IMPLEMENTAR LOG
+            //IMPLEMENTAR LOG
         }
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosDoisL(MouseEvent event){
+    void menosDoisL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$DOIS$");
             if (retorno.equals("#OK")) {
@@ -482,11 +490,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosDoisV(MouseEvent event){
+    void menosDoisV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$DOIS$");
             if (retorno.equals("#OK")) {
@@ -506,11 +514,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosFaltaL(MouseEvent event){
+    void menosFaltaL(MouseEvent event) {
         try {
             if (Main.mandaMSG("#MUDA_FALTA$LOCAL$SUB").equals("MUDADO")) {
                 mudaFalta("LOCAL", "SUB");
@@ -521,11 +529,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosFaltaV(MouseEvent event){
+    void menosFaltaV(MouseEvent event) {
         try {
             if (Main.mandaMSG("#MUDA_FALTA$VISITANTE$SUB").equals("MUDADO")) {
                 mudaFalta("VISITANTE", "SUB");
@@ -536,11 +544,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosTresL(MouseEvent event){
+    void menosTresL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$TRES$");
             if (retorno.equals("#OK")) {
@@ -560,11 +568,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosTresV(MouseEvent event){
+    void menosTresV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$TRES$");
             if (retorno.equals("#OK")) {
@@ -584,11 +592,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosUmL(MouseEvent event){
+    void menosUmL(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$LOCAL$SUB_PONTO$UM$");
             if (retorno.equals("#OK")) {
@@ -608,11 +616,11 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void menosUmV(MouseEvent event){
+    void menosUmV(MouseEvent event) {
         try {
             String retorno = Main.mandaMSG("#TIME$VISITANTE$SUB_PONTO$UM$");
             if (retorno.equals("#OK")) {
@@ -632,23 +640,23 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void novoQuarto(MouseEvent event){
+    void novoQuarto(MouseEvent event) {
         try {
             if (Main.mandaMSG("#NOVA_RODADA").equals("INICIADA_RODADA")) {
                 if (rodada == 1) {
-                    
+
                     rodada++;
-                    
+
                     cronosPausado = false;
                     fimCrono = false;
-                    
+
                     somaRodadaL = pontosL;
                     somaRodadaV = pontosV;
-                    
+
                     if (somaRodadaL > 9 & somaRodadaV > 9) {
                         Platform.runLater(() -> {
                             jLRodada1.setText(somaRodadaL + " x " + somaRodadaV);
@@ -680,15 +688,15 @@ public class FXMLControladorPlacarController implements Initializable {
                             break;
                     }
                     rodada++;
-                    
+
                     cronosPausado = false;
                     fimCrono = false;
-                    
+
                     somaRodadaL = pontosL - somaRodadaL;
                     somaRodadaV = pontosV - somaRodadaV;
-                    
+
                     System.out.println(somaRodadaL + " = " + somaRodadaV);
-                    
+
                     if (somaRodadaL > 9 & somaRodadaV > 9) {
                         //  Platform.runLater(() -> {
                         rod.setText(somaRodadaL + " x " + somaRodadaV);
@@ -706,17 +714,17 @@ public class FXMLControladorPlacarController implements Initializable {
                         rod.setText("0" + somaRodadaL + " x " + somaRodadaV);
                         //});
                     }
-                    
+
                     somaRodadaL = pontosL;
                     somaRodadaV = pontosV;
                 } else {
-                    
+
                     cronosPausado = false;
                     fimCrono = false;
-                    
+
                     somaRodadaL = pontosL - somaRodadaL;
                     somaRodadaV = pontosV - somaRodadaV;
-                    
+
                     if (somaRodadaL > 9 & somaRodadaV > 9) {
                         //Platform.runLater(() -> {
                         jLRodada5.setText(somaRodadaL + " x " + somaRodadaV);
@@ -733,7 +741,7 @@ public class FXMLControladorPlacarController implements Initializable {
                         //Platform.runLater(() -> {
                         jLRodada5.setText("0" + somaRodadaL + " x " + somaRodadaV);
                         // });
-                        
+
                     }
                     somaRodadaL = pontosL;
                     somaRodadaV = pontosV;
@@ -746,30 +754,30 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void pausaCrono(MouseEvent event){
-        try{
-        if (jTBPausaCrono.isSelected()) {
-            if (Main.mandaMSG("#PAUSA_CRONOS").equals("PAUSADO")) {
-                cronosPausado = true;
+    void pausaCrono(MouseEvent event) {
+        try {
+            if (jTBPausaCrono.isSelected()) {
+                if (Main.mandaMSG("#PAUSA_CRONOS").equals("PAUSADO")) {
+                    cronosPausado = true;
+                }
+            } else {
+                if (Main.mandaMSG("#CONTINUA_CRONOS").equals("CONTINUA")) {
+                    cronosPausado = false;
+                }
             }
-        } else {
-            if (Main.mandaMSG("#CONTINUA_CRONOS").equals("CONTINUA")) {
-                cronosPausado = false;
-            }
-        } 
-        }catch(IOException ex){
+        } catch (IOException ex) {
             //IMPLEMENTAR LOG
         }
     }
 
     /**
-     * 
+     *
      * @param event
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @FXML
     void reiniciaCrono(MouseEvent event) throws InterruptedException {
@@ -777,62 +785,62 @@ public class FXMLControladorPlacarController implements Initializable {
         fimCrono = false;
         jTBPausaCrono.setSelected(false);
         cronosPausado = false;
-        try{
-        if (jTFDefineCrono.getText().equals("")) {
-            if (Main.mandaMSG("#REINICIA_CRONO$" + "10:00:00").equals("REINICIADO")) {
-                fimCrono = false;
-                jTBPausaCrono.setSelected(false);
-                cronosPausado = false;
-                tempoLan = 24;
-                Platform.runLater(() -> {
-                    jLTempoLancamento.setText("24");
-                    jLCronometro.setText("10:00:00");
-                });
-            }
-        } else {
-            if (Main.mandaMSG("#REINICIA_CRONO$" + jTFDefineCrono.getText()).equals("REINICIADO")) {
-                System.out.println("AQUI");
-                String[] tempo = jTFDefineCrono.getText().split("\\:");
-                String m;
-                String s;
-                int min = Integer.parseInt(tempo[0]);
-                int seg = Integer.parseInt(tempo[1]);
-
-                if (min > 9) {
-                    m = "" + min;
-                } else {
-                    m = "0" + min;
+        try {
+            if (jTFDefineCrono.getText().equals("")) {
+                if (Main.mandaMSG("#REINICIA_CRONO$" + "10:00:00").equals("REINICIADO")) {
+                    fimCrono = false;
+                    jTBPausaCrono.setSelected(false);
+                    cronosPausado = false;
+                    tempoLan = 24;
+                    Platform.runLater(() -> {
+                        jLTempoLancamento.setText("24");
+                        jLCronometro.setText("10:00:00");
+                    });
                 }
-                if (seg > 9) {
-                    s = "" + seg;
-                } else {
-                    s = "0" + seg;
+            } else {
+                if (Main.mandaMSG("#REINICIA_CRONO$" + jTFDefineCrono.getText()).equals("REINICIADO")) {
+                    System.out.println("AQUI");
+                    String[] tempo = jTFDefineCrono.getText().split("\\:");
+                    String m;
+                    String s;
+                    int min = Integer.parseInt(tempo[0]);
+                    int seg = Integer.parseInt(tempo[1]);
+
+                    if (min > 9) {
+                        m = "" + min;
+                    } else {
+                        m = "0" + min;
+                    }
+                    if (seg > 9) {
+                        s = "" + seg;
+                    } else {
+                        s = "0" + seg;
+                    }
+                    fimCrono = false;
+                    jTBPausaCrono.setSelected(false);
+                    cronosPausado = false;
+                    tempoLan = 24;
+
+                    Platform.runLater(() -> {
+                        jLTempoLancamento.setText("24");
+                        jLCronometro.setText(m + ":" + s + ":" + "00");
+
+                    });
+
                 }
-                fimCrono = false;
-                jTBPausaCrono.setSelected(false);
-                cronosPausado = false;
-                tempoLan = 24;
-
-                Platform.runLater(() -> {
-                    jLTempoLancamento.setText("24");
-                    jLCronometro.setText(m + ":" + s + ":" + "00");
-
-                });
 
             }
-
-        }
-        }catch(IOException ex){
+        } catch (IOException ex) {
             //IMPLEMENTAR LOG
         }
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    void reiniciaLancamento(MouseEvent event){
+    void reiniciaLancamento(MouseEvent event) {
         try {
             if (Main.mandaMSG("#REINICIA_TEMPO").equals("REINICIADO")) {
                 tempoLan = 24;
@@ -845,8 +853,8 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     void restauraTudo(MouseEvent event) throws IOException {
@@ -882,12 +890,12 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @param l
      * @param min
      * @param seg
      * @param mili
-     * @return 
+     * @return
      */
     private Task iniciaCronosPreview(Label l, int min, int seg, int mili) {
 
@@ -956,16 +964,16 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean fimCrono() {
         return fimCrono;
     }
 
     /**
-     * 
-     * @param l 
+     *
+     * @param l
      */
     private void iniciaTempoLPreview(Label l) {
         String muda;
@@ -990,9 +998,9 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @param time
-     * @param fun 
+     * @param fun
      */
     private void mudaFalta(String time, String fun) {
         if (time.equals("LOCAL")) {
@@ -1038,9 +1046,9 @@ public class FXMLControladorPlacarController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
