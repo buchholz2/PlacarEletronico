@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,7 +48,7 @@ public class FXMLPropagandaController implements Initializable {
     private ArrayList<String> lista;
 
     public FXMLPropagandaController() {
-        this.diretorio = "E:\\Cursos\\Curso de Go (Golang)\\2. Fundamentos";
+        this.diretorio = "C:\\Users\\danie\\Desktop\\Nova pasta";
         this.lista = new ArrayList();
     }
 
@@ -55,6 +57,15 @@ public class FXMLPropagandaController implements Initializable {
         try {
             buscaArquivos();
             initMediaPlayer(lista.iterator());
+            final DoubleProperty width = jMidiaView.fitWidthProperty();
+            final DoubleProperty height = jMidiaView.fitHeightProperty();
+
+            width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
+            height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
+            
+            jMidiaView.setPreserveRatio(true);
+            
+
         } catch (InterruptedException ex) {
             Logger.getLogger(FXMLPropagandaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
@@ -68,42 +79,29 @@ public class FXMLPropagandaController implements Initializable {
         URL url = new URL(afile[i].toURL().toString());
         for (int j = afile.length; i < j; i++) {
             File arquivos = afile[i];
-            lista.add(arquivos.toURL().toString());
-            System.out.println(arquivos.getName());
+            String u = arquivos.toURI().toURL().toString();
+            lista.add(u);
+            System.out.println(arquivos.toURI().toURL().toString());
         }
         return url;
     }
 
     private void initMediaPlayer(final Iterator<String> urls) {
         if (urls.hasNext()) {
-            MediaPlayer mediaPlayer = new MediaPlayer(new Media(urls.next()));
+            String endereco = urls.next().toString();
+            Media m = new Media(endereco);
+            MediaPlayer mediaPlayer = new MediaPlayer(m);
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.setOnEndOfMedia(new Runnable() {
                 @Override
                 public void run() {
-                    initMediaPlayer(mediaView, urls);
+                    initMediaPlayer(urls);
                 }
             });
-            mediaView.setMediaPlayer(mediaPlayer);
+            Platform.runLater(() -> {
+                jMidiaView.setMediaPlayer(mediaPlayer);
+            });
         }
-        for (int j = afile.length; i < j; i++) {
-            File arquivos = afile[i];
-            System.out.println(arquivos.getName());
-            Media m = new Media(arquivos.toURI().toString());
-
-            MediaPlayer mp = new MediaPlayer(m);
-
-            Duration currentTime = mp.getCurrentTime();
-            jMidiaView.setMediaPlayer(mp);
-            System.out.println();
-            jMidiaView.setPreserveRatio(true);
-            jMidiaView.autosize();
-            currentTime.negate();
-            mp.play();
-            //chamaCronos(mp);
-
-        }
-        return "";
     }
 
     public void chamaCronos(MediaPlayer current) {

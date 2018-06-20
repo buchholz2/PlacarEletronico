@@ -47,6 +47,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int somaRodadaV = 0;
     private int somaRodadaL = 0;
     String resultadoFinal = "";
+    private int count = 0;
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -65,18 +66,27 @@ public class ComunicacaoSocketServidor implements Runnable {
             //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
             // o método accept() bloqueia a execução até que
             // o servidor receba um pedido de conexão
+
             Socket cliente = servidor.accept();
-
-            ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
-            pro.setOpacity(0);
-
             System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
-
             ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
             ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-
+            
+            ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
+            pro.setOpacity(0);
+            count = 3;
             while (true) {
-
+                
+                if (count < 2) {
+                    cliente = servidor.accept();
+                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
+                    saida = new ObjectOutputStream(cliente.getOutputStream());
+                    entrada = new ObjectInputStream(cliente.getInputStream());
+                    count++;
+                }
+                if(count == 3){
+                    count = 0;
+                }
                 String msg = entrada.readUTF();
 
                 String[] escolha = msg.split("\\$");
@@ -407,7 +417,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     retorno = retorno.concat(u.getUsuario() + "$" + funcao);
                 } else if (u.isUserPropaganda()) {
                     funcao = "PROPAGANDA?";
-                    retorno = retorno.concat(u.getUsuario() + "$" +  funcao);
+                    retorno = retorno.concat(u.getUsuario() + "$" + funcao);
                 }
             }
             return retorno;
@@ -416,7 +426,6 @@ public class ComunicacaoSocketServidor implements Runnable {
         return ("#NOT$OK");
     }
 
-   
     public String fechaConexao(String[] msg) {
         return "";
     }

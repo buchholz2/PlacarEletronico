@@ -34,7 +34,7 @@ public class Main extends Application {
         new Thread(new ComunicacaoSocketServidor(primaryStage)).start();
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
 
-        loadScene("/view/FXMLPropaganda.fxml");
+        loadScene("/view/FXMLPrincipal.fxml");
 
 //        List <Usuario> l = new ArrayList<>();
 //        
