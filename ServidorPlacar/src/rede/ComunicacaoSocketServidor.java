@@ -66,193 +66,27 @@ public class ComunicacaoSocketServidor implements Runnable {
             //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
             // o método accept() bloqueia a execução até que
             // o servidor receba um pedido de conexão
-
-            Socket cliente = servidor.accept();
-            System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
-            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
-            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-            
-            ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
-            pro.setOpacity(0);
-            count = 3;
             while (true) {
-                
-                if (count < 2) {
-                    cliente = servidor.accept();
-                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress());
-                    saida = new ObjectOutputStream(cliente.getOutputStream());
-                    entrada = new ObjectInputStream(cliente.getInputStream());
+
+                Socket cliente = servidor.accept();
+
+                if (count < 3) {
+                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
+                    ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
+                    pro.setOpacity(0);
                     count++;
+                    chamaConversa(cliente);
+                } else {
+                    ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+                    ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+                    String msg = entrada.readUTF();
+                    saida.writeUTF("#MAXIMO_USER");
+                    saida.flush();
+                    entrada.close();
+                    saida.close();
+                    cliente.close();
                 }
-                if(count == 3){
-                    count = 0;
-                }
-                String msg = entrada.readUTF();
 
-                String[] escolha = msg.split("\\$");
-
-                if (escolha[0].equals("#TIME")) {
-                    saida.writeUTF(time(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#LOGIN")) {
-                    saida.writeUTF(login(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#INICIA_CRONO")) {
-                    saida.writeUTF(iniciaCronos(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#PAUSA_CRONOS")) {
-                    cronosPausado = true;
-                    saida.writeUTF("PAUSADO");
-                    saida.flush();
-                } else if (escolha[0].equals("#CONTINUA_CRONOS")) {
-                    cronosPausado = false;
-                    saida.writeUTF("CONTINUA");
-                    saida.flush();
-                } else if (escolha[0].equals("#REINICIA_CRONO")) {
-                    System.out.println("Reinicia");
-                    fimCrono = false;
-                    cronosPausado = false;
-                    tempoLan = 24;
-                    Label t = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
-                    Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
-                    String[] tempo = escolha[1].split("\\:");
-                    String m;
-                    String s;
-                    int min = Integer.parseInt(tempo[0]);
-                    int seg = Integer.parseInt(tempo[1]);
-
-                    if (min > 9) {
-                        m = "" + min;
-                    } else {
-                        m = "0" + min;
-                    }
-
-                    if (seg > 9) {
-                        s = "" + seg;
-                    } else {
-                        s = "0" + seg;
-                    }
-
-                    Platform.runLater(() -> {
-                        t.setText("24");
-                        l.setText(m + ":" + s + ":" + "00");
-                    });
-                    saida.writeUTF("REINICIADO");
-                    saida.flush();
-                } else if (escolha[0].equals("#REINICIA_TEMPO")) {
-                    tempoLan = 24;
-                    cronosPausado = false;
-                    Platform.runLater(() -> {
-                        Label l = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
-                        l.setText("24");
-                    });
-                    saida.writeUTF("REINICIADO");
-                    saida.flush();
-                } else if (escolha[0].equals("#MUDA_FALTA")) {
-                    saida.writeUTF(mudaFalta(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#ALTERA_NOME")) {
-                    Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
-                    Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
-                    if (escolha.length > 0) {
-                        if (escolha[1].equals("") != true) {
-                            Platform.runLater(() -> {
-                                local.setText(escolha[1]);
-                            });
-                        }
-                        if (escolha[2].equals("") != true) {
-                            Platform.runLater(() -> {
-                                visitante.setText(escolha[2]);
-                            });
-                        }
-                    }
-                    saida.writeUTF("ALTERADO");
-                    saida.flush();
-                } else if (escolha[0].equals("#NOVA_RODADA")) {
-                    Label local = (Label) p.getScene().getRoot().lookup("#jLRodada" + rodada);
-                    if (rodada == 1) {
-
-                        rodada++;
-
-                        cronosPausado = false;
-                        fimCrono = false;
-
-                        somaRodadaL = pontosL;
-                        somaRodadaV = pontosV;
-
-                        if (somaRodadaL > 9 & somaRodadaV > 9) {
-
-                            resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
-
-                        } else if (somaRodadaL < 9 & somaRodadaV < 9) {
-
-                            resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
-
-                        } else if (somaRodadaL > 9 & somaRodadaV < 9) {
-
-                            resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
-
-                        } else if (somaRodadaL < 9 & somaRodadaV > 9) {
-
-                            resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
-
-                        }
-                        Platform.runLater(() -> {
-                            local.setText(resultadoFinal);
-                        });
-
-                    } else {
-
-                        rodada++;
-
-                        cronosPausado = false;
-                        fimCrono = false;
-
-                        somaRodadaL = pontosL - somaRodadaL;
-                        somaRodadaV = pontosV - somaRodadaV;
-
-                        if (somaRodadaL > 9 & somaRodadaV > 9) {
-
-                            resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
-
-                        } else if (somaRodadaL < 9 & somaRodadaV < 9) {
-
-                            resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
-
-                        } else if (somaRodadaL > 9 & somaRodadaV < 9) {
-
-                            resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
-
-                        } else if (somaRodadaL < 9 & somaRodadaV > 9) {
-
-                            resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
-
-                        }
-                        Platform.runLater(() -> {
-                            local.setText(resultadoFinal);
-                        });
-                        somaRodadaL = pontosL;
-                        somaRodadaV = pontosV;
-                    }
-                    saida.writeUTF("INICIADA_RODADA");
-                    saida.flush();
-
-                } else if (escolha[0].equals("#ESCOLHE_MODALIDADE")) {
-                    saida.writeUTF(escolhaModalidade(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#ADICIONAR_USUARIO")) {
-                    saida.writeUTF(adicionaUsuario(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#EXCLUIR_USUARIO")) {
-                    saida.writeUTF(excluirUsuario(escolha));
-                    saida.flush();
-                } else if (escolha[0].equals("#RESTAURA_TUDO")) {
-                    saida.writeUTF(restauraTudo());
-                    saida.flush();
-                } else if (escolha[0].equals("#LISTAR_USUARIOS")) {
-                    saida.writeUTF(listaUsuario(escolha));
-                    saida.flush();
-                }
             }
 
         } catch (IOException e) {
@@ -745,6 +579,203 @@ public class ComunicacaoSocketServidor implements Runnable {
             l.setText("VISITANTE");
         });
         return "RESTAURADO";
+    }
+
+    public void chamaConversa(Socket cli) {
+        Thread th = new Thread(iniciaConversa(cli));
+        th.setDaemon(true);
+        th.start();
+    }
+
+    private Task iniciaConversa(Socket cliente) {
+
+        Task task = new Task<Void>() {
+
+            @Override
+            public Void call() throws Exception {
+                ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+                ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+
+                while (true) {
+
+                    String msg = entrada.readUTF();
+
+                    String[] escolha = msg.split("\\$");
+
+                    if (escolha[0].equals("#TIME")) {
+                        saida.writeUTF(time(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#LOGIN")) {
+                        saida.writeUTF(login(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#INICIA_CRONO")) {
+                        saida.writeUTF(iniciaCronos(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#PAUSA_CRONOS")) {
+                        cronosPausado = true;
+                        saida.writeUTF("PAUSADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#CONTINUA_CRONOS")) {
+                        cronosPausado = false;
+                        saida.writeUTF("CONTINUA");
+                        saida.flush();
+                    } else if (escolha[0].equals("#REINICIA_CRONO")) {
+                        System.out.println("Reinicia");
+                        fimCrono = false;
+                        cronosPausado = false;
+                        tempoLan = 24;
+                        Label t = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
+                        Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+                        String[] tempo = escolha[1].split("\\:");
+                        String m;
+                        String s;
+                        int min = Integer.parseInt(tempo[0]);
+                        int seg = Integer.parseInt(tempo[1]);
+
+                        if (min > 9) {
+                            m = "" + min;
+                        } else {
+                            m = "0" + min;
+                        }
+
+                        if (seg > 9) {
+                            s = "" + seg;
+                        } else {
+                            s = "0" + seg;
+                        }
+
+                        Platform.runLater(() -> {
+                            t.setText("24");
+                            l.setText(m + ":" + s + ":" + "00");
+                        });
+                        saida.writeUTF("REINICIADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#REINICIA_TEMPO")) {
+                        tempoLan = 24;
+                        cronosPausado = false;
+                        Platform.runLater(() -> {
+                            Label l = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
+                            l.setText("24");
+                        });
+                        saida.writeUTF("REINICIADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#MUDA_FALTA")) {
+                        saida.writeUTF(mudaFalta(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#ALTERA_NOME")) {
+                        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+                        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+                        if (escolha.length > 0) {
+                            if (escolha[1].equals("") != true) {
+                                Platform.runLater(() -> {
+                                    local.setText(escolha[1]);
+                                });
+                            }
+                            if (escolha[2].equals("") != true) {
+                                Platform.runLater(() -> {
+                                    visitante.setText(escolha[2]);
+                                });
+                            }
+                        }
+                        saida.writeUTF("ALTERADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#NOVA_RODADA")) {
+                        Label local = (Label) p.getScene().getRoot().lookup("#jLRodada" + rodada);
+                        if (rodada == 1) {
+
+                            rodada++;
+
+                            cronosPausado = false;
+                            fimCrono = false;
+
+                            somaRodadaL = pontosL;
+                            somaRodadaV = pontosV;
+
+                            if (somaRodadaL > 9 & somaRodadaV > 9) {
+
+                                resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
+
+                            } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+
+                                resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
+
+                            } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+
+                                resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
+
+                            } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+
+                                resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
+
+                            }
+                            Platform.runLater(() -> {
+                                local.setText(resultadoFinal);
+                            });
+
+                        } else {
+
+                            rodada++;
+
+                            cronosPausado = false;
+                            fimCrono = false;
+
+                            somaRodadaL = pontosL - somaRodadaL;
+                            somaRodadaV = pontosV - somaRodadaV;
+
+                            if (somaRodadaL > 9 & somaRodadaV > 9) {
+
+                                resultadoFinal = (somaRodadaL + " x " + somaRodadaV);
+
+                            } else if (somaRodadaL < 9 & somaRodadaV < 9) {
+
+                                resultadoFinal = ("0" + somaRodadaL + " x 0" + somaRodadaV);
+
+                            } else if (somaRodadaL > 9 & somaRodadaV < 9) {
+
+                                resultadoFinal = (somaRodadaL + " x 0" + somaRodadaV);
+
+                            } else if (somaRodadaL < 9 & somaRodadaV > 9) {
+
+                                resultadoFinal = ("0" + somaRodadaL + " x " + somaRodadaV);
+
+                            }
+                            Platform.runLater(() -> {
+                                local.setText(resultadoFinal);
+                            });
+                            somaRodadaL = pontosL;
+                            somaRodadaV = pontosV;
+                        }
+                        saida.writeUTF("INICIADA_RODADA");
+                        saida.flush();
+
+                    } else if (escolha[0].equals("#ESCOLHE_MODALIDADE")) {
+                        saida.writeUTF(escolhaModalidade(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#ADICIONAR_USUARIO")) {
+                        saida.writeUTF(adicionaUsuario(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#EXCLUIR_USUARIO")) {
+                        saida.writeUTF(excluirUsuario(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#RESTAURA_TUDO")) {
+                        saida.writeUTF(restauraTudo());
+                        saida.flush();
+                    } else if (escolha[0].equals("#LISTAR_USUARIOS")) {
+                        saida.writeUTF(listaUsuario(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#DESCONECTAR")) {
+                        count--;
+                        saida.writeUTF("OK");
+                        saida.flush();
+                        entrada.close();
+                        saida.close();
+                        cliente.close();
+                        System.out.println("Cliente se desconectou!");
+                    }
+                }
+            }
+        };
+        return task;
     }
 
 }
