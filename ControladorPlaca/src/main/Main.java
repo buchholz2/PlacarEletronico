@@ -45,7 +45,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         setStage(primaryStage);
-
+        
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
 
@@ -142,7 +142,7 @@ public class Main extends Application {
      * 
      * @return 
      */
-    private static Socket getSocket() {
+    public static Socket getSocket() {
         return Main.cliente;
     }
 

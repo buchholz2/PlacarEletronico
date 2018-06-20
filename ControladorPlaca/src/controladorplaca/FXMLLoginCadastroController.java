@@ -9,9 +9,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -51,6 +54,8 @@ public class FXMLLoginCadastroController implements Initializable {
 
     @FXML
     private JFXPasswordField jTFSenha;
+
+    public static boolean chave = true;
 
     /**
      * Evento do botão Sair. Fecha stage
@@ -99,40 +104,58 @@ public class FXMLLoginCadastroController implements Initializable {
 
     private void chamaLogin() {
         try {
-            Main.conectar();
+            System.out.println("Tentou Conectar222");
+            if (chave) {
+                System.out.println("Tentou Conectar");
+                Main.conectar();
+                chave = false;
+            }
         } catch (IOException ex) {
-            //Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String login = jTFUsuario.getText();
-        String senha = jTFSenha.getText();
-        if (login.isEmpty() || senha.isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("ERRO DE LOGIN");
-            alert.setHeaderText(null);
-            alert.setContentText("CAMPO DE LOGIN OU SENHA VAZIOS!");
-            alert.show();
-        } else {
-            try {
-                String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
-                if (msg[0].equals("#LOGADO")) {
-                    if (msg[1].equals("ADM")) {
-                        Main.loadScene("/view/FXMLCadastro.fxml");
-                    } else if (msg[1].equals("PLACAR")) {
-                        Main.loadScene("/view/FXMLEscolheModalidade.fxml");
-                    } else if (msg[1].equals("PROPAGANDA")) {
+            Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RuntimeException ex) {
 
-                    }
-                } else {
+        } catch (Exception ex) {
+
+        }
+
+        try {
+            if (Main.getSocket().isConnected() == true) {
+                String login = jTFUsuario.getText();
+                String senha = jTFSenha.getText();
+                if (login.isEmpty() || senha.isEmpty()) {
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("ERRO DE LOGIN");
                     alert.setHeaderText(null);
-                    alert.setContentText("LOGIN OU SENHA INVALIDA!");
+                    alert.setContentText("CAMPO DE LOGIN OU SENHA VAZIOS!");
                     alert.show();
+                } else {
+                    try {
+                        String[] msg = Main.mandaMSG("#LOGIN$" + login + "$" + senha).split("\\$");
+                        if (msg[0].equals("#LOGADO")) {
+                            if (msg[1].equals("ADM")) {
+                                Main.loadScene("/view/FXMLCadastro.fxml");
+                            } else if (msg[1].equals("PLACAR")) {
+                                Main.loadScene("/view/FXMLEscolheModalidade.fxml");
+                            } else if (msg[1].equals("PROPAGANDA")) {
+
+                            }
+                        } else {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("ERRO DE LOGIN");
+                            alert.setHeaderText(null);
+                            alert.setContentText("LOGIN OU SENHA INVALIDA!");
+                            alert.show();
+                        }
+                    } catch (IOException ex) {
+                        //IMPLEMENTAR LOG
+                    }
+
                 }
-            } catch (IOException ex) {
-                //IMPLEMENTAR LOG
             }
 
+        } catch (RuntimeException ex) {
+
         }
+
     }
 }
