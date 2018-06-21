@@ -130,7 +130,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                 return ("#NOT$LOGADO");
             }
         }
-        return ("#NOT$LOGADO");
+        return ("#NOT_DATA");
 
     }
 
@@ -138,18 +138,19 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (login == null || senha == null) {
             return false;
         } else {
-            //  ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
             ListaUsuarios users = leituraXML();
 
-            for (Usuario u : users.getUsuarios()) {
-                if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
-                    usuario.setUsuario(u.getUsuario());
-                    usuario.setSenha(u.getSenha());
-                    usuario.setUserAdm(u.isUserAdm());
-                    usuario.setUserPlacar(u.isUserPlacar());
-                    usuario.setUserPropaganda(u.isUserPropaganda());
+            if (users != null) {
+                for (Usuario u : users.getUsuarios()) {
+                    if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
+                        usuario.setUsuario(u.getUsuario());
+                        usuario.setSenha(u.getSenha());
+                        usuario.setUserAdm(u.isUserAdm());
+                        usuario.setUserPlacar(u.isUserPlacar());
+                        usuario.setUserPropaganda(u.isUserPropaganda());
 
-                    return true;
+                        return true;
+                    }
                 }
             }
         }
@@ -514,8 +515,9 @@ public class ComunicacaoSocketServidor implements Runnable {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             lista = (ListaUsuarios) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+            Main.LOGGER.severe("Falha na leitura do XML! Contate o suporte!");
+            System.out.println(e.toString());
+        } 
         return lista;
     }
 
@@ -607,10 +609,11 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.writeUTF(time(escolha));
                         saida.flush();
                     } else if (escolha[0].equals("#LOGIN")) {
-                        if (login(escolha).contains("LOGADO")) {
+                        String m = login(escolha);
+                        if (!m.contains("NOT")) {
                             user = escolha[1];
                         }
-                        saida.writeUTF(login(escolha));
+                        saida.writeUTF(m);
                         saida.flush();
                     } else if (escolha[0].equals("#INICIA_CRONO")) {
                         saida.writeUTF(iniciaCronos(escolha));

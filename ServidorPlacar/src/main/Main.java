@@ -1,5 +1,12 @@
 package main;
 
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
@@ -15,7 +22,7 @@ public class Main extends Application {
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
-    
+    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
      * A classe principal da aplicação em JavaFX
@@ -23,6 +30,10 @@ public class Main extends Application {
     public Main() {
         thisClass = getClass();
     }
+//
+//    public static void printLog(String msg) {
+//        LOGGER.info(msg);
+//    }
 
     /**
      * Inicia o layout da aplicação
@@ -35,35 +46,27 @@ public class Main extends Application {
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
 
         loadScene("/view/FXMLPrincipal.fxml");
-
-//        List <Usuario> l = new ArrayList<>();
-//        
-//        Usuario u = new Usuario();
-//        u.setUsuario("placar");
-//        u.setSenha("placar");
-//        u.setUserAdm(false);
-//        u.setUserPropaganda(false);
-//        u.setUserPlacar(true);
-//
-//        Usuario u2 = new Usuario();
-//        u2.setUsuario("pl");
-//        u2.setSenha("pl");
-//        u2.setUserAdm(false);
-//        u2.setUserPropaganda(false);
-//        u2.setUserPlacar(true);
-//        
-//       l.add(u);
-//       l.add(u2);
-//       
-//       ListaUsuarios lu =new ListaUsuarios();
-//       lu.setUsuarios(l);
-//        
-//        
-//        ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
-//        c.gravarXML(lu);
     }
 
     public static void main(String[] args) {
+        Handler fh = null;
+        try {
+            // Nome do arquivo, booleano (append)
+            fh = new FileHandler("C:\\Placar\\Log\\log.txt", true);
+        } catch (IOException | SecurityException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Padrão é XML, para log no formato texto deve setar.
+        fh.setFormatter(new SimpleFormatter());
+
+        Logger.getLogger("").addHandler(fh);
+        // Remoção das mensagens no console
+        Logger l = Logger.getLogger("");
+        Handler[] handlers = l.getHandlers();
+        if (handlers[0] instanceof ConsoleHandler) {
+            l.removeHandler(handlers[0]);
+        }
+
         launch(args);
     }
 

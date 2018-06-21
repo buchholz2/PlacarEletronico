@@ -160,6 +160,12 @@ public class FXMLLoginCadastroController implements Initializable {
                             alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
                             alert.show();
                             chave = true;
+                        } else if(msg[0].equals("#NOT_DATA")){
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("WARNING");
+                            alert.setHeaderText(null);
+                            alert.setContentText("BASE DE DADOS NÃO ENCONRADA!");
+                            alert.show();
                         } else {
                             Alert alert = new Alert(AlertType.ERROR);
                             alert.setTitle("ERRO DE LOGIN");

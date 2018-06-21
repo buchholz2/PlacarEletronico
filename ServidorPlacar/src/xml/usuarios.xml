@@ -8,13 +8,6 @@
         <userPropaganda>false</userPropaganda>
     </usuario>
     <usuario>
-        <usuario>daniel</usuario>
-        <senha>daniel</senha>
-        <userAdm>true</userAdm>
-        <userPlacar>false</userPlacar>
-        <userPropaganda>false</userPropaganda>
-    </usuario>
-    <usuario>
         <usuario>placar</usuario>
         <senha>placar</senha>
         <userAdm>false</userAdm>
