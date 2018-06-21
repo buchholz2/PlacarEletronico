@@ -1,6 +1,13 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -49,10 +56,25 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        iniciaDiretorioLog();
+        launch(args);
+    }
+
+    public static void iniciaDiretorioLog() {
+        Date data = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String dataFormatada = sdf.format(data);
+        Path path = Paths.get("C:\\Placar\\Log\\" + dataFormatada);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         Handler fh = null;
         try {
             // Nome do arquivo, booleano (append)
-            fh = new FileHandler("C:\\Placar\\Log\\log.txt", true);
+            fh = new FileHandler(path+"\\log.txt", true);
         } catch (IOException | SecurityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +89,6 @@ public class Main extends Application {
             l.removeHandler(handlers[0]);
         }
 
-        launch(args);
     }
 
     public void setStage(Stage s) {
