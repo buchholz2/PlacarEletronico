@@ -201,6 +201,15 @@ public class FXMLControladorPlacarController implements Initializable {
 
     @FXML
     void iniciaPropaganda(MouseEvent event) {
+        try {
+            if (jTBIniciaProp.isSelected()) {
+                Main.mandaMSG("#PROPAGANDA_INICIA");
+            } else {
+                Main.mandaMSG("#PROPAGANDA_FECHA");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -1058,10 +1067,10 @@ public class FXMLControladorPlacarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             Date date = new Date();
-            jLLogger.setText(Main.mandaMSG("#QUAL_USER")+" : "+date.toGMTString());
+            jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
             Logger.getLogger(FXMLControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

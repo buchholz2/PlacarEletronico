@@ -45,18 +45,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         setStage(primaryStage);
-        
+
         Font.loadFont(this.getClass().getResource("/estilos/fontes/digi.ttf").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/estilos/fontes/SoccerLeague.ttf").toExternalForm(), 23.8);
 
         loadScene("/view/FXMLLogin.fxml");
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
     }
 
     /**
-     * 
+     *
      * @param args
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
 //        setSocket(new Socket("localhost", 12345));
@@ -64,24 +65,24 @@ public class Main extends Application {
 //        saida = new ObjectOutputStream(getSocket().getOutputStream());
         launch(args);
     }
-    
-    public static void conectar() throws IOException{
+
+    public static void conectar() throws IOException {
         setSocket(new Socket("localhost", 12345));
         entrada = new ObjectInputStream(getSocket().getInputStream());
         saida = new ObjectOutputStream(getSocket().getOutputStream());
     }
 
     /**
-     * 
-     * @param s 
+     *
+     * @param s
      */
     public void setStage(Stage s) {
         Main.primaryStage = s;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static Stage getStage() {
         return primaryStage;
@@ -89,7 +90,8 @@ public class Main extends Application {
 
     /**
      * Carrega views
-     * @param local 
+     *
+     * @param local
      */
     public static void loadScene(String local) {
 
@@ -97,11 +99,10 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(thisClass.getClass().getResource(local));
             scenePrincipal = new Scene(root);
             Platform.runLater(() -> {
-                
+
                 primaryStage.setScene(scenePrincipal);
                 primaryStage.centerOnScreen();
                 primaryStage.setResizable(false);
-                primaryStage.initStyle(StageStyle.TRANSPARENT);
                 primaryStage.setTitle("Controlador");
                 primaryStage.show();
             });
@@ -112,10 +113,10 @@ public class Main extends Application {
     }
 
     /**
-     * 
+     *
      * @param msg
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public static String mandaMSG(String msg) throws IOException {
 
@@ -131,16 +132,16 @@ public class Main extends Application {
     }
 
     /**
-     * 
-     * @param sok 
+     *
+     * @param sok
      */
     private static void setSocket(Socket sok) {
         Main.cliente = sok;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static Socket getSocket() {
         return Main.cliente;

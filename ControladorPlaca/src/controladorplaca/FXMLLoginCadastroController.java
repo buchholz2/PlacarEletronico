@@ -113,7 +113,7 @@ public class FXMLLoginCadastroController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        chave = true;
     }
 
     private void chamaLogin() {
