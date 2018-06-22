@@ -31,7 +31,7 @@ public class Main extends Application {
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
-    private static String path = ("C:\\Placar\\xml");
+    private static String path = ("C:\\ProgramData\\Placar\\xml");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
@@ -102,7 +102,7 @@ public class Main extends Application {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dataFormatada = sdf.format(data);
-        Path path = Paths.get("C:\\Placar\\Log\\" + dataFormatada);
+        Path path = Paths.get("C:\\ProgramData\\Placar\\Log\\" + dataFormatada);
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
