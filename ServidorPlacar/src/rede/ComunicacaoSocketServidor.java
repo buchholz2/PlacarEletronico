@@ -18,8 +18,10 @@ import java.net.URL;
 import java.util.Iterator;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -509,7 +511,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     public ListaUsuarios leituraXML() {
         ListaUsuarios lista = null;
         try {
-            File file = new File(Main.getPath()+"\\usuarios.xml");
+            File file = new File(Main.getPath() + "\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -517,14 +519,14 @@ public class ComunicacaoSocketServidor implements Runnable {
         } catch (JAXBException e) {
             Main.LOGGER.severe("Falha na leitura do XML! Contate o suporte!");
             System.out.println(e.toString());
-        } 
+        }
         return lista;
     }
 
     public void gravarXML(ListaUsuarios l) {
         try {
 
-            File file = new File(Main.getPath()+"\\usuarios.xml");
+            File file = new File(Main.getPath() + "\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -781,6 +783,20 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#QUAL_USER")) {
                         saida.writeUTF(user);
                         saida.flush();
+                    } else if (escolha[0].equals("#PROPAGANDA_INICIA")) {
+                        saida.writeUTF("INICIADA");
+                        saida.flush();
+                        Main.propaganda();
+                    } else if (escolha[0].equals("#PROPAGANDA_FECHA")) {
+                        System.out.println("Fechando Propaganda");
+                        saida.writeUTF("FECHADA");
+                        saida.flush();
+                        Platform.runLater(() -> {
+                            StackPane pane = new StackPane();
+                            Main.getStageSecundary().setScene(new Scene(pane, 10, 10));
+                            Main.getStageSecundary().close();
+                        });
+
                     }
                 }
             }

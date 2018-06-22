@@ -5,10 +5,7 @@
  */
 package control;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.util.Duration;
+import main.Main;
 
 /**
  * FXML Controller class
@@ -47,8 +44,10 @@ public class FXMLPropagandaController implements Initializable {
 
     private ArrayList<String> lista;
 
+    private MediaPlayer mediaPlayer;
+
     public FXMLPropagandaController() {
-        this.diretorio = "E:\\Cursos\\Curso de Go (Golang)\\2. Fundamentos";
+        this.diretorio = "C:\\Users\\danie\\Desktop\\Nova pasta";
         this.lista = new ArrayList();
     }
 
@@ -62,9 +61,8 @@ public class FXMLPropagandaController implements Initializable {
 
             width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
             height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
-            
+
             jMidiaView.setPreserveRatio(true);
-            
 
         } catch (InterruptedException ex) {
             Logger.getLogger(FXMLPropagandaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,8 +88,9 @@ public class FXMLPropagandaController implements Initializable {
         if (urls.hasNext()) {
             String endereco = urls.next().toString();
             Media m = new Media(endereco);
-            MediaPlayer mediaPlayer = new MediaPlayer(m);
-            mediaPlayer.setAutoPlay(true);
+            mediaPlayer = new MediaPlayer(m);
+            mediaPlayer.play();
+            chamaCronos(mediaPlayer);
             mediaPlayer.setOnEndOfMedia(new Runnable() {
                 @Override
                 public void run() {
@@ -113,15 +112,18 @@ public class FXMLPropagandaController implements Initializable {
     private Task iniciaCronos(MediaPlayer curr) {
 
         Task task = new Task<Void>() {
-
+            boolean chave = true;
             @Override
             public Void call() throws Exception {
-
-                while (true) {
-
-                    System.out.println(curr.getCurrentTime().negate());
-
+                while (chave) {
+                    System.out.println("Entrou While");
+                    if (Main.fechaPropaganda()) {
+                        curr.stop();
+                        System.out.println("EntrouFecha");
+                        chave = false;
+                    }
                 }
+                return null;
 
             }
         };

@@ -28,9 +28,12 @@ import rede.ComunicacaoSocketServidor;
 
 public class Main extends Application {
 
+    public static boolean propaganda = false;
+    public static Stage secundaryStage;
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
+    public static Class outraClass;
     private static String path = ("C:\\ProgramData\\Placar\\xml");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -39,6 +42,7 @@ public class Main extends Application {
      */
     public Main() {
         thisClass = getClass();
+        outraClass = getClass();
     }
 
     /**
@@ -162,5 +166,42 @@ public class Main extends Application {
 //            e.printStackTrace();
 //        }
 
+    }
+
+    public static void propaganda() throws IOException {
+        try {
+            propaganda = false;
+            FXMLLoader fxmlLoader = new FXMLLoader(outraClass.getClass().getResource("/view/FXMLPropaganda.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+
+            Platform.runLater(() -> {
+                secundaryStage = new Stage();
+                secundaryStage.setScene(new Scene(root1));
+                secundaryStage.show();
+                secundaryStage.setFullScreen(true);
+
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setStageSecundary(Stage s) {
+        Main.secundaryStage = s;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Stage getStageSecundary() {
+        propaganda = true;
+        return secundaryStage;
+    }
+
+    public static boolean fechaPropaganda() {
+        return propaganda;
     }
 }
