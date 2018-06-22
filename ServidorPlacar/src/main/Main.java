@@ -22,6 +22,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.ListaUsuarios;
+import model.Usuario;
 import rede.ComunicacaoSocketServidor;
 
 public class Main extends Application {
@@ -29,6 +31,7 @@ public class Main extends Application {
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
+    private static String path = ("C:\\Placar\\xml");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
@@ -37,10 +40,6 @@ public class Main extends Application {
     public Main() {
         thisClass = getClass();
     }
-//
-//    public static void printLog(String msg) {
-//        LOGGER.info(msg);
-//    }
 
     /**
      * Inicia o layout da aplicação
@@ -57,7 +56,46 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         iniciaDiretorioLog();
+        criaDirXmlPrimeiraExecucao();
         launch(args);
+    }
+
+    public static void criaDirXmlPrimeiraExecucao() {
+        File file = new File(path);
+        if (!file.exists()) {
+            Path p = Paths.get(path);
+            try {
+                Files.createDirectories(p);
+                criaUsuariosXmlPrimeiraExecucao();
+            } catch (IOException ex) {
+                Main.LOGGER.config("Problema na configuração de usuários padrões!");
+            }
+        }
+    }
+
+    private static void criaUsuariosXmlPrimeiraExecucao() {
+        ListaUsuarios lista = new ListaUsuarios();
+        Usuario adm = new Usuario();
+        adm.setUsuario("adm");
+        adm.setSenha("adm");
+        adm.setUserAdm(true);
+
+        Usuario placar = new Usuario();
+        placar.setUsuario("placar");
+        placar.setSenha("placar");
+        placar.setUserPlacar(true);
+
+        Usuario prop = new Usuario();
+        prop.setUsuario("propaganda");
+        prop.setSenha("propaganda");
+        prop.setUserPropaganda(true);
+
+        lista.getUsuarios().add(adm);
+        lista.getUsuarios().add(placar);
+        lista.getUsuarios().add(prop);
+
+        ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
+        c.gravarXML(lista);
     }
 
     public static void iniciaDiretorioLog() {
@@ -74,7 +112,7 @@ public class Main extends Application {
         Handler fh = null;
         try {
             // Nome do arquivo, booleano (append)
-            fh = new FileHandler(path+"\\log.txt", true);
+            fh = new FileHandler(path + "\\log.txt", true);
         } catch (IOException | SecurityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +127,10 @@ public class Main extends Application {
             l.removeHandler(handlers[0]);
         }
 
+    }
+
+    public static String getPath() {
+        return path;
     }
 
     public void setStage(Stage s) {
