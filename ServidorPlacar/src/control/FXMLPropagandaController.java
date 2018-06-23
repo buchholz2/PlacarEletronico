@@ -116,10 +116,8 @@ public class FXMLPropagandaController implements Initializable {
             @Override
             public Void call() throws Exception {
                 while (chave) {
-                    System.out.println("Entrou While");
                     if (Main.fechaPropaganda()) {
                         curr.stop();
-                        System.out.println("EntrouFecha");
                         chave = false;
                     }
                 }
