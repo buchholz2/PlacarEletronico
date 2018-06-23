@@ -29,6 +29,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import main.Main;
 import model.ListaUsuarios;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -144,9 +145,10 @@ public class ComunicacaoSocketServidor implements Runnable {
 
             if (users != null) {
                 for (Usuario u : users.getUsuarios()) {
-                    if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
+                    String pass = decode(u.getSenha());
+                    if (login.equals(u.getUsuario()) && senha.equals(pass)) {
                         usuario.setUsuario(u.getUsuario());
-                        usuario.setSenha(u.getSenha());
+                        usuario.setSenha(pass);
                         usuario.setUserAdm(u.isUserAdm());
                         usuario.setUserPlacar(u.isUserPlacar());
                         usuario.setUserPropaganda(u.isUserPropaganda());
@@ -194,32 +196,46 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
         }
         if (opcao.equals("ADMINISTRADOR")) {
+            String senha = encode(msg[3]);
             Usuario adm = new Usuario();
             adm.setUserAdm(true);
             adm.setUsuario(msg[2]);
-            adm.setSenha(msg[3]);
+            adm.setSenha(senha);
             lista.getUsuarios().add(adm);
             gravarXML(lista);
             return ("#OK");
         } else if (opcao.equals("PLACAR")) {
+            String senha = encode(msg[3]);
             Usuario placar = new Usuario();
             placar.setUserPlacar(true);
             placar.setUsuario(msg[2]);
-            placar.setSenha(msg[3]);
+            placar.setSenha(senha);
             lista.getUsuarios().add(placar);
             gravarXML(lista);
             return ("#OK");
         } else if (opcao.equals("PROPAGANDA")) {
+            String senha = encode(msg[3]);
             Usuario propaganda = new Usuario();
             propaganda.setUserPropaganda(true);
             propaganda.setUsuario(msg[2]);
-            propaganda.setSenha(msg[3]);
+            propaganda.setSenha(senha);
             lista.getUsuarios().add(propaganda);
             gravarXML(lista);
             return ("#OK");
         } else {
             return ("#NOT$OK");
         }
+    }
+
+    public String encode(String encriptar) {
+        String criptografado = Base64.encodeBase64String(encriptar.getBytes());
+        return criptografado;
+    }
+
+    public String decode(String encriptado) {
+        byte[] decoded = Base64.decodeBase64(encriptado);
+        String deco = new String(decoded);
+        return deco;
     }
 
     private String excluirUsuario(String[] msg) {
@@ -537,7 +553,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 //            jaxbMarshaller.marshal(usuarios, System.out);
 
         } catch (JAXBException e) {
-            e.printStackTrace();
+            Main.LOGGER.warning("Falha ao gravar XML!");
         }
 
     }

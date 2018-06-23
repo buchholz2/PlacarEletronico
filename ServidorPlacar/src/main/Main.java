@@ -92,30 +92,30 @@ public class Main extends Application {
     
 
     private static void criaUsuariosXmlPrimeiraExecucao() {
+        ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
         ListaUsuarios lista = new ListaUsuarios();
         Usuario adm = new Usuario();
         adm.setUsuario("adm");
-        adm.setSenha("adm");
+        adm.setSenha(c.encode("adm"));
         adm.setUserAdm(true);
 
         Usuario placar = new Usuario();
         placar.setUsuario("placar");
-        placar.setSenha("placar");
+        placar.setSenha(c.encode("placar"));
         placar.setUserPlacar(true);
 
         Usuario prop = new Usuario();
         prop.setUsuario("propaganda");
-        prop.setSenha("propaganda");
+        prop.setSenha(c.encode("propaganda"));
         prop.setUserPropaganda(true);
 
         lista.getUsuarios().add(adm);
         lista.getUsuarios().add(placar);
         lista.getUsuarios().add(prop);
 
-        ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
         c.gravarXML(lista);
     }
-
+   
     public static void iniciaDiretorioLog() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
