@@ -511,7 +511,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     public ListaUsuarios leituraXML() {
         ListaUsuarios lista = null;
         try {
-            File file = new File(Main.getPath() + "\\usuarios.xml");
+            File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -526,7 +526,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     public void gravarXML(ListaUsuarios l) {
         try {
 
-            File file = new File(Main.getPath() + "\\usuarios.xml");
+            File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 

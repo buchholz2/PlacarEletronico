@@ -47,7 +47,7 @@ public class FXMLPropagandaController implements Initializable {
     private MediaPlayer mediaPlayer;
 
     public FXMLPropagandaController() {
-        this.diretorio = "C:\\Users\\danie\\Desktop\\Nova pasta";
+        this.diretorio = (Main.getPath()+"Midia");
         this.lista = new ArrayList();
     }
 

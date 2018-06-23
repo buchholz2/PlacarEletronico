@@ -34,7 +34,7 @@ public class Main extends Application {
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
     public static Class outraClass;
-    private static String path = ("C:\\ProgramData\\Placar\\xml");
+    private static final String PATH = (System.getProperty("user.home")+"\\Documents\\Placar\\");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
@@ -61,13 +61,14 @@ public class Main extends Application {
     public static void main(String[] args) {
         iniciaDiretorioLog();
         criaDirXmlPrimeiraExecucao();
+        criaDirMidia();
         launch(args);
     }
 
     public static void criaDirXmlPrimeiraExecucao() {
-        File file = new File(path);
+        File file = new File(PATH+"xml");
         if (!file.exists()) {
-            Path p = Paths.get(path);
+            Path p = Paths.get(PATH+"xml");
             try {
                 Files.createDirectories(p);
                 criaUsuariosXmlPrimeiraExecucao();
@@ -76,6 +77,19 @@ public class Main extends Application {
             }
         }
     }
+    
+    public static void criaDirMidia(){
+        File file = new File(PATH+"Midia");
+        if (!file.exists()) {
+            Path p = Paths.get(PATH+"Midia");
+            try {
+                Files.createDirectories(p);                
+            } catch (IOException ex) {
+                Main.LOGGER.config("Problema ao criar diretório de Midias!");
+            }
+        }
+    }
+    
 
     private static void criaUsuariosXmlPrimeiraExecucao() {
         ListaUsuarios lista = new ListaUsuarios();
@@ -106,7 +120,7 @@ public class Main extends Application {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dataFormatada = sdf.format(data);
-        Path path = Paths.get("C:\\ProgramData\\Placar\\Log\\" + dataFormatada);
+        Path path = Paths.get(PATH+"\\Log\\" + dataFormatada);
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
@@ -134,7 +148,7 @@ public class Main extends Application {
     }
 
     public static String getPath() {
-        return path;
+        return PATH;
     }
 
     public void setStage(Stage s) {
