@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control;
+package controlador;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -30,7 +30,7 @@ import main.Main;
  *
  * @author danie
  */
-public class FXMLPropagandaController implements Initializable {
+public class PropagandaController implements Initializable {
 
     private String diretorio;
 
@@ -46,7 +46,7 @@ public class FXMLPropagandaController implements Initializable {
 
     private MediaPlayer mediaPlayer;
 
-    public FXMLPropagandaController() {
+    public PropagandaController() {
         this.diretorio = (Main.getPath()+"Midia");
         this.lista = new ArrayList();
     }
@@ -65,9 +65,9 @@ public class FXMLPropagandaController implements Initializable {
             jMidiaView.setPreserveRatio(true);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(FXMLPropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(FXMLPropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,6 +113,7 @@ public class FXMLPropagandaController implements Initializable {
 
         Task task = new Task<Void>() {
             boolean chave = true;
+            
             @Override
             public Void call() throws Exception {
                 while (chave) {
@@ -120,6 +121,7 @@ public class FXMLPropagandaController implements Initializable {
                         curr.stop();
                         chave = false;
                     }
+                    Thread.sleep(100);
                 }
                 return null;
 

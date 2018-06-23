@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" styleClass="imagemFundo" stylesheets="@../estilos/meinCSS.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.FXMLPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" styleClass="imagemFundo" stylesheets="@../estilos/meinCSS.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrincipalController">
    <children>
       <ProgressIndicator fx:id="progressIndicator" layoutX="14.0" layoutY="14.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" />
    </children>

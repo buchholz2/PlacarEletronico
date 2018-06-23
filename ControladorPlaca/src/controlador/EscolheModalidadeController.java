@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controladorplaca;
+package controlador;
 
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import main.Main;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-public class FXMLEscolheModalidadeController implements Initializable {
+public class EscolheModalidadeController implements Initializable {
 
     @FXML
     private JFXButton jBLogout;

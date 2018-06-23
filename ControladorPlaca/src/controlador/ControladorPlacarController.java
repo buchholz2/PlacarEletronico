@@ -1,4 +1,4 @@
-package controladorplaca;
+package controlador;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -26,7 +26,7 @@ import main.Main;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-public class FXMLControladorPlacarController implements Initializable {
+public class ControladorPlacarController implements Initializable {
 
     private boolean fimCrono = true;
     private int pontosV = 0;
@@ -208,7 +208,7 @@ public class FXMLControladorPlacarController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            Logger.getLogger(FXMLControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -1069,7 +1069,7 @@ public class FXMLControladorPlacarController implements Initializable {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
-            Logger.getLogger(FXMLControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

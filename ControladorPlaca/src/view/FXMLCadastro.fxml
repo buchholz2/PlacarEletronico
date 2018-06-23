@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLCadastroController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.CadastroController">
    <children>
       <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairTelaCadastro" text="Logout" />
       <Button fx:id="jBListaUsuarios" layoutX="164.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#listarUsuarios" prefHeight="25.0" prefWidth="109.0" text="Listar Usuarios" />

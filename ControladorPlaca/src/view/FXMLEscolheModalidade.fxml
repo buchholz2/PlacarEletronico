@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A8484C;" stylesheets="@../estilos/meinCSS.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorplaca.FXMLEscolheModalidadeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A8484C;" stylesheets="@../estilos/meinCSS.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EscolheModalidadeController">
    <children>
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="365.0" layoutX="226.0" layoutY="23.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" width="346.0" />
       <Label layoutX="47.0" layoutY="133.0" styleClass="text-label" text="ESCOLHA" textFill="WHITE">

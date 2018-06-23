@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controladorplaca;
+package controlador;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -36,7 +36,7 @@ import main.Main;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-public class FXMLLoginCadastroController implements Initializable {
+public class LoginController implements Initializable {
 
     private Stage stage;
 
@@ -69,7 +69,7 @@ public class FXMLLoginCadastroController implements Initializable {
                 Main.mandaMSG("#DESCONECTAR");
             }
         } catch (IOException ex) {
-            Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Main.getStage().close();
     }
@@ -99,7 +99,7 @@ public class FXMLLoginCadastroController implements Initializable {
                     Main.mandaMSG("#DESCONECTAR");
                 }
             } catch (IOException ex) {
-                Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
             Main.getStage().close();
         }
@@ -125,7 +125,7 @@ public class FXMLLoginCadastroController implements Initializable {
                 chave = false;
             }
         } catch (IOException ex) {
-            Logger.getLogger(FXMLLoginCadastroController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (RuntimeException ex) {
 
         } catch (Exception ex) {

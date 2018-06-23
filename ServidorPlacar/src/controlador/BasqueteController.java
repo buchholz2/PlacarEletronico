@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control;
+package controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
  *
  * @author danie
  */
-public class FXMLBasqueteController implements Initializable{
+public class BasqueteController implements Initializable{
 
     @FXML
     private Label jLRodada1;

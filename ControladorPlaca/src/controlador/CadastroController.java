@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controladorplaca;
+package controlador;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +34,7 @@ import model.Usuario;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-public class FXMLCadastroController implements Initializable {
+public class CadastroController implements Initializable {
 
     @FXML
     private TableView<Usuario> jTVTabela;

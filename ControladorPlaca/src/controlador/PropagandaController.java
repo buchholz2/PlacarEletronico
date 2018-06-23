@@ -3,27 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control;
+package controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressIndicator;
 
 /**
  * FXML Controller class
  *
  * @author danie
  */
-public class FXMLPrincipalController implements Initializable {
+public class PropagandaController implements Initializable {
 
-    @FXML
-    private ProgressIndicator progressIndicator;
-
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
+        // TODO
+    }    
+    
 }
