@@ -117,19 +117,21 @@ public class LoginController implements Initializable {
     }
 
     private void chamaLogin() {
-        try {
-            System.out.println("Tentou Conectar222");
-            if (chave) {
-                System.out.println("Tentou Conectar");
-                Main.conectar();
-                chave = false;
+        System.out.println("Tentou Conectar222");
+        if (chave) {
+            System.out.println("Tentou Conectar");
+            Main.conectar();
+            try {
+                if (Main.getSocket().isConnected()) {
+                    chave = false;
+                }
+            } catch (RuntimeException ex) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("ERRO SERVIDOR");
+                alert.setHeaderText(null);
+                alert.setContentText("SEM CONEXÃO AO SERVIDOR ");
+                alert.show();
             }
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RuntimeException ex) {
-
-        } catch (Exception ex) {
-
         }
 
         try {
@@ -151,7 +153,7 @@ public class LoginController implements Initializable {
                             } else if (msg[1].equals("PLACAR")) {
                                 Main.loadScene("/view/FXMLEscolheModalidade.fxml");
                             } else if (msg[1].equals("PROPAGANDA")) {
-
+                                Main.loadScene("/view/FXMLPropaganda.fxml");
                             }
                         } else if (msg[0].equals("#MAXIMO_USER")) {
                             Alert alert = new Alert(AlertType.ERROR);
@@ -160,7 +162,7 @@ public class LoginController implements Initializable {
                             alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
                             alert.show();
                             chave = true;
-                        } else if(msg[0].equals("#NOT_DATA")){
+                        } else if (msg[0].equals("#NOT_DATA")) {
                             Alert alert = new Alert(AlertType.WARNING);
                             alert.setTitle("WARNING");
                             alert.setHeaderText(null);

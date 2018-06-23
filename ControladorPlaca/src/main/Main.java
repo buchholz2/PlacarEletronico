@@ -3,7 +3,10 @@ package main;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -66,10 +69,18 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void conectar() throws IOException {
-        setSocket(new Socket("localhost", 12345));
-        entrada = new ObjectInputStream(getSocket().getInputStream());
-        saida = new ObjectOutputStream(getSocket().getOutputStream());
+    public static void conectar() {
+
+        try {
+            setSocket(new Socket("localhost", 12345));
+            entrada = new ObjectInputStream(getSocket().getInputStream());
+            saida = new ObjectOutputStream(getSocket().getOutputStream());
+        } catch (ConnectException ex) {
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
