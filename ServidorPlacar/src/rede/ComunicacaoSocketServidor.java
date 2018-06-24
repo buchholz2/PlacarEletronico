@@ -10,6 +10,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,6 +40,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import main.Main;
 import model.ListaUsuarios;
+import model.ServerPropaganda;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -824,7 +826,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                             Main.getStageSecundary().close();
                         });
                     } else if (escolha[0].equals("#ENVIAR_PROPAGANDA")) {
-                        chamaTransferencia(cliente);
+                        chamaTransferencia(escolha);
                         saida.writeUTF("ESPERANDO");
                         saida.flush();
                     }
@@ -834,61 +836,63 @@ public class ComunicacaoSocketServidor implements Runnable {
         return task;
     }
 
-    public void chamaTransferencia(Socket current) {
-        Thread th = new Thread(armazenaPropaganda(current));
+    public void chamaTransferencia(String msg[]) throws IOException {
+        String st = msg[1];
+        Thread th = new Thread(armazenaPropaganda(st));
         th.setDaemon(true);
         th.start();
     }
 
-    private Task armazenaPropaganda(Socket cliente) {
+    private Task armazenaPropaganda(String msg) {
 
         Task task = new Task<Void>() {
 
             @Override
             public Void call() throws Exception {
-                FileOutputStream fos = null;
-                InputStream is = null;
 
-                try {
-                    is = cliente.getInputStream();
-
-                    // Cria arquivo local no cliente
-                    fos = new FileOutputStream(new File(Main.getPath() + "Midia\\arquivo.mp4" ));
-                    System.out.println("Arquivo Local Criado c:\\temp\\source-copy.zip");
-
-                    // Prepara variaveis para transferencia
-                    byte[] cbuffer = new byte[1024];
-                    int bytesRead;
-
-                    // Copia conteudo do canal
-                    System.out.println("Recebendo arquivo...");
-                    while ((bytesRead = is.read(cbuffer)) != -1) {
-                        fos.write(cbuffer, 0, bytesRead);
-                        fos.flush();
-                    }
-
-                    System.out.println("Arquivo recebido!");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    
-                    if (fos != null) {
-                        try {
-                            fos.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-
+                ServerPropaganda sp = new ServerPropaganda();
+                sp.receberArquivo(msg);
+//                FileOutputStream fos = null;
+//                InputStream is = null;
+//
+//                try {
+//                    is = cliente.getInputStream();
+//
+//                    // Cria arquivo local no cliente
+//                    fos = new FileOutputStream(new File("c:/z/arquivo.mp4" ));
+//
+//                    // Prepara variaveis para transferencia
+//                    byte[] cbuffer = new byte[1024];
+//                    int bytesRead;
+//
+//                    // Copia conteudo do canal
+//                    System.out.println("Recebendo arquivo...");
+//                    while ((bytesRead = is.read(cbuffer)) != -1) {
+//                        fos.write(cbuffer, 0, bytesRead);
+//                        fos.flush();
+//                    }
+//
+//                    System.out.println("Arquivo recebido!");
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    
+//                    if (fos != null) {
+//                        try {
+//                            fos.close();
+//                        } catch (IOException e1) {
+//                            e1.printStackTrace();
+//                        }
+//                    }
+//
+//                    if (is != null) {
+//                        try {
+//                            is.close();
+//                        } catch (IOException e1) {
+//                            e1.printStackTrace();
+//                        }
+//                    }
+//                }
 //                try {
 //                    System.out.println("Esperando");
 //                    InputStream in = cliente.getInputStream();

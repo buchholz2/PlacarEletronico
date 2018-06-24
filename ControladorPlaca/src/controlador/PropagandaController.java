@@ -7,11 +7,13 @@ package controlador;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
@@ -31,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import main.Main;
+import model.ClientPropaganda;
 
 public class PropagandaController implements Initializable {
 
@@ -70,12 +73,12 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
-    void procuraCaminho(MouseEvent event) throws IOException {
-        Main.mandaMSG("#ENVIAR_PROPAGANDA");
+    void procuraCaminho(MouseEvent event) throws IOException {       
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecione a planilha");
         //        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XLS", "*.xls"));
         file = fileChooser.showOpenDialog(null);
+         Main.mandaMSG("#ENVIAR_PROPAGANDA$"+ file.getName());
         jTFCaminhoPropaganda.setText(file.getPath());
     }
 
@@ -106,53 +109,55 @@ public class PropagandaController implements Initializable {
 
             @Override
             public Void call() throws Exception {
-                // Checa se a transferencia foi completada com sucesso
-                OutputStream socketOut = null;
-                
-                FileInputStream fileIn = null;
-
-                try {
-                    // Criando tamanho de leitura
-                    byte[] cbuffer = new byte[1024];
-                    int bytesRead;
-
-                    // Criando arquivo que sera transferido pelo servidor
-                    File f1 = new File(file.getPath());
-                    fileIn = new FileInputStream(f1);
-                    System.out.println("Lendo arquivo...");
-
-                    // Criando canal de transferencia
-                    socketOut = Main.getSocket().getOutputStream();
-
-                    // Lendo arquivo criado e enviado para o canal de transferencia
-                    System.out.println("Enviando Arquivo...");
-                    while ((bytesRead = fileIn.read(cbuffer)) != -1) {
-                        socketOut.write(cbuffer, 0, bytesRead);
-                        socketOut.flush();
-                    }
-
-                    System.out.println("Arquivo Enviado!");
-                } catch (Exception e) {
-                    // Mostra erro no console
-                    e.printStackTrace();
-                } finally {
-                    if (socketOut != null) {
-                        try {
-                            socketOut.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (fileIn != null) {
-                        try {
-                            fileIn.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
+                ClientPropaganda c = new ClientPropaganda();
+                c.enviaArquivo(file);
+//                // Checa se a transferencia foi completada com sucesso
+//                OutputStream socketOut = null;
+//                
+//                FileInputStream fileIn = null;
+//
+//                try {
+//                    // Criando tamanho de leitura
+//                    byte[] cbuffer = new byte[1024];
+//                    int bytesRead;
+//
+//                    // Criando arquivo que sera transferido pelo servidor
+//                    File f1 = new File(file.getPath());
+//                    fileIn = new FileInputStream(f1);
+//                    System.out.println("Lendo arquivo...");
+//
+//                    // Criando canal de transferencia
+//                    socketOut = Main.getSocket().getOutputStream();
+//
+//                    // Lendo arquivo criado e enviado para o canal de transferencia
+//                    System.out.println("Enviando Arquivo...");
+//                    while ((bytesRead = fileIn.read(cbuffer)) != -1) {
+//                        socketOut.write(cbuffer, 0, bytesRead);
+//                        socketOut.flush();
+//                    }
+//
+//                    System.out.println("Arquivo Enviado!");
+//                } catch (Exception e) {
+//                    // Mostra erro no console
+//                    e.printStackTrace();
+//                } finally {
+//                    if (socketOut != null) {
+//                        try {
+//                            socketOut.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    if (fileIn != null) {
+//                        try {
+//                            fileIn.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
 //                System.out.println("Esperando2");
 //                FileInputStream in = new FileInputStream(file);
 //                System.out.println("Esperando3");
@@ -167,6 +172,7 @@ public class PropagandaController implements Initializable {
 //                while ((lidos = in.read(buffer, 0, tamanho)) != -1) {
 //                    out.write(buffer, 0, lidos);
 //                }
+//                out.flush();
 //                System.out.println("Termino");
                 return null;
             }
