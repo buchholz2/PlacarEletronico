@@ -47,8 +47,22 @@ public class PropagandaController implements Initializable {
     private MediaPlayer mediaPlayer;
 
     public PropagandaController() {
-        this.diretorio = (Main.getPath()+"Midia");
+        this.diretorio = (Main.getPath() + "Midia");
         this.lista = new ArrayList();
+    }
+
+    public ArrayList<String> getLista() {
+        return lista;
+    }
+    
+    
+
+    public String getDiretorio() {
+        return diretorio;
+    }
+
+    public void setDiretorio(String diretorio) {
+        this.diretorio = diretorio;
     }
 
     @Override
@@ -75,11 +89,13 @@ public class PropagandaController implements Initializable {
         File file = new File(diretorio);
         File afile[] = file.listFiles();
         URL url = new URL(afile[i].toURL().toString());
-        for (int j = afile.length; i < j; i++) {
-            File arquivos = afile[i];
-            String u = arquivos.toURI().toURL().toString();
-            lista.add(u);
-            System.out.println(arquivos.toURI().toURL().toString());
+        if (afile.length != 0) {
+            for (int j = afile.length; i < j; i++) {
+                File arquivos = afile[i];
+                String u = arquivos.toURI().toURL().toString();
+                lista.add(u);
+                System.out.println(arquivos.toURI().toURL().toString());
+            }
         }
         return url;
     }
@@ -113,7 +129,7 @@ public class PropagandaController implements Initializable {
 
         Task task = new Task<Void>() {
             boolean chave = true;
-            
+
             @Override
             public Void call() throws Exception {
                 while (chave) {

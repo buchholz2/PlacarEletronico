@@ -9,21 +9,35 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import main.Main;
 import model.ClientPropaganda;
+import model.Propaganda;
 
 public class PropagandaController implements Initializable {
 
     @FXML
-    private TableView<?> jTVListaPropaganda;
+    private TableView<Propaganda> jTVListaPropaganda;
+
+    @FXML
+    private TableColumn<Propaganda, String> jTCTituloProp;
+
+    @FXML
+    private Button jBExcluirPropaganda;
 
     @FXML
     private TextField jTFEscolhePropExcluir;
@@ -44,8 +58,8 @@ public class PropagandaController implements Initializable {
     private Button jBLogout;
 
     private File file = null;
-
-    private int i;
+    
+    ObservableList<Propaganda> propData = FXCollections.observableArrayList();
 
     @FXML
     void enviaPropaganda(MouseEvent event) {
@@ -54,15 +68,64 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void listaPropagandas(MouseEvent event) {
+        try {
+            String retorno = "";
+            String[] arquivos;
+            retorno = Main.mandaMSG("#LISTAR_PROPAGANDA");
+            if (retorno.equals("#NOT$OK")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("LISTAGEM");
+                alert.setHeaderText(null);
+                alert.setContentText("NENHUM ARQUIVO ENCONTRADO!");
+                alert.show();
+            } else {
+                arquivos = retorno.split("\\$");
+                for (String url : arquivos) {
+                    Propaganda prop = new Propaganda(url);
+                    propData.add(prop);
+                }
+                jTVListaPropaganda.setItems(propData);
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOGGER
+        }
 
     }
 
     @FXML
-    void procuraCaminho(MouseEvent event) throws IOException {       
+    void excluirPropaganda(MouseEvent event) {
+        try {
+            String retorno;
+            Propaganda p = jTVListaPropaganda.getSelectionModel().getSelectedItem();
+            String url = p.getUrl();
+            retorno = Main.mandaMSG("#EXCLUIR_PROPAGANDA$" + url);
+//            propData.remove(url);
+//            jTVListaPropaganda.getItems().clear();
+//            jTVListaPropaganda.setItems(propData);
+            if (retorno.equals("#OK")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUSÃO");
+                alert.setHeaderText(null);
+                alert.setContentText("PROPAGANDA EXCLUÍDA COM SUCESSO!");
+                alert.show();
+            } else if (retorno.equals("#NOT$OK")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("EXCLUSÃO");
+                alert.setHeaderText(null);
+                alert.setContentText("ERRO AO EXCLUIR PROPAGANDA!");
+                alert.show();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void procuraCaminho(MouseEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecione a planilha");
         file = fileChooser.showOpenDialog(null);
-         Main.mandaMSG("#ENVIAR_PROPAGANDA$"+ file.getName());
+        Main.mandaMSG("#ENVIAR_PROPAGANDA$" + file.getName());
         jTFCaminhoPropaganda.setText(file.getPath());
     }
 
@@ -77,7 +140,8 @@ public class PropagandaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        jTCTituloProp.setCellValueFactory(new PropertyValueFactory<>("url"));
+        jTVListaPropaganda.centerShapeProperty().set(true);
     }
 
     public void iniciaTransferencia() {

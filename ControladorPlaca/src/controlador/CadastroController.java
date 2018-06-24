@@ -8,6 +8,7 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -176,9 +177,8 @@ public class CadastroController implements Initializable {
         try {
             String retorno = "";
             String[] div;
-            String opcao;
+            String[] div2;
             ObservableList<Usuario> userData = FXCollections.observableArrayList();
-            ListaUsuarios lista = new ListaUsuarios();
 
             retorno = Main.mandaMSG("#LISTAR_USUARIOS");
 
@@ -190,15 +190,12 @@ public class CadastroController implements Initializable {
                 alert.show();
             } else {
                 div = retorno.split("\\?");
-
                 for (int i = 0; i < div.length; i++) {
-                    String[] div2 = div[i].split("\\$");
+                    div2 = div[i].split("\\$");
                     String nome = div2[0];
                     String funcao = div2[1];
                     Usuario user = new Usuario(nome, funcao);
-                    userData.add(user);
-                    System.out.println("Nome" + nome + " " + funcao);
-                    System.out.println(userData.get(i).getFuncao() + " = " + userData.get(i).getUsuario());
+                    userData.add(user);                    
                 }
 
                 jTVTabela.setItems(userData);

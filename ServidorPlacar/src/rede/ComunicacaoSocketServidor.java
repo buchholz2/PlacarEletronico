@@ -5,6 +5,7 @@
  */
 package rede;
 
+import controlador.PropagandaController;
 import model.Usuario;
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -12,10 +13,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -53,6 +59,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     String resultadoFinal = "";
     private int count = 0;
     private int i = 0;
+    private ArrayList<String> lista = new ArrayList<>();
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -139,7 +146,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     }
 
-    private boolean validaLogin(String login, String senha, Usuario usuario) {
+    public boolean validaLogin(String login, String senha, Usuario usuario) {
         if (login == null || senha == null) {
             return false;
         } else {
@@ -164,7 +171,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         return false;
     }
 
-    private String escolhaModalidade(String[] msg) {
+    public String escolhaModalidade(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
         switch (opcao) {
@@ -187,7 +194,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         return retorno;
     }
 
-    private String adicionaUsuario(String[] msg) {
+    public String adicionaUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
         Iterator<Usuario> iterator = lista.getUsuarios().iterator();
@@ -240,7 +247,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         return deco;
     }
 
-    private String excluirUsuario(String[] msg) {
+    public String excluirUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
         Iterator<Usuario> iterator = lista.getUsuarios().iterator();
@@ -255,7 +262,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         return ("#NOT$OK");
     }
 
-    private String listaUsuario(String[] msg) {
+    public String listaUsuario(String[] msg) {
         String opcao = msg[0];
         String funcao;
         String retorno = "";
@@ -279,6 +286,50 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
 
         return ("#NOT$OK");
+    }
+
+    public String listaPropagandas(String[] msg) {
+        String opcao = msg[0];
+        String retorno = "";
+        if (opcao.equals("#LISTAR_PROPAGANDA")) {
+            ArrayList<String> buscaArquivos = buscaArquivos();
+            if (!buscaArquivos.isEmpty()) {
+                for (String arquivo : buscaArquivos) {
+                    if (!arquivo.isEmpty()) {
+                        retorno = retorno.concat(arquivo + "$");
+                    }
+                }
+                return retorno;
+            }
+            return ("#NOT$OK");
+        }
+        return ("#NOT$OK");
+    }
+
+    public String excluirPropaganda(String[] msg) {
+        String opcao = msg[0];
+        String url = msg[1];
+        if (opcao.equals("#EXCLUIR_PROPAGANDA")) {
+            File fl = new File(Main.getPath() + "Midia\\" + url);
+            if (fl.exists()) {
+                fl.delete();
+            }
+            return ("#OK");
+        }
+        return ("#NOT$OK");
+    }
+
+    public ArrayList<String> buscaArquivos() {
+        File file = new File(Main.getPath() + "Midia");
+        File afile[] = file.listFiles();
+        if (afile.length != 0) {
+            for (int j = afile.length; i < j; i++) {
+                File arquivos = afile[i];
+                String u = arquivos.getName();
+                lista.add(u);
+            }
+        }
+        return lista;
     }
 
     public String fechaConexao(String[] msg) {
@@ -818,6 +869,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                         chamaTransferencia(escolha);
                         saida.writeUTF("ESPERANDO");
                         saida.flush();
+                    } else if (escolha[0].equals("#LISTAR_PROPAGANDA")) {
+                        saida.writeUTF(listaPropagandas(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#EXCLUIR_PROPAGANDA")) {
+                        saida.writeUTF(excluirPropaganda(escolha));
+                        saida.flush();
                     }
                 }
             }
@@ -825,9 +882,8 @@ public class ComunicacaoSocketServidor implements Runnable {
         return task;
     }
 
-    public void chamaTransferencia(String msg[]) throws IOException {
-        String st = msg[1];
-        Thread th = new Thread(armazenaPropaganda(st));
+    public void chamaTransferencia(String[] msg) throws IOException {
+        Thread th = new Thread(armazenaPropaganda(msg[1]));
         th.setDaemon(true);
         th.start();
     }
