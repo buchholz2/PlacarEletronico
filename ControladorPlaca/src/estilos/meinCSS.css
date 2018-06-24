@@ -56,6 +56,16 @@ and open the template in the editor.
     -fx-font-size: 20px;
 }
 
-.text-label{
-    
+.jfx-text-field .input-line{
+	-fx-pref-height: 3px;
+}
+.jfx-text-field .input-focused-line{
+	-fx-pref-height: 4px;
+}
+
+.jfx-password-field .input-line{
+	-fx-pref-height: 3px;
+}
+.jfx-password .input-focused-line{
+	-fx-pref-height: 4px;
 }
