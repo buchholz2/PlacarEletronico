@@ -8,31 +8,20 @@ package rede;
 import model.Usuario;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -852,68 +841,7 @@ public class ComunicacaoSocketServidor implements Runnable {
 
                 ServerPropaganda sp = new ServerPropaganda();
                 sp.receberArquivo(msg);
-//                FileOutputStream fos = null;
-//                InputStream is = null;
-//
-//                try {
-//                    is = cliente.getInputStream();
-//
-//                    // Cria arquivo local no cliente
-//                    fos = new FileOutputStream(new File("c:/z/arquivo.mp4" ));
-//
-//                    // Prepara variaveis para transferencia
-//                    byte[] cbuffer = new byte[1024];
-//                    int bytesRead;
-//
-//                    // Copia conteudo do canal
-//                    System.out.println("Recebendo arquivo...");
-//                    while ((bytesRead = is.read(cbuffer)) != -1) {
-//                        fos.write(cbuffer, 0, bytesRead);
-//                        fos.flush();
-//                    }
-//
-//                    System.out.println("Arquivo recebido!");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    
-//                    if (fos != null) {
-//                        try {
-//                            fos.close();
-//                        } catch (IOException e1) {
-//                            e1.printStackTrace();
-//                        }
-//                    }
-//
-//                    if (is != null) {
-//                        try {
-//                            is.close();
-//                        } catch (IOException e1) {
-//                            e1.printStackTrace();
-//                        }
-//                    }
-//                }
-//                try {
-//                    System.out.println("Esperando");
-//                    InputStream in = cliente.getInputStream();
-//                    InputStreamReader isr = new InputStreamReader(in);
-//                    BufferedReader reader = new BufferedReader(isr);
-//                    String fName = reader.readLine();
-//                    System.out.println(fName);
-//                    File f1 = new File(Main.getPath() + "Midia\\" + fName);
-//                    FileOutputStream out = new FileOutputStream(f1);
-//                    int tamanho = 4096; // buffer de 4KB  
-//                    byte[] buffer = new byte[tamanho];
-//                    int lidos = -1;
-//                    while ((lidos = in.read(buffer, 0, tamanho)) != -1) {
-//                        System.out.println(lidos);
-//                        out.write(buffer, 0, lidos);
-//                    }
-//                    out.flush();
                 System.out.println("Termino");
-//                } catch (IOException ex) {
-//                    Logger.getLogger(ComunicacaoSocketServidor.class.getName()).log(Level.SEVERE, null, ex);
-//                } 
                 return null;
             }
         };
