@@ -5,7 +5,6 @@
  */
 package rede;
 
-import controlador.PropagandaController;
 import model.Usuario;
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -13,15 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -39,13 +34,15 @@ import model.ServerPropaganda;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class ComunicacaoSocketServidor implements Runnable {
 
     private boolean fimCrono = false;
-    Stage p;
+    private Stage p;
     public int pontosL = 0;
     public int pontosV = 0;
     public boolean cronosPausado = false;
@@ -59,25 +56,32 @@ public class ComunicacaoSocketServidor implements Runnable {
     String resultadoFinal = "";
     private int count = 0;
     private int i = 0;
-    // private ArrayList<String> lista = new ArrayList<>();
 
+    /**
+     * Construtor
+     *
+     * @param p
+     */
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
     }
 
+    /**
+     * Contrutor default
+     */
     public ComunicacaoSocketServidor() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
         try {
-            // Instancia o ServerSocket ouvindo a porta 12345
             ServerSocket servidor = new ServerSocket(12345);
-            System.out.println("Servidor ouvindo a porta 12345");
+            Main.LOGGER.info("Servidor ouvindo na porta 12345");
             //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
-            // o método accept() bloqueia a execução até que
-            // o servidor receba um pedido de conexão
             while (true) {
 
                 Socket cliente = servidor.accept();
@@ -98,14 +102,18 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.close();
                     cliente.close();
                 }
-
             }
-
         } catch (IOException e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
 
+    /**
+     * Seleciona time
+     *
+     * @param msg
+     * @return
+     */
     public String time(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
@@ -114,16 +122,21 @@ public class ComunicacaoSocketServidor implements Runnable {
                 mudaPontosV((Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos"), msg[3], msg[2]);
                 retorno = "#OK";
                 break;
-
             case "LOCAL":
                 mudaPontosL((Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos"), msg[3], msg[2]);
                 retorno = "#OK";
                 break;
         }
-
         return retorno;
     }
 
+    /**
+     * Login
+     *
+     * @param msg
+     * @return
+     * @throws IOException
+     */
     public String login(String[] msg) throws IOException {
         String login = msg[1];
         String senha = msg[2];
@@ -143,15 +156,21 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
         }
         return ("#NOT_DATA");
-
     }
 
+    /**
+     * Validação de usuário no XML
+     *
+     * @param login
+     * @param senha
+     * @param usuario
+     * @return
+     */
     public boolean validaLogin(String login, String senha, Usuario usuario) {
         if (login == null || senha == null) {
             return false;
         } else {
             ListaUsuarios users = leituraXML();
-
             if (users != null) {
                 for (Usuario u : users.getUsuarios()) {
                     String pass = decode(u.getSenha());
@@ -161,16 +180,20 @@ public class ComunicacaoSocketServidor implements Runnable {
                         usuario.setUserAdm(u.isUserAdm());
                         usuario.setUserPlacar(u.isUserPlacar());
                         usuario.setUserPropaganda(u.isUserPropaganda());
-
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
+    /**
+     * Escolhe modalidade
+     *
+     * @param msg
+     * @return
+     */
     public String escolhaModalidade(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
@@ -190,10 +213,15 @@ public class ComunicacaoSocketServidor implements Runnable {
                 retorno = "ESCOLHIDA";
                 break;
         }
-
         return retorno;
     }
 
+    /**
+     * Adiciona usuário ao XML
+     *
+     * @param msg
+     * @return
+     */
     public String adicionaUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
@@ -236,17 +264,34 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Criptografa senha
+     *
+     * @param encriptar
+     * @return
+     */
     public String encode(String encriptar) {
         String criptografado = Base64.encodeBase64String(encriptar.getBytes());
         return criptografado;
     }
 
+    /**
+     *
+     * @param encriptado
+     * @return
+     */
     public String decode(String encriptado) {
         byte[] decoded = Base64.decodeBase64(encriptado);
         String deco = new String(decoded);
         return deco;
     }
 
+    /**
+     * Exclui usuário do XML
+     *
+     * @param msg
+     * @return
+     */
     public String excluirUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
@@ -262,13 +307,17 @@ public class ComunicacaoSocketServidor implements Runnable {
         return ("#NOT$OK");
     }
 
+    /**
+     * Lista usuários cadastrados
+     *
+     * @param msg
+     * @return
+     */
     public String listaUsuario(String[] msg) {
         String opcao = msg[0];
         String funcao;
         String retorno = "";
-
         if (opcao.equals("#LISTAR_USUARIOS")) {
-
             ListaUsuarios lista = leituraXML();
             for (Usuario u : lista.getUsuarios()) {
                 if (u.isUserAdm()) {
@@ -284,38 +333,45 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
             return retorno;
         }
-
         return ("#NOT$OK");
     }
 
+    /**
+     * Lista propagandas contidas no diretório servidor
+     *
+     * @param msg
+     * @return
+     */
     public String listaPropagandas(String[] msg) {
-        String opcao = msg[0];
         String retorno = "";
         ArrayList<String> lista = new ArrayList<>();
-        if (opcao.equals("#LISTAR_PROPAGANDA")) {
-            File file = new File(Main.getPath() + "Midia");
-            File afile[] = file.listFiles();
-            int k = 0;
-            if (afile.length != 0) {
-                for (int j = afile.length; k < j; k++) {
-                    File arquivos = afile[k];
-                    String u = arquivos.getName();
-                    lista.add(u);
+        File file = new File(Main.getPath() + "Midia");
+        File afile[] = file.listFiles();
+        int k = 0;
+        if (afile.length != 0) {
+            for (int j = afile.length; k < j; k++) {
+                File arquivos = afile[k];
+                String u = arquivos.getName();
+                lista.add(u);
+            }
+        }
+        if (!lista.isEmpty()) {
+            for (String arquivo : lista) {
+                if (!arquivo.isEmpty()) {
+                    retorno = retorno.concat(arquivo + "$");
                 }
             }
-            if (!lista.isEmpty()) {
-                for (String arquivo : lista) {
-                    if (!arquivo.isEmpty()) {
-                        retorno = retorno.concat(arquivo + "$");
-                    }
-                }
-                return retorno;
-            }
-            return ("#NOT$OK");
+            return retorno;
         }
         return ("#NOT$OK");
     }
 
+    /**
+     * Exclui propaganda do diretorio servidor
+     *
+     * @param msg
+     * @return
+     */
     public String excluirPropaganda(String[] msg) {
         String url = msg[1];
         File fl = new File(Main.getPath() + "Midia\\" + url);
@@ -326,10 +382,22 @@ public class ComunicacaoSocketServidor implements Runnable {
         return ("#NOT$OK");
     }
 
+    /**
+     * Fecha conexão
+     *
+     * @param msg
+     * @return
+     */
     public String fechaConexao(String[] msg) {
         return "";
     }
 
+    /**
+     * Inicia cronometro
+     *
+     * @param msg
+     * @return
+     */
     public String iniciaCronos(String[] msg) {
         if (fimCrono != true) {
             fimCrono = true;
@@ -432,6 +500,13 @@ public class ComunicacaoSocketServidor implements Runnable {
         return fimCrono;
     }
 
+    /**
+     * Altera pontos time visitante
+     *
+     * @param l
+     * @param pontos
+     * @param funcao
+     */
     private void mudaPontosV(Label l, String pontos, String funcao) {
 
         if (funcao.equals("SOMA_PONTO")) {
@@ -467,6 +542,13 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Altera pontos time local
+     *
+     * @param l
+     * @param pontos
+     * @param funcao
+     */
     private void mudaPontosL(Label l, String pontos, String funcao) {
 
         if (funcao.equals("SOMA_PONTO")) {
@@ -502,6 +584,11 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Inicia tempo na preview
+     *
+     * @param l
+     */
     private void iniciaTempoLPreview(Label l) {
         String muda;
 
@@ -571,12 +658,16 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Recupera usuarios do XML para manipulação
+     *
+     * @return
+     */
     public ListaUsuarios leituraXML() {
         ListaUsuarios lista = null;
         try {
             File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
-
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             lista = (ListaUsuarios) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
@@ -586,25 +677,29 @@ public class ComunicacaoSocketServidor implements Runnable {
         return lista;
     }
 
+    /**
+     * Grava XML atualizado
+     *
+     * @param l
+     */
     public void gravarXML(ListaUsuarios l) {
         try {
-
             File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
             jaxbMarshaller.marshal(l, file);
-            // Se desejar mostrar no console o xml gerado
-//            jaxbMarshaller.marshal(usuarios, System.out);
-
         } catch (JAXBException e) {
             Main.LOGGER.warning("Falha ao gravar XML!");
         }
 
     }
 
+    /**
+     * Restaura tudo
+     *
+     * @return
+     */
     private String restauraTudo() {
         cronosPausado = false;
         fimCrono = false;
@@ -648,6 +743,10 @@ public class ComunicacaoSocketServidor implements Runnable {
         return "RESTAURADO";
     }
 
+    /**
+     * Chama conversa controlador-placar
+     * @param cli 
+     */
     public void chamaConversa(Socket cli) {
         Thread th = new Thread(iniciaConversa(cli));
         th.setDaemon(true);
@@ -665,7 +764,6 @@ public class ComunicacaoSocketServidor implements Runnable {
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
                 while (true) {
-
                     String msg = entrada.readUTF();
 
                     String[] escolha = msg.split("\\$");
@@ -882,16 +980,18 @@ public class ComunicacaoSocketServidor implements Runnable {
         th.start();
     }
 
+    /**
+     * Inicia tranferência de arquivos controlador-servidor
+     * @param msg
+     * @return 
+     */
     private Task armazenaPropaganda(String msg) {
 
         Task task = new Task<Void>() {
-
             @Override
             public Void call() throws Exception {
-
                 ServerPropaganda sp = new ServerPropaganda();
                 sp.receberArquivo(msg);
-                System.out.println("Termino");
                 return null;
             }
         };
