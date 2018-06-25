@@ -5,7 +5,6 @@
  */
 package rede;
 
-import controlador.PropagandaController;
 import model.Usuario;
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -13,15 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -59,6 +54,8 @@ public class ComunicacaoSocketServidor implements Runnable {
     String resultadoFinal = "";
     private int count = 0;
     private int i = 0;
+    private String nomeVisitante = "Visitante";
+    private String nomeLocal = "Local";
     // private ArrayList<String> lista = new ArrayList<>();
 
     public ComunicacaoSocketServidor(Stage p) {
@@ -741,11 +738,13 @@ public class ComunicacaoSocketServidor implements Runnable {
                             if (escolha[1].equals("") != true) {
                                 Platform.runLater(() -> {
                                     local.setText(escolha[1]);
+                                    nomeLocal = escolha[1];
                                 });
                             }
                             if (escolha[2].equals("") != true) {
                                 Platform.runLater(() -> {
                                     visitante.setText(escolha[2]);
+                                    nomeVisitante = escolha[2];
                                 });
                             }
                         }
@@ -847,9 +846,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.writeUTF(user);
                         saida.flush();
                     } else if (escolha[0].equals("#PROPAGANDA_INICIA")) {
+                        Main.propaganda(pontosL, pontosV, nomeLocal, nomeVisitante);
                         saida.writeUTF("INICIADA");
                         saida.flush();
-                        Main.propaganda();
+                        // alteraDados();
                     } else if (escolha[0].equals("#PROPAGANDA_FECHA")) {
                         System.out.println("Fechando Propaganda");
                         saida.writeUTF("FECHADA");
@@ -869,6 +869,11 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#EXCLUIR_PROPAGANDA")) {
                         saida.writeUTF(excluirPropaganda(escolha));
                         saida.flush();
+                    } else if (escolha[0].equals("#TROCA_TELA")) {
+                        if (escolha[1].equals("PRINCIPAL")) {
+                            Main.loadScene("/view/FXMLPrincipal.fxml");
+                        }
+
                     }
                 }
             }
@@ -896,5 +901,19 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
         };
         return task;
+    }
+
+    public void alteraDados() {
+        Stage s = Main.alteraStageSecundary();
+        Label plocal = (Label) s.getScene().getRoot().lookup("#jLPontosLocal");
+        Label pvisitante = (Label) s.getScene().getRoot().lookup("#jLPontosVisitante");
+        Label local = (Label) s.getScene().getRoot().lookup("#jLLocal");
+        Label visitante = (Label) s.getScene().getRoot().lookup("#jLVisitante");
+        Platform.runLater(() -> {
+            plocal.setText("" + pontosL);
+            pvisitante.setText("" + pontosV);
+            local.setText(nomeLocal);
+            visitante.setText(nomeVisitante);
+        });
     }
 }

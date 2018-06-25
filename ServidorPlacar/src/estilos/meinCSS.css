@@ -26,3 +26,8 @@ and open the template in the editor.
 .fonteplacar{
     -fx-font-family: "DS-Digital";
 }
+.fundoPropaganda{
+    -fx-background-color: rgba(0, 0, 0, 0.7); 
+    -fx-background-radius: 100;
+}
+

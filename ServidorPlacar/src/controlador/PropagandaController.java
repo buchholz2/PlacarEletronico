@@ -35,7 +35,16 @@ public class PropagandaController implements Initializable {
     private String diretorio;
 
     @FXML
-    private Label jLTitulo;
+    private Label jLLocal;
+
+    @FXML
+    private Label jLPontosLocal;
+
+    @FXML
+    private Label jLVisitante;
+
+    @FXML
+    private Label jLPontosVisitante;
 
     @FXML
     private MediaView jMidiaView;
@@ -54,8 +63,6 @@ public class PropagandaController implements Initializable {
     public ArrayList<String> getLista() {
         return lista;
     }
-    
-    
 
     public String getDiretorio() {
         return diretorio;
@@ -78,6 +85,20 @@ public class PropagandaController implements Initializable {
 
             jMidiaView.setPreserveRatio(true);
 
+            jLLocal.setText(Main.getNomeLocal());
+            jLVisitante.setText(Main.getNomeVisitante());
+            int pL = Main.getpLocal();
+            if (pL > 9) {
+                jLPontosLocal.setText("" + pL);
+            } else {
+                jLPontosLocal.setText("0" + pL);
+            }
+            int pV = Main.getpVisitante();
+            if (pV > 9) {
+                jLPontosVisitante.setText("" + pV);
+            } else {
+                jLPontosVisitante.setText("0" + pV);
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {

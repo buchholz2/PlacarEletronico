@@ -19,6 +19,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ListaUsuarios;
@@ -33,8 +34,12 @@ public class Main extends Application {
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
     public static Class outraClass;
-    private static final String PATH = (System.getProperty("user.home")+"\\Documents\\Placar\\");
+    private static final String PATH = (System.getProperty("user.home") + "\\Documents\\Placar\\");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    public static String nomeVisitante = "";
+    public static String nomeLocal = "";
+    public static int pLocal = 0;
+    public static int pVisitante = 0;
 
     /**
      * A classe principal da aplicação em JavaFX
@@ -65,9 +70,9 @@ public class Main extends Application {
     }
 
     public static void criaDirXmlPrimeiraExecucao() {
-        File file = new File(PATH+"xml");
+        File file = new File(PATH + "xml");
         if (!file.exists()) {
-            Path p = Paths.get(PATH+"xml");
+            Path p = Paths.get(PATH + "xml");
             try {
                 Files.createDirectories(p);
                 criaUsuariosXmlPrimeiraExecucao();
@@ -76,19 +81,18 @@ public class Main extends Application {
             }
         }
     }
-    
-    public static void criaDirMidia(){
-        File file = new File(PATH+"Midia");
+
+    public static void criaDirMidia() {
+        File file = new File(PATH + "Midia");
         if (!file.exists()) {
-            Path p = Paths.get(PATH+"Midia");
+            Path p = Paths.get(PATH + "Midia");
             try {
-                Files.createDirectories(p);                
+                Files.createDirectories(p);
             } catch (IOException ex) {
                 Main.LOGGER.config("Problema ao criar diretório de Midias!");
             }
         }
     }
-    
 
     private static void criaUsuariosXmlPrimeiraExecucao() {
         ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
@@ -114,12 +118,12 @@ public class Main extends Application {
 
         c.gravarXML(lista);
     }
-   
+
     public static void iniciaDiretorioLog() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dataFormatada = sdf.format(data);
-        Path path = Paths.get(PATH+"\\Log\\" + dataFormatada);
+        Path path = Paths.get(PATH + "\\Log\\" + dataFormatada);
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
@@ -181,7 +185,11 @@ public class Main extends Application {
 
     }
 
-    public static void propaganda() throws IOException {
+    public static void propaganda(int pontosL, int pontosV, String nomeLocal, String nomeVisitante) throws IOException {
+        Main.pLocal = pontosL;
+        Main.pVisitante = pontosV;
+        Main.nomeLocal = nomeLocal;
+        Main.nomeVisitante = nomeVisitante;
         try {
             propaganda = false;
             FXMLLoader fxmlLoader = new FXMLLoader(outraClass.getClass().getResource("/view/FXMLPropaganda.fxml"));
@@ -192,9 +200,7 @@ public class Main extends Application {
                 secundaryStage.setScene(new Scene(root1));
                 secundaryStage.show();
                 secundaryStage.setFullScreen(true);
-
             });
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,4 +223,25 @@ public class Main extends Application {
     public static boolean fechaPropaganda() {
         return propaganda;
     }
+
+    public static Stage alteraStageSecundary() {
+        return secundaryStage;
+    }
+
+    public static String getNomeVisitante() {
+        return nomeVisitante;
+    }
+
+    public static String getNomeLocal() {
+        return nomeLocal;
+    }
+
+    public static int getpLocal() {
+        return pLocal;
+    }
+
+    public static int getpVisitante() {
+        return pVisitante;
+    }
+
 }
