@@ -11,37 +11,31 @@
 
 <AnchorPane id="AnchorPane" fx:id="jAPPropaganda" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PropagandaController">
     <children>      
-        <Label layoutX="214.0" layoutY="14.0" text="Propaganda">
+        <Label layoutX="214.0" layoutY="8.0" text="Propaganda">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <TextField fx:id="jTFEscolhePropExcluir" alignment="CENTER" layoutX="325.0" layoutY="146.0" prefHeight="25.0" prefWidth="231.0" promptText="Escolha um ID ou seu Nome" />
-        <Label layoutX="391.0" layoutY="129.0" text="Excuir Propaganda">
+        <Label layoutX="368.0" layoutY="85.0" text="Adicionar Propaganda">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <Button fx:id="jBProcuraPropaganda" layoutX="479.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#procuraCaminho" prefHeight="25.0" prefWidth="77.0" text="Procurar" />
-        <Button fx:id="jBEnviaProp" layoutX="391.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#enviaPropaganda" prefHeight="25.0" prefWidth="106.0" text="Enviar" />
-        <TextField fx:id="jTFCaminhoPropaganda" layoutX="337.0" layoutY="255.0" prefHeight="25.0" prefWidth="136.0" />
-        <Label layoutX="378.0" layoutY="236.0" text="Adicionar Propaganda">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Label>
+        <TextField fx:id="jTFCaminhoPropaganda" layoutX="324.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+        <Button fx:id="jBProcuraPropaganda" layoutX="470.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#procuraCaminho" prefHeight="25.0" prefWidth="77.0" text="Procurar" />
+        <Button fx:id="jBEnviaProp" layoutX="378.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#enviaPropaganda" prefHeight="25.0" prefWidth="106.0" text="Enviar" />
         <Button fx:id="jBListaPropaganda" layoutX="93.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#listaPropagandas" text="Listar Propaganda" />
         <Button fx:id="jBLogout" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#sairJanela" text="Logout" />
-        <TableView id="alinhamento" fx:id="jTVListaPropaganda" layoutX="14.0" layoutY="85.0" prefHeight="301.0" prefWidth="269.0" styleClass="alinhamento" stylesheets="@../estilos/meinCSS.css">
+      <Button fx:id="jBExcluirPropaganda" layoutX="34.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#excluirPropaganda" prefHeight="25.0" prefWidth="230.0" text="Excluir Propaganda Selecionada" />
+        <TableView id="alinhamento" fx:id="jTVListaPropaganda" layoutX="14.0" layoutY="85.0" prefHeight="230.0" prefWidth="269.0" styleClass="alinhamento" stylesheets="@../estilos/meinCSS.css">
             <columns>
                 <TableColumn id="alinhamento" fx:id="jTCTituloProp" prefWidth="268.0" text="Titulo Propaganda" />
             </columns>
         </TableView>
-      <Button fx:id="jBExcluirPropaganda" layoutX="385.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#excluirPropaganda" text="Excluir Propaganda" />
-      <ProgressIndicator fx:id="jPIEnviarArquivo" layoutX="337.0" layoutY="322.0" opacity="0.0" prefHeight="53.0" prefWidth="39.0" />
-      <Label fx:id="jLEnviandoArquivo" layoutX="388.0" layoutY="340.0" opacity="0.0" prefHeight="21.0" prefWidth="149.0" text="Enviando Arquivo!">
+      <ProgressIndicator fx:id="jPIEnviarArquivo" layoutX="314.0" layoutY="223.0" opacity="0.0" prefHeight="66.0" prefWidth="69.0" />
+      <Label fx:id="jLEnviandoArquivo" layoutX="391.0" layoutY="245.0" opacity="0.0" prefHeight="26.0" prefWidth="157.0" text="Enviando Arquivo!">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
       </Label>
     </children>

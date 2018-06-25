@@ -32,6 +32,10 @@ import main.Main;
 import model.ClientPropaganda;
 import model.Propaganda;
 
+/**
+ * 
+ * @author Cristiano Alex Künas
+ */
 public class PropagandaController implements Initializable {
 
     @FXML
@@ -45,9 +49,6 @@ public class PropagandaController implements Initializable {
 
     @FXML
     private Button jBExcluirPropaganda;
-
-    @FXML
-    private TextField jTFEscolhePropExcluir;
 
     @FXML
     private Button jBProcuraPropaganda;
@@ -142,9 +143,6 @@ public class PropagandaController implements Initializable {
             Propaganda p = jTVListaPropaganda.getSelectionModel().getSelectedItem();
             String url = p.getUrl();
             retorno = Main.mandaMSG("#EXCLUIR_PROPAGANDA$" + url);
-//            propData.remove(url);
-//            jTVListaPropaganda.getItems().clear();
-//            jTVListaPropaganda.setItems(propData);
             if (retorno.equals("#OK")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("EXCLUSÃO");
@@ -202,14 +200,12 @@ public class PropagandaController implements Initializable {
     private Task transferencia() {
         System.out.println("Esperando1.2");
         Task task = new Task<Void>() {
-
             @Override
             public Void call() throws Exception {
                 jPIEnviarArquivo.setOpacity(1);
                 jLEnviandoArquivo.setOpacity(1);
                 jAPPropaganda.setDisable(true);
                 c.enviaArquivo(file);
-               
                 jPIEnviarArquivo.setOpacity(0);
                 jLEnviandoArquivo.setOpacity(0);
                 jAPPropaganda.setDisable(false);
