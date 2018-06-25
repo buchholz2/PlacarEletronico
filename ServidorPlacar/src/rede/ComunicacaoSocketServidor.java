@@ -977,6 +977,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#TROCA_TELA")) {
                         if (escolha[1].equals("PRINCIPAL")) {
                             Main.loadScene("/view/FXMLPrincipal.fxml");
+                            saida.writeUTF("TROCADO");
+                            saida.flush();
                         }
 
                     }
