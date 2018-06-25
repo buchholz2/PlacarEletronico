@@ -55,7 +55,7 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-font-size: 20px;
 }
-
+/*
 .jfx-text-field .input-line{
 	-fx-pref-height: 3px;
 }
@@ -68,4 +68,4 @@ and open the template in the editor.
 }
 .jfx-password .input-focused-line{
 	-fx-pref-height: 4px;
-}
+}*/

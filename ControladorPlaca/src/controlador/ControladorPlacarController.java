@@ -169,6 +169,9 @@ public class ControladorPlacarController implements Initializable {
     @FXML
     private Label jLLogger;
 
+    @FXML
+    private Button jBVoltar;
+
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
      * comando altera_nome para o servidor Aguarda retorno para atualizar placar
@@ -1056,6 +1059,16 @@ public class ControladorPlacarController implements Initializable {
                 });
             }
         }
+    }
+
+    @FXML
+    void voltarEscolhaModalidade(MouseEvent event) {
+        try {
+            Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Main.loadScene("/view/FXMLEscolheModalidade.fxml");
     }
 
     /**
