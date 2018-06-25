@@ -164,6 +164,12 @@ public class LoginController implements Initializable {
                             alert.setHeaderText(null);
                             alert.setContentText("BASE DE DADOS NÃO ENCONRADA!");
                             alert.show();
+                        } else if (msg[0].equals("#JA_LOGOU")) {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("WARNING");
+                            alert.setHeaderText(null);
+                            alert.setContentText("ESTE USUÁRIO JÁ ESTÁ LOGADO!");
+                            alert.show();
                         } else {
                             Alert alert = new Alert(AlertType.ERROR);
                             alert.setTitle("ERRO DE LOGIN");

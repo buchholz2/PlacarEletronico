@@ -158,6 +158,12 @@ public class CadastroController implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("USUÁRIO NÃO ENCONTRADO!");
                         alert.show();
+                    } else if (retorno.equals("#USUARIO_ATIVO")) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("WARNING");
+                        alert.setHeaderText(null);
+                        alert.setContentText("IMPOSSIVEL EXCLUIR! USUARIO ATIVO");
+                        alert.show();
                     }
                 }
             }
@@ -195,7 +201,7 @@ public class CadastroController implements Initializable {
                     String nome = div2[0];
                     String funcao = div2[1];
                     Usuario user = new Usuario(nome, funcao);
-                    userData.add(user);                    
+                    userData.add(user);
                 }
 
                 jTVTabela.setItems(userData);

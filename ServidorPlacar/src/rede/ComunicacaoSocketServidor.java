@@ -58,7 +58,6 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int i = 0;
     private String nomeVisitante = "Visitante";
     private String nomeLocal = "Local";
-    // private ArrayList<String> lista = new ArrayList<>();
 
     /**
      * Construtor
@@ -146,7 +145,9 @@ public class ComunicacaoSocketServidor implements Runnable {
         Usuario usuario = new Usuario();
         if (validaLogin(login, senha, usuario)) {
             System.out.println("verificou usuario e senha");
-            if (usuario.isUserAdm()) {
+            if (usuario.isLogado()) {
+                return ("#JA_LOGOU");
+            } else if (usuario.isUserAdm()) {
                 return ("#LOGADO$ADM");
             } else if (usuario.isUserPlacar()) {
                 System.out.println("é usuario placar");
@@ -183,6 +184,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         usuario.setUserAdm(u.isUserAdm());
                         usuario.setUserPlacar(u.isUserPlacar());
                         usuario.setUserPropaganda(u.isUserPropaganda());
+                        usuario.setLogado((u.isLogado()));
                         return true;
                     }
                 }
@@ -302,9 +304,12 @@ public class ComunicacaoSocketServidor implements Runnable {
         while (iterator.hasNext()) {
             Usuario user = iterator.next();
             if (user.getUsuario().equals(opcao)) {
-                iterator.remove();
-                gravarXML(lista);
-                return ("#OK");
+                if (!user.isLogado()) {
+                    iterator.remove();
+                    gravarXML(lista);
+                    return ("#OK");
+                }
+                return ("#USUARIO_ATIVO");
             }
         }
         return ("#NOT$OK");
@@ -757,6 +762,30 @@ public class ComunicacaoSocketServidor implements Runnable {
         th.start();
     }
 
+    public void setLogar(String u) {
+        ListaUsuarios lista = leituraXML();
+        Iterator<Usuario> iterator = lista.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            if (user.getUsuario().equals(u)) {
+                user.setLogado(true);
+                gravarXML(lista);
+            }
+        }
+    }
+
+    public void setDeslogar(String u) {
+        ListaUsuarios lista = leituraXML();
+        Iterator<Usuario> iterator = lista.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            if (user.getUsuario().equals(u)) {
+                user.setLogado(false);
+                gravarXML(lista);
+            }
+        }
+    }
+
     private Task iniciaConversa(Socket cliente) {
 
         Task task = new Task<Void>() {
@@ -779,6 +808,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         String m = login(escolha);
                         if (!m.contains("NOT")) {
                             user = escolha[1];
+                            setLogar(user);
                         }
                         saida.writeUTF(m);
                         saida.flush();
@@ -945,6 +975,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                         entrada.close();
                         saida.close();
+                        setDeslogar(user);
                         cliente.close();
                         System.out.println("Cliente se desconectou!");
                     } else if (escolha[0].equals("#QUAL_USER")) {

@@ -15,13 +15,22 @@ public class Usuario {
     private boolean userAdm;
     private boolean userPlacar;
     private boolean userPropaganda;
+    private boolean logado;
 
     public Usuario() {
         this.userAdm = false;
         this.userPlacar = false;
         this.userPropaganda = false;
+        this.logado = false;
     }
-    
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }    
     
 
     public boolean isUserAdm() {
