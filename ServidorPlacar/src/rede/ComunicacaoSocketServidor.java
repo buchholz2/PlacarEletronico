@@ -59,7 +59,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     String resultadoFinal = "";
     private int count = 0;
     private int i = 0;
-    private ArrayList<String> lista = new ArrayList<>();
+    // private ArrayList<String> lista = new ArrayList<>();
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -291,10 +291,20 @@ public class ComunicacaoSocketServidor implements Runnable {
     public String listaPropagandas(String[] msg) {
         String opcao = msg[0];
         String retorno = "";
+        ArrayList<String> lista = new ArrayList<>();
         if (opcao.equals("#LISTAR_PROPAGANDA")) {
-            ArrayList<String> buscaArquivos = buscaArquivos();
-            if (!buscaArquivos.isEmpty()) {
-                for (String arquivo : buscaArquivos) {
+            File file = new File(Main.getPath() + "Midia");
+            File afile[] = file.listFiles();
+            int k = 0;
+            if (afile.length != 0) {
+                for (int j = afile.length; k < j; k++) {
+                    File arquivos = afile[k];
+                    String u = arquivos.getName();
+                    lista.add(u);
+                }
+            }
+            if (!lista.isEmpty()) {
+                for (String arquivo : lista) {
                     if (!arquivo.isEmpty()) {
                         retorno = retorno.concat(arquivo + "$");
                     }
@@ -307,29 +317,13 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String excluirPropaganda(String[] msg) {
-        String opcao = msg[0];
         String url = msg[1];
-        if (opcao.equals("#EXCLUIR_PROPAGANDA")) {
-            File fl = new File(Main.getPath() + "Midia\\" + url);
-            if (fl.exists()) {
-                fl.delete();
-            }
+        File fl = new File(Main.getPath() + "Midia\\" + url);
+        if (fl.exists()) {
+            fl.delete();
             return ("#OK");
         }
         return ("#NOT$OK");
-    }
-
-    public ArrayList<String> buscaArquivos() {
-        File file = new File(Main.getPath() + "Midia");
-        File afile[] = file.listFiles();
-        if (afile.length != 0) {
-            for (int j = afile.length; i < j; i++) {
-                File arquivos = afile[i];
-                String u = arquivos.getName();
-                lista.add(u);
-            }
-        }
-        return lista;
     }
 
     public String fechaConexao(String[] msg) {

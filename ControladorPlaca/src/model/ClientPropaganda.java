@@ -18,7 +18,7 @@ import java.net.Socket;
 public class ClientPropaganda {
 
     private Socket cliente;
-
+  
     public void enviaArquivo(File file) throws IOException {
         cliente = new Socket("127.0.0.1", 50001);
         DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
