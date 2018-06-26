@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="aPJanelaP" maxHeight="522.0" maxWidth="1080.0" prefHeight="446.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPlacarController">
+<AnchorPane id="AnchorPane" fx:id="aPJanelaP" maxHeight="522.0" maxWidth="1080.0" prefHeight="446.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControlBasqueteController">
     <children>
         <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="341.0" layoutX="6.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="585.0" />
         <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="865.0" layoutY="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="127.0" />

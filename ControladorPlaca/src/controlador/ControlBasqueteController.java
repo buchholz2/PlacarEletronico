@@ -26,7 +26,7 @@ import main.Main;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-public class ControladorPlacarController implements Initializable {
+public class ControlBasqueteController implements Initializable {
 
     private boolean fimCrono = true;
     private int pontosV = 0;
@@ -211,7 +211,7 @@ public class ControladorPlacarController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -1066,7 +1066,7 @@ public class ControladorPlacarController implements Initializable {
         try {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
         } catch (IOException ex) {
-            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Main.loadScene("/view/FXMLEscolheModalidade.fxml");
     }
@@ -1082,7 +1082,7 @@ public class ControladorPlacarController implements Initializable {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
-            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

@@ -48,7 +48,7 @@ public class EscolheModalidadeController implements Initializable {
     void iniciaBasquete(MouseEvent event) {
         try {
             if (Main.mandaMSG("#ESCOLHE_MODALIDADE$BASQUETE").equals("ESCOLHIDA")) {
-                Main.loadScene("/view/FXMLControladorPlacar.fxml");
+                Main.loadScene("/view/FXMLControlBasquete.fxml");
             }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
