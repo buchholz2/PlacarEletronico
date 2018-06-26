@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 /**
- *
  * FXML Controller class
  *
  * @author Cristiano Künas
@@ -20,23 +19,8 @@ import javafx.scene.control.Label;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-
-public class BasqueteController implements Initializable{
-
-    @FXML
-    private Label jLRodada1;
-
-    @FXML
-    private Label jLRodada2;
-
-    @FXML
-    private Label jLRodada3;
-
-    @FXML
-    private Label jLRodada4;
-
-    @FXML
-    private Label jLRodada5;
+ 
+public class PadraoController implements Initializable {
 
     @FXML
     private Label jLCronometroCentral;
@@ -60,7 +44,13 @@ public class BasqueteController implements Initializable{
     private Label jLTimeDireitoFaltas;
 
     @FXML
-    private Label jLSeguraBola;
+    private Label jLPeriodo;
+
+    @FXML
+    private Label jLAcrescimo;
+
+    @FXML
+    private Label jLSeguraBola11;
 
     /**
      * Inicializar
@@ -70,6 +60,7 @@ public class BasqueteController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        // TODO
     }
+
 }

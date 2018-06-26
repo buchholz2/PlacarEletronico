@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -30,17 +31,21 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import main.Main;
 import model.ListaUsuarios;
+import model.ServerPropaganda;
 import org.apache.commons.codec.binary.Base64;
 
 
+
 /**
- *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class ComunicacaoSocketServidor implements Runnable {
 
     private boolean fimCrono = false;
-    Stage p;
+    private Stage p;
     public int pontosL = 0;
     public int pontosV = 0;
     public boolean cronosPausado = false;
@@ -53,34 +58,49 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int somaRodadaL = 0;
     String resultadoFinal = "";
     private int count = 0;
-    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private int i = 0;
+    private String nomeVisitante = "Visitante";
+    private String nomeLocal = "Local";
+    private int valorSetLocal = 0;
+    private int valorSetVisitante = 0;
+    private int setAutal = 0;
 
-
+    /**
+     * Construtor
+     *
+     * @param p
+     */
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
     }
 
+    /**
+     * Contrutor default
+     */
     public ComunicacaoSocketServidor() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
         try {
-            // Instancia o ServerSocket ouvindo a porta 12345
             ServerSocket servidor = new ServerSocket(12345);
-            System.out.println("Servidor ouvindo a porta 12345");
+            Main.LOGGER.info("Servidor ouvindo na porta 12345");
             //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
-            // o método accept() bloqueia a execução até que
-            // o servidor receba um pedido de conexão
             while (true) {
 
                 Socket cliente = servidor.accept();
 
-                if (count < 3) {
-                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
+                if (count < 1) {
                     ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
                     pro.setOpacity(0);
+                }
+
+                if (count < 3) {
+                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
                     count++;
                     chamaConversa(cliente);
                 } else {
@@ -93,9 +113,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     saida.close();
                     cliente.close();
                 }
-
             }
-
         } catch (IOException e) {
           //  System.out.println("Erro: " + e.getMessage());
             Main.LOGGER.severe("Erro na conexão do cliente com o servidor - Método run do Servidor ");
@@ -103,6 +121,12 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Seleciona time
+     *
+     * @param msg
+     * @return
+     */
     public String time(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
@@ -111,44 +135,64 @@ public class ComunicacaoSocketServidor implements Runnable {
                 mudaPontosV((Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos"), msg[3], msg[2]);
                 retorno = "#OK";
                 break;
-
             case "LOCAL":
                 mudaPontosL((Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos"), msg[3], msg[2]);
                 retorno = "#OK";
                 break;
         }
-
         return retorno;
     }
 
+    /**
+     * Login
+     *
+     * @param msg
+     * @return
+     * @throws IOException
+     */
     public String login(String[] msg) throws IOException {
         String login = msg[1];
         String senha = msg[2];
         Usuario usuario = new Usuario();
         if (validaLogin(login, senha, usuario)) {
             System.out.println("verificou usuario e senha");
-            if (usuario.isUserAdm()) {
+            if (usuario.isLogado()) {
+                return ("#JA_LOGOU");
+            } else if (usuario.isUserAdm()) {
                 return ("#LOGADO$ADM");
             } else if (usuario.isUserPlacar()) {
-                System.out.println("é usuario placar");
-                System.out.println("logado - aguarda escolha modalidade");
+                ListaUsuarios l = leituraXML();
+                Iterator<Usuario> ite = l.getUsuarios().iterator();
+                while (ite.hasNext()) {
+                    Usuario u = ite.next();
+                    if (u.isLogado()) {
+                        return ("#JA_LOGOU_P");
+                    }
+                }
                 return ("#LOGADO$PLACAR");
             } else if (usuario.isUserPropaganda()) {
                 return ("#LOGADO$PROPAGANDA");
             } else {
                 return ("#NOT$LOGADO");
             }
+        } else {
+            return ("#NOT$LOGADO");
         }
-        return ("#NOT_DATA");
-
     }
 
-    private boolean validaLogin(String login, String senha, Usuario usuario) {
+    /**
+     * Validação de usuário no XML
+     *
+     * @param login
+     * @param senha
+     * @param usuario
+     * @return
+     */
+    public boolean validaLogin(String login, String senha, Usuario usuario) {
         if (login == null || senha == null) {
             return false;
         } else {
             ListaUsuarios users = leituraXML();
-
             if (users != null) {
                 for (Usuario u : users.getUsuarios()) {
                     String pass = decode(u.getSenha());
@@ -158,17 +202,22 @@ public class ComunicacaoSocketServidor implements Runnable {
                         usuario.setUserAdm(u.isUserAdm());
                         usuario.setUserPlacar(u.isUserPlacar());
                         usuario.setUserPropaganda(u.isUserPropaganda());
-
+                        usuario.setLogado((u.isLogado()));
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
-    private String escolhaModalidade(String[] msg) {
+    /**
+     * Escolhe modalidade
+     *
+     * @param msg
+     * @return
+     */
+    public String escolhaModalidade(String[] msg) {
         String opcao = msg[1];
         String retorno = "nada feito";
         switch (opcao) {
@@ -178,20 +227,25 @@ public class ComunicacaoSocketServidor implements Runnable {
                 break;
 
             case "VOLEI":
-                Main.loadScene("/view/FXMLBasquete.fxml");
+                Main.loadScene("/view/FXMLVolei.fxml");
                 retorno = "ESCOLHIDA";
                 break;
 
-            case "FUTSAL":
-                Main.loadScene("/view/FXMLBasquete.fxml");
+            case "PADRAO":
+                Main.loadScene("/view/FXMLPadrao.fxml");
                 retorno = "ESCOLHIDA";
                 break;
         }
-
         return retorno;
     }
 
-    private String adicionaUsuario(String[] msg) {
+    /**
+     * Adiciona usuário ao XML
+     *
+     * @param msg
+     * @return
+     */
+    public String adicionaUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
         Iterator<Usuario> iterator = lista.getUsuarios().iterator();
@@ -233,39 +287,63 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Criptografa senha
+     *
+     * @param encriptar
+     * @return
+     */
     public String encode(String encriptar) {
         String criptografado = Base64.encodeBase64String(encriptar.getBytes());
         return criptografado;
     }
 
+    /**
+     *
+     * @param encriptado
+     * @return
+     */
     public String decode(String encriptado) {
         byte[] decoded = Base64.decodeBase64(encriptado);
         String deco = new String(decoded);
         return deco;
     }
 
-    private String excluirUsuario(String[] msg) {
+    /**
+     * Exclui usuário do XML
+     *
+     * @param msg
+     * @return
+     */
+    public String excluirUsuario(String[] msg) {
         String opcao = msg[1];
         ListaUsuarios lista = leituraXML();
         Iterator<Usuario> iterator = lista.getUsuarios().iterator();
         while (iterator.hasNext()) {
             Usuario user = iterator.next();
             if (user.getUsuario().equals(opcao)) {
-                iterator.remove();
-                gravarXML(lista);
-                return ("#OK");
+                if (!user.isLogado()) {
+                    iterator.remove();
+                    gravarXML(lista);
+                    return ("#OK");
+                }
+                return ("#USUARIO_ATIVO");
             }
         }
         return ("#NOT$OK");
     }
 
-    private String listaUsuario(String[] msg) {
+    /**
+     * Lista usuários cadastrados
+     *
+     * @param msg
+     * @return
+     */
+    public String listaUsuario(String[] msg) {
         String opcao = msg[0];
         String funcao;
         String retorno = "";
-
         if (opcao.equals("#LISTAR_USUARIOS")) {
-
             ListaUsuarios lista = leituraXML();
             for (Usuario u : lista.getUsuarios()) {
                 if (u.isUserAdm()) {
@@ -281,14 +359,71 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
             return retorno;
         }
-
         return ("#NOT$OK");
     }
 
+    /**
+     * Lista propagandas contidas no diretório servidor
+     *
+     * @param msg
+     * @return
+     */
+    public String listaPropagandas(String[] msg) {
+        String retorno = "";
+        ArrayList<String> lista = new ArrayList<>();
+        File file = new File(Main.getPath() + "Midia");
+        File afile[] = file.listFiles();
+        int k = 0;
+        if (afile.length != 0) {
+            for (int j = afile.length; k < j; k++) {
+                File arquivos = afile[k];
+                String u = arquivos.getName();
+                lista.add(u);
+            }
+        }
+        if (!lista.isEmpty()) {
+            for (String arquivo : lista) {
+                if (!arquivo.isEmpty()) {
+                    retorno = retorno.concat(arquivo + "$");
+                }
+            }
+            return retorno;
+        }
+        return ("#NOT$OK");
+    }
+
+    /**
+     * Exclui propaganda do diretorio servidor
+     *
+     * @param msg
+     * @return
+     */
+    public String excluirPropaganda(String[] msg) {
+        String url = msg[1];
+        File fl = new File(Main.getPath() + "Midia\\" + url);
+        if (fl.exists()) {
+            fl.delete();
+            return ("#OK");
+        }
+        return ("#NOT$OK");
+    }
+
+    /**
+     * Fecha conexão
+     *
+     * @param msg
+     * @return
+     */
     public String fechaConexao(String[] msg) {
         return "";
     }
 
+    /**
+     * Inicia cronometro
+     *
+     * @param msg
+     * @return
+     */
     public String iniciaCronos(String[] msg) {
         if (fimCrono != true) {
             fimCrono = true;
@@ -391,6 +526,13 @@ public class ComunicacaoSocketServidor implements Runnable {
         return fimCrono;
     }
 
+    /**
+     * Altera pontos time visitante
+     *
+     * @param l
+     * @param pontos
+     * @param funcao
+     */
     private void mudaPontosV(Label l, String pontos, String funcao) {
 
         if (funcao.equals("SOMA_PONTO")) {
@@ -426,6 +568,13 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Altera pontos time local
+     *
+     * @param l
+     * @param pontos
+     * @param funcao
+     */
     private void mudaPontosL(Label l, String pontos, String funcao) {
 
         if (funcao.equals("SOMA_PONTO")) {
@@ -461,6 +610,11 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Inicia tempo na preview
+     *
+     * @param l
+     */
     private void iniciaTempoLPreview(Label l) {
         String muda;
 
@@ -530,12 +684,16 @@ public class ComunicacaoSocketServidor implements Runnable {
         }
     }
 
+    /**
+     * Recupera usuarios do XML para manipulação
+     *
+     * @return
+     */
     public ListaUsuarios leituraXML() {
         ListaUsuarios lista = null;
         try {
             File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
-
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             lista = (ListaUsuarios) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
@@ -545,19 +703,18 @@ public class ComunicacaoSocketServidor implements Runnable {
         return lista;
     }
 
+    /**
+     * Grava XML atualizado
+     *
+     * @param l
+     */
     public void gravarXML(ListaUsuarios l) {
         try {
-
             File file = new File(Main.getPath() + "xml\\usuarios.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(ListaUsuarios.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
             jaxbMarshaller.marshal(l, file);
-            // Se desejar mostrar no console o xml gerado
-//            jaxbMarshaller.marshal(usuarios, System.out);
-
         } catch (JAXBException e) {
             Main.LOGGER.warning("Falha ao gravar o arquivo XML!");
             System.out.println(e.toString());
@@ -565,6 +722,11 @@ public class ComunicacaoSocketServidor implements Runnable {
 
     }
 
+    /**
+     * Restaura tudo
+     *
+     * @return
+     */
     private String restauraTudo() {
         cronosPausado = false;
         fimCrono = false;
@@ -608,10 +770,39 @@ public class ComunicacaoSocketServidor implements Runnable {
         return "RESTAURADO";
     }
 
+    /**
+     * Chama conversa controlador-placar
+     *
+     * @param cli
+     */
     public void chamaConversa(Socket cli) {
         Thread th = new Thread(iniciaConversa(cli));
         th.setDaemon(true);
         th.start();
+    }
+
+    public void setLogar(String u) {
+        ListaUsuarios lista = leituraXML();
+        Iterator<Usuario> iterator = lista.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            if (user.getUsuario().equals(u)) {
+                user.setLogado(true);
+                gravarXML(lista);
+            }
+        }
+    }
+
+    public void setDeslogar(String u) {
+        ListaUsuarios lista = leituraXML();
+        Iterator<Usuario> iterator = lista.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            if (user.getUsuario().equals(u)) {
+                user.setLogado(false);
+                gravarXML(lista);
+            }
+        }
     }
 
     private Task iniciaConversa(Socket cliente) {
@@ -625,7 +816,6 @@ public class ComunicacaoSocketServidor implements Runnable {
                 ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 
                 while (true) {
-
                     String msg = entrada.readUTF();
 
                     String[] escolha = msg.split("\\$");
@@ -635,8 +825,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                     } else if (escolha[0].equals("#LOGIN")) {
                         String m = login(escolha);
+                        System.out.println(m);
                         if (!m.contains("NOT")) {
                             user = escolha[1];
+                            if (!m.equals("#JA_LOGOU_P")) {
+                                setLogar(user);
+                            }
                         }
                         saida.writeUTF(m);
                         saida.flush();
@@ -701,11 +895,13 @@ public class ComunicacaoSocketServidor implements Runnable {
                             if (escolha[1].equals("") != true) {
                                 Platform.runLater(() -> {
                                     local.setText(escolha[1]);
+                                    nomeLocal = escolha[1];
                                 });
                             }
                             if (escolha[2].equals("") != true) {
                                 Platform.runLater(() -> {
                                     visitante.setText(escolha[2]);
+                                    nomeVisitante = escolha[2];
                                 });
                             }
                         }
@@ -801,15 +997,17 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                         entrada.close();
                         saida.close();
+                        setDeslogar(user);
                         cliente.close();
                         System.out.println("Cliente se desconectou!");
                     } else if (escolha[0].equals("#QUAL_USER")) {
                         saida.writeUTF(user);
                         saida.flush();
                     } else if (escolha[0].equals("#PROPAGANDA_INICIA")) {
+                        Main.propaganda(pontosL, pontosV, nomeLocal, nomeVisitante);
                         saida.writeUTF("INICIADA");
                         saida.flush();
-                        Main.propaganda();
+                        // alteraDados();
                     } else if (escolha[0].equals("#PROPAGANDA_FECHA")) {
                         System.out.println("Fechando Propaganda");
                         saida.writeUTF("FECHADA");
@@ -819,7 +1017,28 @@ public class ComunicacaoSocketServidor implements Runnable {
                             Main.getStageSecundary().setScene(new Scene(pane, 10, 10));
                             Main.getStageSecundary().close();
                         });
-
+                    } else if (escolha[0].equals("#ENVIAR_PROPAGANDA")) {
+                        chamaTransferencia(escolha);
+                        saida.writeUTF("ESPERANDO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#LISTAR_PROPAGANDA")) {
+                        saida.writeUTF(listaPropagandas(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#EXCLUIR_PROPAGANDA")) {
+                        saida.writeUTF(excluirPropaganda(escolha));
+                        saida.flush();
+                    } else if (escolha[0].equals("#TROCA_TELA")) {
+                        if (escolha[1].equals("PRINCIPAL")) {
+                            Main.loadScene("/view/FXMLPrincipal.fxml");
+                            saida.writeUTF("TROCADO");
+                            saida.flush();
+                        }
+                    } else if (escolha[0].equals("#INICIA_CRONO_VOLEI")) {
+                        saida.writeUTF(iniciaCronosPadrao());
+                        saida.flush();
+                    } else if (escolha[0].equals("#PROXIMO_SET")) {
+                        saida.writeUTF(proximoSet());
+                        saida.flush();
                     }
                 }
             }
@@ -827,4 +1046,222 @@ public class ComunicacaoSocketServidor implements Runnable {
         return task;
     }
 
+    public void chamaTransferencia(String[] msg) throws IOException {
+        Thread th = new Thread(armazenaPropaganda(msg[1]));
+        th.setDaemon(true);
+        th.start();
+    }
+
+    /**
+     * Inicia tranferência de arquivos controlador-servidor
+     *
+     * @param msg
+     * @return
+     */
+    private Task armazenaPropaganda(String msg) {
+
+        Task task = new Task<Void>() {
+            @Override
+            public Void call() throws Exception {
+                ServerPropaganda sp = new ServerPropaganda();
+                sp.receberArquivo(msg);
+                return null;
+            }
+        };
+        return task;
+    }
+
+    public String iniciaCronosPadrao() {
+        if (fimCrono != true) {
+            fimCrono = true;
+            chamaCronosPadrao((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"));
+            return "CRONOS_INICIADO";
+
+        } else {
+            return "CRONOS_EXECUTANDO";
+        }
+
+    }
+
+    public void chamaCronosPadrao(Label label) {
+        Thread th = new Thread(iniciaCronosPadrao(label));
+        th.setDaemon(true);
+        th.start();
+    }
+
+    private Task iniciaCronosPadrao(Label l) {
+
+        Task task = new Task<Void>() {
+            int m = 0;
+            int s = 0;
+            int h = 0;
+            String minutos;
+            String segundos;
+            String horas;
+
+            @Override
+            public Void call() throws Exception {
+                while (fimCrono()) {
+
+                    if (m > 9) {
+                        minutos = "" + m;
+                    } else {
+                        minutos = "0" + m;
+                    }
+                    if (s > 9) {
+                        segundos = "" + s;
+                    } else {
+                        segundos = "0" + s;
+                    }
+                    if (h > 9) {
+                        horas = "" + h;
+                    } else {
+                        horas = "0" + h;
+                    }
+
+//                    while (cronosPausado) {
+//                        Thread.sleep(100);
+//                    }
+//                    if (cronosPausado) {
+//                        fimCrono = true;
+//                        URL url = getClass().getResource("/estilos/apito.wav");
+//                        AudioClip audio = Applet.newAudioClip(url);
+//                        audio.play();
+//                    }
+                    Platform.runLater(() -> {
+                        l.setText(horas + ":" + minutos + ":" + segundos);
+                    });
+
+                    Thread.sleep(1000);
+
+                    s++;
+                    if (s > 59) {
+                        m++;
+                        s = 0;
+                    }
+                    if (m > 59) {
+                        h++;
+                        m = 0;
+                    }
+
+                }
+                return null;
+            }
+        };
+        return task;
+    }
+
+    public String proximoSet() {
+        int verificador = 0;
+        int pL = pontosL;
+        int pV = pontosV;
+        verificador = pL - pV;
+        if (verificador < 0) {
+            verificador = verificador * (-1);
+        }
+        if (pL >= 25 || pV >= 25) {
+            if (verificador >= 2) {
+                if (pL > pV) {
+                    setAutal++;
+                    valorSetLocal++;
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
+                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
+                    Platform.runLater(() -> {
+                        l.setText("" + valorSetLocal);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+                    zeraPlacar();
+                    System.out.println(pL + " : " + pV);
+                } else {
+                    setAutal++;
+                    valorSetVisitante++;
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
+                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
+                    Platform.runLater(() -> {
+                        l.setText("" + valorSetLocal);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+                    zeraPlacar();
+                    System.out.println(pL + " : " + pV);
+                }
+                if (setAutal == 3) {
+                    int verificadorGanho = valorSetLocal - valorSetVisitante;
+                    if (verificadorGanho < 0) {
+                        verificadorGanho = verificadorGanho * (-1);
+                    }
+                    if (verificadorGanho == 3) {
+                        if (valorSetLocal > valorSetVisitante) {
+                            fimCrono = false;
+                        } else {
+                            fimCrono = false;
+                        }
+                        return "#ALGUEM_GANHO";
+                    }
+
+                }
+                if (setAutal == 4) {
+                    int verificadorGanho = valorSetLocal - valorSetVisitante;
+                    if (verificadorGanho < 0) {
+                        verificadorGanho = verificadorGanho * (-1);
+                    }
+                    if (verificadorGanho == 2) {
+                        if (valorSetLocal > valorSetVisitante) {
+                            fimCrono = false;
+                        } else {
+                            fimCrono = false;
+                        }
+                        return "#ALGUEM_GANHO";
+                    }
+                }
+            }
+        }
+        if (setAutal == 5) {
+            if (valorSetLocal > valorSetVisitante) {
+                fimCrono = false;
+            } else {
+                fimCrono = false;
+            }
+            return "#ALGUEM_GANHO";
+        }
+        return "#NINGUEM_GANHOU";
+    }
+
+    public void zeraPlacar() {
+        pontosL = 0;
+        pontosV = 0;
+        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos");
+        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos");
+        Platform.runLater(() -> {
+            if (pontosL < 9) {
+                local.setText("0" + pontosL);
+            } else {
+                local.setText("" + pontosL);
+            }
+            if (pontosV < 9) {
+                visitante.setText("0" + pontosV);
+            } else {
+                visitante.setText("" + pontosV);
+            }
+        });
+    }
 }

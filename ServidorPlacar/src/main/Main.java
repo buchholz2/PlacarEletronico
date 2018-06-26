@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -33,8 +34,12 @@ public class Main extends Application {
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
     public static Class outraClass;
-    private static final String PATH = (System.getProperty("user.home")+"\\Documents\\Placar\\");
+    private static final String PATH = (System.getProperty("user.home") + "\\Documents\\Placar\\");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    public static String nomeVisitante = "";
+    public static String nomeLocal = "";
+    public static int pLocal = 0;
+    public static int pVisitante = 0;
 
     /**
      * A classe principal da aplicação em JavaFX
@@ -61,13 +66,29 @@ public class Main extends Application {
         iniciaDiretorioLog();
         criaDirXmlPrimeiraExecucao();
         criaDirMidia();
+        setDeslogaAllFalse();
         launch(args);
     }
 
+    public static void setDeslogaAllFalse() {
+        ComunicacaoSocketServidor com = new ComunicacaoSocketServidor();
+        ListaUsuarios users = com.leituraXML();
+        Iterator<Usuario> iterator = users.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            user.setLogado(false);  
+            com.gravarXML(users);
+        }        
+    }
+
+    /**
+     * Quando iniciar o sistema se não existir o diretorio do arquivo XML.
+     * É criado o diretorio deste arquivo
+     */
     public static void criaDirXmlPrimeiraExecucao() {
-        File file = new File(PATH+"xml");
+        File file = new File(PATH + "xml");
         if (!file.exists()) {
-            Path p = Paths.get(PATH+"xml");
+            Path p = Paths.get(PATH + "xml");
             try {
                 Files.createDirectories(p);
                 criaUsuariosXmlPrimeiraExecucao();
@@ -76,20 +97,28 @@ public class Main extends Application {
             }
         }
     }
-    
-    public static void criaDirMidia(){
-        File file = new File(PATH+"Midia");
+
+    /**
+     * Quando iniciar o sistema se não existir o diretorio de Midia.
+     * É criado o diretorio deste arquivo
+     */
+    public static void criaDirMidia() {
+        File file = new File(PATH + "Midia");
         if (!file.exists()) {
-            Path p = Paths.get(PATH+"Midia");
+            Path p = Paths.get(PATH + "Midia");
             try {
-                Files.createDirectories(p);                
+                Files.createDirectories(p);
             } catch (IOException ex) {
                 Main.LOGGER.config("Problema ao criar diretório de Midias!");   
             }
         }
     }
-    
 
+    /**
+     * Na primeira execução do programa não existe nenhum dado dentro do XML.
+     * Aqui é criado o XML com os usuários padrões.
+     * ADM, PLACAR, PROPAGANDA
+     */
     private static void criaUsuariosXmlPrimeiraExecucao() {
         ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
         ListaUsuarios lista = new ListaUsuarios();
@@ -114,12 +143,15 @@ public class Main extends Application {
 
         c.gravarXML(lista);
     }
-   
+
+    /**
+     * Inicia o diretorio de logs
+     */
     public static void iniciaDiretorioLog() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dataFormatada = sdf.format(data);
-        Path path = Paths.get(PATH+"\\Log\\" + dataFormatada);
+        Path path = Paths.get(PATH + "\\Log\\" + dataFormatada);
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
@@ -153,14 +185,28 @@ public class Main extends Application {
 
     }
 
+    /**
+     * Ação de ler o Path
+     * 
+     * @return 
+     */
     public static String getPath() {
         return PATH;
     }
 
+    /**
+     * Ação de gravar o Path
+     * 
+     * @param s 
+     */
     public void setStage(Stage s) {
         this.primaryStage = s;
     }
 
+    /** 
+     * Ação de ler a cena
+     * @param local 
+     */
     public static void loadScene(String local) {
 
         try {
@@ -189,7 +235,21 @@ public class Main extends Application {
 
     }
 
-    public static void propaganda() throws IOException {
+    /**
+     * 
+     * 
+     * 
+     * @param pontosL
+     * @param pontosV
+     * @param nomeLocal
+     * @param nomeVisitante
+     * @throws IOException 
+     */
+    public static void propaganda(int pontosL, int pontosV, String nomeLocal, String nomeVisitante) throws IOException {
+        Main.pLocal = pontosL;
+        Main.pVisitante = pontosV;
+        Main.nomeLocal = nomeLocal;
+        Main.nomeVisitante = nomeVisitante;
         try {
             propaganda = false;
             FXMLLoader fxmlLoader = new FXMLLoader(outraClass.getClass().getResource("/view/FXMLPropaganda.fxml"));
@@ -200,9 +260,7 @@ public class Main extends Application {
                 secundaryStage.setScene(new Scene(root1));
                 secundaryStage.show();
                 secundaryStage.setFullScreen(true);
-
             });
-
         } catch (Exception e) {
             Main.LOGGER.config("Erro ao carregar cena de propaganda");
             System.out.println(e.toString());
@@ -226,4 +284,25 @@ public class Main extends Application {
     public static boolean fechaPropaganda() {
         return propaganda;
     }
+
+    public static Stage alteraStageSecundary() {
+        return secundaryStage;
+    }
+
+    public static String getNomeVisitante() {
+        return nomeVisitante;
+    }
+
+    public static String getNomeLocal() {
+        return nomeLocal;
+    }
+
+    public static int getpLocal() {
+        return pLocal;
+    }
+
+    public static int getpVisitante() {
+        return pVisitante;
+    }
+
 }

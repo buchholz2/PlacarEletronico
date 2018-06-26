@@ -54,7 +54,7 @@
       </Label>
       <JFXButton fx:id="jBLogout" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="67.0" layoutY="320.0" onKeyPressed="#pressedKey" onMouseClicked="#sairJanela" text=" " textFill="#a8484c">
          <graphic>
-            <MaterialDesignIconView fill="#a8484c" glyphName="EXIT_TO_APP" size="60" strokeWidth="0.0" />
+            <MaterialDesignIconView fill="#a8484c" glyphName="EXIT_TO_APP" rotate="180.0" size="60" strokeWidth="0.0" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="jBBasquete" alignment="TOP_LEFT" buttonType="RAISED" layoutX="240.0" layoutY="23.0" onMouseClicked="#iniciaBasquete" prefHeight="120.0" prefWidth="304.0" ripplerFill="WHITE" text="BASQUETE" textFill="WHITE">

@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,14 +29,26 @@ import main.Main;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class PropagandaController implements Initializable {
 
     private String diretorio;
 
     @FXML
-    private Label jLTitulo;
+    private Label jLLocal;
+
+    @FXML
+    private Label jLPontosLocal;
+
+    @FXML
+    private Label jLVisitante;
+
+    @FXML
+    private Label jLPontosVisitante;
 
     @FXML
     private MediaView jMidiaView;
@@ -46,46 +59,63 @@ public class PropagandaController implements Initializable {
 
     private MediaPlayer mediaPlayer;
 
+    /**
+     * Controladoo da classe
+     */
     public PropagandaController() {
-        this.diretorio = (Main.getPath()+"Midia");
+        this.diretorio = (Main.getPath() + "Midia");
         this.lista = new ArrayList();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
-            buscaArquivos();
-            initMediaPlayer(lista.iterator());
-            final DoubleProperty width = jMidiaView.fitWidthProperty();
-            final DoubleProperty height = jMidiaView.fitHeightProperty();
+    public ArrayList<String> getLista() {
+        return lista;
 
-            width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
-            height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
-
-            jMidiaView.setPreserveRatio(true);
-
-        } catch (InterruptedException ex) {
-            Main.LOGGER.warning("Erro durante a busca do arquivo");
-        } catch (MalformedURLException ex) {
-           Main.LOGGER.warning("Erro de URL durante a busca do arquivo");
-        }
     }
 
+    public String getDiretorio() {
+        return diretorio;
+    }
+
+    public void setDiretorio(String diretorio) {
+        this.diretorio = diretorio;
+    }
+
+    /**
+     * Inicializar
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        iniciaPropaganda();
+    }
+
+    /**
+     * Ação de buscar os arquivos no diretorio de midia
+     *
+     * @return
+     * @throws InterruptedException
+     * @throws MalformedURLException
+     */
     public URL buscaArquivos() throws InterruptedException, MalformedURLException {
         File file = new File(diretorio);
         File afile[] = file.listFiles();
         URL url = new URL(afile[i].toURL().toString());
-        for (int j = afile.length; i < j; i++) {
-            File arquivos = afile[i];
-            String u = arquivos.toURI().toURL().toString();
-            lista.add(u);
-            System.out.println(arquivos.toURI().toURL().toString());
+        if (afile.length != 0) {
+            for (int j = afile.length; i < j; i++) {
+                File arquivos = afile[i];
+                String u = arquivos.toURI().toURL().toString();
+                lista.add(u);
+                System.out.println(arquivos.toURI().toURL().toString());
+            }
         }
         return url;
     }
 
     private void initMediaPlayer(final Iterator<String> urls) {
         if (urls.hasNext()) {
+
             String endereco = urls.next().toString();
             Media m = new Media(endereco);
             mediaPlayer = new MediaPlayer(m);
@@ -100,6 +130,9 @@ public class PropagandaController implements Initializable {
             Platform.runLater(() -> {
                 jMidiaView.setMediaPlayer(mediaPlayer);
             });
+        } else {
+            Collections.shuffle(lista);
+            initMediaPlayer(lista.iterator());
         }
     }
 
@@ -113,7 +146,7 @@ public class PropagandaController implements Initializable {
 
         Task task = new Task<Void>() {
             boolean chave = true;
-            
+
             @Override
             public Void call() throws Exception {
                 while (chave) {
@@ -130,4 +163,37 @@ public class PropagandaController implements Initializable {
         return task;
     }
 
+    public void iniciaPropaganda() {
+        try {
+            buscaArquivos();
+            Collections.shuffle(lista);
+            initMediaPlayer(lista.iterator());
+            final DoubleProperty width = jMidiaView.fitWidthProperty();
+            final DoubleProperty height = jMidiaView.fitHeightProperty();
+
+            width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
+            height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
+
+            jMidiaView.setPreserveRatio(true);
+
+            jLLocal.setText(Main.getNomeLocal());
+            jLVisitante.setText(Main.getNomeVisitante());
+            int pL = Main.getpLocal();
+            if (pL > 9) {
+                jLPontosLocal.setText("" + pL);
+            } else {
+                jLPontosLocal.setText("0" + pL);
+            }
+            int pV = Main.getpVisitante();
+            if (pV > 9) {
+                jLPontosVisitante.setText("" + pV);
+            } else {
+                jLPontosVisitante.setText("0" + pV);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

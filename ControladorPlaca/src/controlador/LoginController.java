@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,9 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -90,6 +86,12 @@ public class LoginController implements Initializable {
         chamaLogin();
     }
 
+    /**
+     * Mesma função que o método valida login, quando precionar o tecla ENTER
+     * chama o login. Se a tecla ESC for precionada fecha a stage
+     *
+     * @param event
+     */
     @FXML
     void validaLoginK(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -119,23 +121,22 @@ public class LoginController implements Initializable {
     }
 
     private void chamaLogin() {
-        try {
-            System.out.println("Tentou Conectar222");
-            if (chave) {
-                System.out.println("Tentou Conectar");
-                Main.conectar();
-                chave = false;
+        System.out.println("Tentou Conectar222");
+        if (chave) {
+            System.out.println("Tentou Conectar");
+            Main.conectar();
+            try {
+                if (Main.getSocket().isConnected()) {
+                    chave = false;
+                }
+            } catch (RuntimeException ex) {
+                Main.LOGGER.severe("Erro ao tentar fazer a conexão, usando o método chamaLogin");
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("ERRO SERVIDOR");
+                alert.setHeaderText(null);
+                alert.setContentText("SEM CONEXÃO AO SERVIDOR ");
+                alert.show();
             }
-        } catch (IOException ex) {
-            Main.LOGGER.severe("Erro de I/O ao faça a conexao, dentro do método chamaLogin");
-            System.out.println(ex.toString());
-        } catch (RuntimeException ex) {
-            Main.LOGGER.warning("Erro ao chama o método 'conectar' dentro da execução do chamaLogin");
-
-        } catch (Exception ex) {
-            Main.LOGGER.severe("Erro ao tentar fazer a conexão, usando o método chamaLogin");
-            System.out.println(ex.toString());
-
         }
 
         try {
@@ -157,7 +158,7 @@ public class LoginController implements Initializable {
                             } else if (msg[1].equals("PLACAR")) {
                                 Main.loadScene("/view/FXMLEscolheModalidade.fxml");
                             } else if (msg[1].equals("PROPAGANDA")) {
-
+                                Main.loadScene("/view/FXMLPropaganda.fxml");
                             }
                         } else if (msg[0].equals("#MAXIMO_USER")) {
                             Alert alert = new Alert(AlertType.ERROR);
@@ -166,11 +167,21 @@ public class LoginController implements Initializable {
                             alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
                             alert.show();
                             chave = true;
+
                         } else if (msg[0].equals("#NOT_DATA")) {
+
+                        } else if (msg[0].equals("#JA_LOGOU")) {
+
                             Alert alert = new Alert(AlertType.WARNING);
                             alert.setTitle("WARNING");
                             alert.setHeaderText(null);
-                            alert.setContentText("BASE DE DADOS NÃO ENCONRADA!");
+                            alert.setContentText("ESTE USUÁRIO JÁ ESTÁ LOGADO!");
+                            alert.show();
+                        } else if (msg[0].equals("#JA_LOGOU_P")) {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("WARNING");
+                            alert.setHeaderText(null);
+                            alert.setContentText("UM USUÁRIO PLACAR JÁ ESTÁ LOGADO! VOLTE MAIS TARDE!");
                             alert.show();
                         } else {
                             Alert alert = new Alert(AlertType.ERROR);
@@ -187,7 +198,7 @@ public class LoginController implements Initializable {
             }
 
         } catch (RuntimeException ex) {
-           Main.LOGGER.warning("Erro de Runtime durante a execução do socket, dentro do método chamaLogin");
+            Main.LOGGER.warning("Erro de Runtime durante a execução do socket, dentro do método chamaLogin");
         }
 
     }

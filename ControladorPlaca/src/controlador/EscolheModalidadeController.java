@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -49,7 +48,7 @@ public class EscolheModalidadeController implements Initializable {
     void iniciaBasquete(MouseEvent event) {
         try {
             if (Main.mandaMSG("#ESCOLHE_MODALIDADE$BASQUETE").equals("ESCOLHIDA")) {
-                Main.loadScene("/view/FXMLControladorPlacar.fxml");
+                Main.loadScene("/view/FXMLControlBasquete.fxml");
             }
         } catch (IOException ex) {
             Main.LOGGER.severe("Erro ao fazer a inicialização da modalidade 'Basquete'");
@@ -65,7 +64,13 @@ public class EscolheModalidadeController implements Initializable {
      */
     @FXML
     void iniciaPadrao(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#ESCOLHE_MODALIDADE$PADRAO").equals("ESCOLHIDA")) {
+                Main.loadScene("/view/FXMLControlPadrao.fxml");
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
+        }
     }
 
     /**
@@ -76,9 +81,22 @@ public class EscolheModalidadeController implements Initializable {
      */
     @FXML
     void iniciaVolei(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#ESCOLHE_MODALIDADE$VOLEI").equals("ESCOLHIDA")) {
+                Main.loadScene("/view/FXMLControlVolei.fxml");
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
+        }
     }
 
+    /**
+     * Evento se o botão ESC for precionado. Manda mensagem de desconectar ao
+     * servidor. Fecha a janela e retorna a tela de login.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void pressedKey(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE) {
@@ -87,6 +105,13 @@ public class EscolheModalidadeController implements Initializable {
         }
     }
 
+    /**
+     * Evento botão logout precionado. Manda mensagem de desconectar ao
+     * servidor. Fecha a janela e retorna a tela de login.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void sairJanela(MouseEvent event) throws IOException {
         Main.mandaMSG("#DESCONECTAR");
@@ -94,7 +119,7 @@ public class EscolheModalidadeController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Initializar.
      *
      * @param url
      * @param rb

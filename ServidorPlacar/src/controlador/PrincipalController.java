@@ -14,13 +14,23 @@ import javafx.scene.control.ProgressIndicator;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
+ 
 public class PrincipalController implements Initializable {
 
     @FXML
     private ProgressIndicator progressIndicator;
 
+    /**
+     * Inicializar
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
