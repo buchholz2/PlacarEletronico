@@ -92,7 +92,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
                     pro.setOpacity(0);
                 }
-                
+
                 if (count < 3) {
                     System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
                     count++;
@@ -153,16 +153,23 @@ public class ComunicacaoSocketServidor implements Runnable {
             } else if (usuario.isUserAdm()) {
                 return ("#LOGADO$ADM");
             } else if (usuario.isUserPlacar()) {
-                System.out.println("é usuario placar");
-                System.out.println("logado - aguarda escolha modalidade");
+                ListaUsuarios l = leituraXML();
+                Iterator<Usuario> ite = l.getUsuarios().iterator();
+                while (ite.hasNext()) {
+                    Usuario u = ite.next();
+                    if (u.isLogado()) {
+                        return ("#JA_LOGOU_P");
+                    }
+                }
                 return ("#LOGADO$PLACAR");
             } else if (usuario.isUserPropaganda()) {
                 return ("#LOGADO$PROPAGANDA");
             } else {
                 return ("#NOT$LOGADO");
             }
+        } else {
+            return ("#NOT$LOGADO");
         }
-        return ("#NOT_DATA");
     }
 
     /**
@@ -809,9 +816,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                     } else if (escolha[0].equals("#LOGIN")) {
                         String m = login(escolha);
+                        System.out.println(m);
                         if (!m.contains("NOT")) {
                             user = escolha[1];
-                            setLogar(user);
+                            if (!m.equals("#JA_LOGOU_P")) {
+                                setLogar(user);
+                            }
                         }
                         saida.writeUTF(m);
                         saida.flush();
