@@ -88,10 +88,13 @@ public class ComunicacaoSocketServidor implements Runnable {
 
                 Socket cliente = servidor.accept();
 
-                if (count < 3) {
-                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
+                if (count < 1) {
                     ProgressIndicator pro = (ProgressIndicator) p.getScene().getRoot().lookup("#progressIndicator");
                     pro.setOpacity(0);
+                }
+                
+                if (count < 3) {
+                    System.out.println("Cliente conectado: " + cliente.getInetAddress().getHostAddress() + " n:" + count);
                     count++;
                     chamaConversa(cliente);
                 } else {

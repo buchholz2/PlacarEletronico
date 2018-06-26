@@ -16,7 +16,7 @@
   </rowConstraints>
    <children>
       <MediaView fx:id="jMidiaView" cache="true" cacheHint="QUALITY" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT" />
-      <GridPane maxHeight="120.0" maxWidth="600.0" prefHeight="120.0" styleClass="fundoPropaganda" stylesheets="@../estilos/meinCSS.css">
+      <GridPane maxHeight="120.0" maxWidth="450.0" prefHeight="120.0" styleClass="fundoPropaganda" stylesheets="@../estilos/meinCSS.css">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="10.0" />
