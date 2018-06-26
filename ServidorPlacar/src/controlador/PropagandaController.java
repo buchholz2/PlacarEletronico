@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -74,36 +75,7 @@ public class PropagandaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            buscaArquivos();
-            initMediaPlayer(lista.iterator());
-            final DoubleProperty width = jMidiaView.fitWidthProperty();
-            final DoubleProperty height = jMidiaView.fitHeightProperty();
-
-            width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
-            height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
-
-            jMidiaView.setPreserveRatio(true);
-
-            jLLocal.setText(Main.getNomeLocal());
-            jLVisitante.setText(Main.getNomeVisitante());
-            int pL = Main.getpLocal();
-            if (pL > 9) {
-                jLPontosLocal.setText("" + pL);
-            } else {
-                jLPontosLocal.setText("0" + pL);
-            }
-            int pV = Main.getpVisitante();
-            if (pV > 9) {
-                jLPontosVisitante.setText("" + pV);
-            } else {
-                jLPontosVisitante.setText("0" + pV);
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        iniciaPropaganda();
     }
 
     public URL buscaArquivos() throws InterruptedException, MalformedURLException {
@@ -123,6 +95,7 @@ public class PropagandaController implements Initializable {
 
     private void initMediaPlayer(final Iterator<String> urls) {
         if (urls.hasNext()) {
+
             String endereco = urls.next().toString();
             Media m = new Media(endereco);
             mediaPlayer = new MediaPlayer(m);
@@ -137,6 +110,9 @@ public class PropagandaController implements Initializable {
             Platform.runLater(() -> {
                 jMidiaView.setMediaPlayer(mediaPlayer);
             });
+        } else {
+            Collections.shuffle(lista);
+            initMediaPlayer(lista.iterator());
         }
     }
 
@@ -167,4 +143,37 @@ public class PropagandaController implements Initializable {
         return task;
     }
 
+    public void iniciaPropaganda() {
+        try {
+            buscaArquivos();
+            Collections.shuffle(lista);
+            initMediaPlayer(lista.iterator());
+            final DoubleProperty width = jMidiaView.fitWidthProperty();
+            final DoubleProperty height = jMidiaView.fitHeightProperty();
+
+            width.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "width"));
+            height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
+
+            jMidiaView.setPreserveRatio(true);
+
+            jLLocal.setText(Main.getNomeLocal());
+            jLVisitante.setText(Main.getNomeVisitante());
+            int pL = Main.getpLocal();
+            if (pL > 9) {
+                jLPontosLocal.setText("" + pL);
+            } else {
+                jLPontosLocal.setText("0" + pL);
+            }
+            int pV = Main.getpVisitante();
+            if (pV > 9) {
+                jLPontosVisitante.setText("" + pV);
+            } else {
+                jLPontosVisitante.setText("0" + pV);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
