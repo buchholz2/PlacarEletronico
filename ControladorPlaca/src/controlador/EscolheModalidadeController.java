@@ -63,7 +63,13 @@ public class EscolheModalidadeController implements Initializable {
      */
     @FXML
     void iniciaPadrao(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#ESCOLHE_MODALIDADE$PADRAO").equals("ESCOLHIDA")) {
+                Main.loadScene("/view/FXMLControlPadrao.fxml");
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
+        }
     }
 
     /**
@@ -74,15 +80,21 @@ public class EscolheModalidadeController implements Initializable {
      */
     @FXML
     void iniciaVolei(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#ESCOLHE_MODALIDADE$VOLEI").equals("ESCOLHIDA")) {
+                Main.loadScene("/view/FXMLControlVolei.fxml");
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
+        }
     }
 
     /**
-     * Evento se o botão ESC for precionado. Manda mensagem de desconectar ao servidor.
-     * Fecha a janela e retorna a tela de login.
-     * 
+     * Evento se o botão ESC for precionado. Manda mensagem de desconectar ao
+     * servidor. Fecha a janela e retorna a tela de login.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     void pressedKey(KeyEvent event) throws IOException {
@@ -93,11 +105,11 @@ public class EscolheModalidadeController implements Initializable {
     }
 
     /**
-     * Evento botão logout precionado. Manda mensagem de desconectar ao servidor.
-     * Fecha a janela e retorna a tela de login.
-     * 
+     * Evento botão logout precionado. Manda mensagem de desconectar ao
+     * servidor. Fecha a janela e retorna a tela de login.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     void sairJanela(MouseEvent event) throws IOException {

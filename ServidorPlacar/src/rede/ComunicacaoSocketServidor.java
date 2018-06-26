@@ -58,6 +58,9 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int i = 0;
     private String nomeVisitante = "Visitante";
     private String nomeLocal = "Local";
+    private int valorSetLocal = 0;
+    private int valorSetVisitante = 0;
+    private int setAutal = 0;
 
     /**
      * Construtor
@@ -219,12 +222,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                 break;
 
             case "VOLEI":
-                Main.loadScene("/view/FXMLBasquete.fxml");
+                Main.loadScene("/view/FXMLVolei.fxml");
                 retorno = "ESCOLHIDA";
                 break;
 
-            case "FUTSAL":
-                Main.loadScene("/view/FXMLBasquete.fxml");
+            case "PADRAO":
+                Main.loadScene("/view/FXMLPadrao.fxml");
                 retorno = "ESCOLHIDA";
                 break;
         }
@@ -1024,7 +1027,12 @@ public class ComunicacaoSocketServidor implements Runnable {
                             saida.writeUTF("TROCADO");
                             saida.flush();
                         }
-
+                    } else if (escolha[0].equals("#INICIA_CRONO_VOLEI")) {
+                        saida.writeUTF(iniciaCronosPadrao());
+                        saida.flush();
+                    } else if (escolha[0].equals("#PROXIMO_SET")) {
+                        saida.writeUTF(proximoSet());
+                        saida.flush();
                     }
                 }
             }
@@ -1057,17 +1065,197 @@ public class ComunicacaoSocketServidor implements Runnable {
         return task;
     }
 
-    public void alteraDados() {
-        Stage s = Main.alteraStageSecundary();
-        Label plocal = (Label) s.getScene().getRoot().lookup("#jLPontosLocal");
-        Label pvisitante = (Label) s.getScene().getRoot().lookup("#jLPontosVisitante");
-        Label local = (Label) s.getScene().getRoot().lookup("#jLLocal");
-        Label visitante = (Label) s.getScene().getRoot().lookup("#jLVisitante");
+    public String iniciaCronosPadrao() {
+        if (fimCrono != true) {
+            fimCrono = true;
+            chamaCronosPadrao((Label) p.getScene().getRoot().lookup("#jLCronometroCentral"));
+            return "CRONOS_INICIADO";
+
+        } else {
+            return "CRONOS_EXECUTANDO";
+        }
+
+    }
+
+    public void chamaCronosPadrao(Label label) {
+        Thread th = new Thread(iniciaCronosPadrao(label));
+        th.setDaemon(true);
+        th.start();
+    }
+
+    private Task iniciaCronosPadrao(Label l) {
+
+        Task task = new Task<Void>() {
+            int m = 0;
+            int s = 0;
+            int h = 0;
+            String minutos;
+            String segundos;
+            String horas;
+
+            @Override
+            public Void call() throws Exception {
+                while (fimCrono()) {
+
+                    if (m > 9) {
+                        minutos = "" + m;
+                    } else {
+                        minutos = "0" + m;
+                    }
+                    if (s > 9) {
+                        segundos = "" + s;
+                    } else {
+                        segundos = "0" + s;
+                    }
+                    if (h > 9) {
+                        horas = "" + h;
+                    } else {
+                        horas = "0" + h;
+                    }
+
+//                    while (cronosPausado) {
+//                        Thread.sleep(100);
+//                    }
+//                    if (cronosPausado) {
+//                        fimCrono = true;
+//                        URL url = getClass().getResource("/estilos/apito.wav");
+//                        AudioClip audio = Applet.newAudioClip(url);
+//                        audio.play();
+//                    }
+                    Platform.runLater(() -> {
+                        l.setText(horas + ":" + minutos + ":" + segundos);
+                    });
+
+                    Thread.sleep(1000);
+
+                    s++;
+                    if (s > 59) {
+                        m++;
+                        s = 0;
+                    }
+                    if (m > 59) {
+                        h++;
+                        m = 0;
+                    }
+
+                }
+                return null;
+            }
+        };
+        return task;
+    }
+
+    public String proximoSet() {
+        int verificador = 0;
+        int pL = pontosL;
+        int pV = pontosV;
+        verificador = pL - pV;
+        if (verificador < 0) {
+            verificador = verificador * (-1);
+        }
+        if (pL >= 25 || pV >= 25) {
+            if (verificador >= 2) {
+                if (pL > pV) {
+                    setAutal++;
+                    valorSetLocal++;
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
+                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
+                    Platform.runLater(() -> {
+                        l.setText("" + valorSetLocal);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+                    zeraPlacar();
+                    System.out.println(pL + " : " + pV);
+                } else {
+                    setAutal++;
+                    valorSetVisitante++;
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
+                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
+                    Platform.runLater(() -> {
+                        l.setText("" + valorSetLocal);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+                    zeraPlacar();
+                    System.out.println(pL + " : " + pV);
+                }
+                if (setAutal == 3) {
+                    int verificadorGanho = valorSetLocal - valorSetVisitante;
+                    if (verificadorGanho < 0) {
+                        verificadorGanho = verificadorGanho * (-1);
+                    }
+                    if (verificadorGanho == 3) {
+                        if (valorSetLocal > valorSetVisitante) {
+                            fimCrono = false;
+                        } else {
+                            fimCrono = false;
+                        }
+                        return "#ALGUEM_GANHO";
+                    }
+
+                }
+                if (setAutal == 4) {
+                    int verificadorGanho = valorSetLocal - valorSetVisitante;
+                    if (verificadorGanho < 0) {
+                        verificadorGanho = verificadorGanho * (-1);
+                    }
+                    if (verificadorGanho == 2) {
+                        if (valorSetLocal > valorSetVisitante) {
+                            fimCrono = false;
+                        } else {
+                            fimCrono = false;
+                        }
+                        return "#ALGUEM_GANHO";
+                    }
+                }
+            }
+        }
+        if (setAutal == 5) {
+            if (valorSetLocal > valorSetVisitante) {
+                fimCrono = false;
+            } else {
+                fimCrono = false;
+            }
+            return "#ALGUEM_GANHO";
+        }
+        return "#NINGUEM_GANHOU";
+    }
+
+    public void zeraPlacar() {
+        pontosL = 0;
+        pontosV = 0;
+        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos");
+        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos");
         Platform.runLater(() -> {
-            plocal.setText("" + pontosL);
-            pvisitante.setText("" + pontosV);
-            local.setText(nomeLocal);
-            visitante.setText(nomeVisitante);
+            if (pontosL < 9) {
+                local.setText("0" + pontosL);
+            } else {
+                local.setText("" + pontosL);
+            }
+            if (pontosV < 9) {
+                visitante.setText("0" + pontosV);
+            } else {
+                visitante.setText("" + pontosV);
+            }
         });
     }
 }

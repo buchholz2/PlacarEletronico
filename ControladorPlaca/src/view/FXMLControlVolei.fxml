@@ -32,32 +32,32 @@
                   <Font name="DS-Digital Bold" size="23.0" />
                </font>
             </Label>
-            <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="124.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+            <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutY="124.0" prefHeight="70.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="68.0" />
                </font>
             </Label>
-            <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="433.0" layoutY="124.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+            <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="124.0" prefHeight="70.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="68.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="75.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="LOCAL" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="jLNomeLocal" alignment="CENTER" contentDisplay="CENTER" layoutY="75.0" prefHeight="50.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="LOCAL" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="75.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VISITANTE" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="jLNomeVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="75.0" prefHeight="50.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VISITANTE" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="181.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="181.0" prefHeight="26.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="429.0" layoutY="181.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="181.0" prefHeight="26.0" prefWidth="216.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
@@ -82,27 +82,27 @@
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="1" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="222.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="1" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="2" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="291.0" layoutY="222.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="2" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="3" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="222.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="3" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="4" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="222.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="4" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="5" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="222.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="5" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
@@ -117,54 +117,64 @@
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLLocalSet1" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="243.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLLocalSet1" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="243.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLVisitanteSet1" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="276.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLVisitanteSet1" alignment="CENTER" contentDisplay="CENTER" layoutX="223.0" layoutY="276.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLLocalSet2" alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="243.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLLocalSet2" alignment="CENTER" contentDisplay="CENTER" layoutX="291.0" layoutY="243.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLVisitanteSet2" alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="276.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLVisitanteSet2" alignment="CENTER" contentDisplay="CENTER" layoutX="291.0" layoutY="276.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLLocalSet3" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="243.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLLocalSet3" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="243.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLVisitanteSet3" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="276.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLVisitanteSet3" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="276.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLLocalSet4" alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="243.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLLocalSet4" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="243.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLVisitanteSet4" alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="276.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLVisitanteSet4" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="276.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLLocalSet5" alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="243.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLLocalSet5" alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="243.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLVisitanteSet5" alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="276.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="jLVisitanteSet5" alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="276.0" prefHeight="26.0" prefWidth="46.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLPosseLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="-22.0" layoutY="125.0" prefHeight="50.0" prefWidth="103.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="&gt;" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="DS-Digital Bold" size="96.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLPosseVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="489.0" layoutY="125.0" prefHeight="50.0" prefWidth="103.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="&lt;" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="DS-Digital Bold" size="96.0" />
                </font>
             </Label>
          </children>
@@ -218,7 +228,7 @@
             <Font name="Ebrima" size="11.0" />
          </font>
       </Label>
-      <Button fx:id="jBIniciaCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="646.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#iniciaCrono" prefHeight="25.0" prefWidth="70.0" text="Iniciar" />
+      <Button fx:id="jBIniciaCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="646.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#iniciaCrono" prefHeight="25.0" prefWidth="70.0" text="Iniciar" />
       <Label layoutX="621.0" layoutY="53.0" style="-fx-background-color: white;" text="Local">
          <font>
             <Font name="Ebrima" size="20.0" />
@@ -234,7 +244,6 @@
             <Font name="Ebrima" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="jBReiniciaCrono" alignment="CENTER" contentDisplay="CENTER" layoutX="646.0" layoutY="323.0" mnemonicParsing="false" onMouseClicked="#reiniciaCrono" prefHeight="25.0" prefWidth="70.0" text="Reiniciar" />
       <Button fx:id="jBRestauraTudo" alignment="CENTER" contentDisplay="CENTER" layoutX="921.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#restauraTudo" prefHeight="59.0" prefWidth="70.0" text="Restaurar Tudo" textAlignment="CENTER" wrapText="true" />
       <Label layoutX="24.0" layoutY="53.0" style="-fx-background-color: white;" text="Preview Painel">
          <font>
@@ -243,5 +252,6 @@
       </Label>
       <ToggleButton fx:id="jTBIniciaProp" layoutX="837.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#iniciaPropaganda" prefHeight="59.0" prefWidth="70.0" text="Inicia Propag." textAlignment="CENTER" wrapText="true" />
       <Button fx:id="jBVoltar" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#voltarEscolhaModalidade" text="Voltar" />
+      <Button fx:id="jBTrocaPosse" alignment="CENTER" contentDisplay="CENTER" layoutX="753.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#trocaPosse" prefHeight="36.0" prefWidth="237.0" text="Restaurar Tudo" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>
