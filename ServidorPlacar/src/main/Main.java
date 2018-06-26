@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -65,7 +66,19 @@ public class Main extends Application {
         iniciaDiretorioLog();
         criaDirXmlPrimeiraExecucao();
         criaDirMidia();
+        setDeslogaAllFalse();
         launch(args);
+    }
+
+    public static void setDeslogaAllFalse() {
+        ComunicacaoSocketServidor com = new ComunicacaoSocketServidor();
+        ListaUsuarios users = com.leituraXML();
+        Iterator<Usuario> iterator = users.getUsuarios().iterator();
+        while (iterator.hasNext()) {
+            Usuario user = iterator.next();
+            user.setLogado(false);  
+            com.gravarXML(users);
+        }        
     }
 
     public static void criaDirXmlPrimeiraExecucao() {

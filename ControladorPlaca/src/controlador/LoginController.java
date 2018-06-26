@@ -158,17 +158,17 @@ public class LoginController implements Initializable {
                             alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
                             alert.show();
                             chave = true;
-                        } else if (msg[0].equals("#NOT_DATA")) {
-                            Alert alert = new Alert(AlertType.WARNING);
-                            alert.setTitle("WARNING");
-                            alert.setHeaderText(null);
-                            alert.setContentText("BASE DE DADOS NÃO ENCONRADA!");
-                            alert.show();
                         } else if (msg[0].equals("#JA_LOGOU")) {
                             Alert alert = new Alert(AlertType.WARNING);
                             alert.setTitle("WARNING");
                             alert.setHeaderText(null);
                             alert.setContentText("ESTE USUÁRIO JÁ ESTÁ LOGADO!");
+                            alert.show();
+                        } else if(msg[0].equals("#JA_LOGOU_P")){
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("WARNING");
+                            alert.setHeaderText(null);
+                            alert.setContentText("UM USUÁRIO PLACAR JÁ ESTÁ LOGADO! VOLTE MAIS TARDE!");
                             alert.show();
                         } else {
                             Alert alert = new Alert(AlertType.ERROR);
