@@ -28,12 +28,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import main.Main;
 import model.ClientPropaganda;
 import model.Propaganda;
 
 /**
- * 
+ *
  * @author Cristiano Alex Künas
  */
 public class PropagandaController implements Initializable {
@@ -167,12 +168,15 @@ public class PropagandaController implements Initializable {
     void procuraCaminho(MouseEvent event) throws IOException {
         file = null;
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Selecione a planilha");
+        fileChooser.setTitle("Selecione a Propaganda de Video!");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Arquivos de Video","*.mp4", "*.avi","*.mkv", "*.wmv", "*.mpeg");
+        fileChooser.getExtensionFilters().add(filter);
         file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Main.mandaMSG("#ENVIAR_PROPAGANDA$" + file.getName());
             jTFCaminhoPropaganda.setText(file.getPath());
         }
+        jBEnviaProp.setDisable(false);
     }
 
     @FXML
@@ -188,6 +192,8 @@ public class PropagandaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         jTCTituloProp.setCellValueFactory(new PropertyValueFactory<>("url"));
         jTVListaPropaganda.centerShapeProperty().set(true);
+        jTFCaminhoPropaganda.setEditable(false);
+        jBEnviaProp.setDisable(true);
     }
 
     public void iniciaTransferencia() {
