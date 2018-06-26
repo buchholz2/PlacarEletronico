@@ -3,6 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
+ */
 
 public class ListaUsuarios {
 

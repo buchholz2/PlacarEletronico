@@ -2,6 +2,14 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ *
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
+ */
+
 public class Usuario {
 
     private final SimpleStringProperty usuario;

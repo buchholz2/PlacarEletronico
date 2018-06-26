@@ -4,8 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
- * @author Cristiano Alex Künas
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
+
 public class Propaganda {
     private final SimpleStringProperty url;
 
