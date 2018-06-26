@@ -81,9 +81,12 @@ public class VoleiController implements Initializable {
     @FXML
     private Label jLCronometroCentral;
 
-    /**
-     * Initializes the controller class.
-     */
+   /**
+    * Inicializar
+    * 
+    * @param url
+    * @param rb 
+    */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

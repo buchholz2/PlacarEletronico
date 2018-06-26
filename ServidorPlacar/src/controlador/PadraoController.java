@@ -14,8 +14,12 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
+ 
 public class PadraoController implements Initializable {
 
     @FXML
@@ -49,7 +53,10 @@ public class PadraoController implements Initializable {
     private Label jLSeguraBola11;
 
     /**
-     * Initializes the controller class.
+     * Inicializar
+     * 
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

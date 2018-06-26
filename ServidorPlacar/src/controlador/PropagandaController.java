@@ -29,8 +29,12 @@ import main.Main;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
+ 
 public class PropagandaController implements Initializable {
 
     private String diretorio;
@@ -56,6 +60,9 @@ public class PropagandaController implements Initializable {
 
     private MediaPlayer mediaPlayer;
 
+    /**
+     * Controladoo da classe
+     */
     public PropagandaController() {
         this.diretorio = (Main.getPath() + "Midia");
         this.lista = new ArrayList();
@@ -73,11 +80,24 @@ public class PropagandaController implements Initializable {
         this.diretorio = diretorio;
     }
 
+    /**
+     * Inicializar
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         iniciaPropaganda();
     }
 
+    /**
+     * Ação de buscar os arquivos no diretorio de midia
+     * 
+     * @return
+     * @throws InterruptedException
+     * @throws MalformedURLException 
+     */
     public URL buscaArquivos() throws InterruptedException, MalformedURLException {
         File file = new File(diretorio);
         File afile[] = file.listFiles();

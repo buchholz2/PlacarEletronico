@@ -15,8 +15,12 @@ import javafx.scene.control.Label;
  *
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
+
 public class BasqueteController implements Initializable{
 
     @FXML
@@ -58,6 +62,12 @@ public class BasqueteController implements Initializable{
     @FXML
     private Label jLSeguraBola;
 
+    /**
+     * Inicializar
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
