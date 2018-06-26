@@ -12,13 +12,22 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- *
- * @author Cristiano Alex Künas
+ *@author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class ClientPropaganda {
 
     private Socket cliente;
   
+    /**
+     * Ação de enviar os arquivos para o diretorio, onde
+     * será salvo as mídias de propaganda
+     * 
+     * @param file
+     * @throws IOException 
+     */
     public void enviaArquivo(File file) throws IOException {
         cliente = new Socket("127.0.0.1", 50001);
         DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
@@ -40,10 +49,20 @@ public class ClientPropaganda {
 
     }
 
+    /**
+     * Ação de ler que é o cliente
+     * 
+     * @return 
+     */
     public Socket getCliente() {
         return cliente;
     }
 
+    /**
+     * Ação de gravar o cliente
+     * 
+     * @param cliente 
+     */
     public void setCliente(Socket cliente) {
         this.cliente = cliente;
     }

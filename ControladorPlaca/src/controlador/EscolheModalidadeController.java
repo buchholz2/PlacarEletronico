@@ -77,6 +77,13 @@ public class EscolheModalidadeController implements Initializable {
 
     }
 
+    /**
+     * Evento se o botão ESC for precionado. Manda mensagem de desconectar ao servidor.
+     * Fecha a janela e retorna a tela de login.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void pressedKey(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ESCAPE) {
@@ -85,6 +92,13 @@ public class EscolheModalidadeController implements Initializable {
         }
     }
 
+    /**
+     * Evento botão logout precionado. Manda mensagem de desconectar ao servidor.
+     * Fecha a janela e retorna a tela de login.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void sairJanela(MouseEvent event) throws IOException {
         Main.mandaMSG("#DESCONECTAR");
@@ -92,7 +106,7 @@ public class EscolheModalidadeController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Initializar.
      *
      * @param url
      * @param rb

@@ -18,7 +18,10 @@ import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class ControlVoleiController implements Initializable {
 
@@ -121,63 +124,127 @@ public class ControlVoleiController implements Initializable {
     @FXML
     private Button jBVoltar;
 
+    /**
+     * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
+     * comando altera_nome para o servidor Aguarda retorno para atualizar placar
+     * no preview do controlador
+     *
+     * @param event
+     */
     @FXML
     void alteraNomes(MouseEvent event) {
 
     }
 
+    /**
+     * Ação iniciar cronômetro. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     *
+     * @param event
+     */
     @FXML
     void iniciaCrono(MouseEvent event) {
 
     }
 
+    /**
+     * Ação iniciar propaganda. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     *
+     * @param event
+     */
     @FXML
     void iniciaPropaganda(MouseEvent event) {
 
     }
 
+    /**
+     * Ação soma mais um ponto time local. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event
+     */
     @FXML
     void maisUmL(MouseEvent event) {
 
     }
 
+    /**
+     * Ação soma mais um ponto time visitante. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event
+     */
     @FXML
     void maisUmV(MouseEvent event) {
 
     }
 
+    /**
+     * Ação subtrai menos um ponto time local. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event
+     */
     @FXML
     void menosUmL(MouseEvent event) {
 
     }
 
+    /**
+     * Ação subtrai menos um ponto time visitante. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event
+     */
     @FXML
     void menosUmV(MouseEvent event) {
 
     }
 
+    /**
+     * Ação para iniciar um novo set na partida. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event 
+     */
     @FXML
     void proximoSet(MouseEvent event) {
 
     }
 
+    /**
+     * Ação de reiniciar o cronometro que esta pausado. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     * @param event
+     * @throws InterruptedException
+     */
     @FXML
     void reiniciaCrono(MouseEvent event) {
 
     }
 
+    /**
+     * Ação de restaurar todos os elementos do painel contradolor basquete. 
+     * Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     * @param event
+     */
     @FXML
     void restauraTudo(MouseEvent event) {
 
     }
 
+    /**
+     * Ação para voltar a tela de escolha de modalidade. 
+     * Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     * @param event 
+     */
     @FXML
     void voltarEscolhaModalidade(MouseEvent event) {
 
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializar
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

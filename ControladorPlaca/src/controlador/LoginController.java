@@ -85,6 +85,12 @@ public class LoginController implements Initializable {
         chamaLogin();
     }
 
+    /**
+     * Mesma função que o método valida login, quando precionar o tecla ENTER chama o login.
+     * Se a tecla ESC for precionada fecha a stage
+     * 
+     * @param event 
+     */
     @FXML
     void validaLoginK(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {

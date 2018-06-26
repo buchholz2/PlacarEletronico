@@ -201,7 +201,13 @@ public class ControlBasqueteController implements Initializable {
             //IMPLEMENTAR LOG
         }
     }
-
+    /**
+     * Ação iniciar propaganda. Envia comanto para servidor, Aguarda retorno
+     * para atualizar preview
+     *
+     * @param event
+     */
+     
     @FXML
     void iniciaPropaganda(MouseEvent event) {
         try {

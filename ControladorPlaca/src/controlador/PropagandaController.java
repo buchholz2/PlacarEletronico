@@ -35,7 +35,10 @@ import model.Propaganda;
 
 /**
  *
- * @author Cristiano Alex Künas
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class PropagandaController implements Initializable {
 

@@ -68,6 +68,10 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Ação conectar ao servidor, passando o ip do servidor e a porta a qual será 
+     * feita a conexão 
+     */
     public static void conectar() {
 
         try {
@@ -83,7 +87,8 @@ public class Main extends Application {
     }
 
     /**
-     *
+     * Açao de gravar a Stage
+     * 
      * @param s
      */
     public void setStage(Stage s) {
@@ -91,7 +96,8 @@ public class Main extends Application {
     }
 
     /**
-     *
+     * Ação de ler a Stage 
+     * 
      * @return
      */
     public static Stage getStage() {
@@ -123,7 +129,7 @@ public class Main extends Application {
     }
 
     /**
-     *
+     * Ação de mandar mensagens ao servidor
      * @param msg
      * @return
      * @throws IOException
@@ -142,7 +148,8 @@ public class Main extends Application {
     }
 
     /**
-     *
+     * Ação de gravar o socket
+     * 
      * @param sok
      */
     private static void setSocket(Socket sok) {
@@ -150,8 +157,9 @@ public class Main extends Application {
     }
 
     /**
-     *
-     * @return
+     * Ação de ler o socket
+     * 
+     * @return 
      */
     public static Socket getSocket() {
         return Main.cliente;
