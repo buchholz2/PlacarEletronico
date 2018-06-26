@@ -8,6 +8,7 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,6 +97,8 @@ public class CadastroController implements Initializable {
     @FXML
     private Button jBAdicionar;
 
+    
+    
     /**
      * Evento do botão Logout Recarrega view anterior.
      *
@@ -161,6 +164,8 @@ public class CadastroController implements Initializable {
                 }
             }
         } catch (IOException ex) {
+            Main.LOGGER.severe("Erro ao retornar mensagem de erro de exclusão de usuário");
+            System.out.println(ex.toString());
             //IMPLEMENTAR LOG
         }
     }
@@ -205,7 +210,7 @@ public class CadastroController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOGGER
+            Main.LOGGER.warning("Erro ao fazer a listagem dos usuários");
         }
 
     }
@@ -271,7 +276,7 @@ public class CadastroController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.warning("Erro ao adicionar um novo usuário");
         }
     }
 

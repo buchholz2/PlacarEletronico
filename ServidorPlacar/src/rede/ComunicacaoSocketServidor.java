@@ -16,6 +16,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ import javax.xml.bind.Unmarshaller;
 import main.Main;
 import model.ListaUsuarios;
 import org.apache.commons.codec.binary.Base64;
+
 
 /**
  *
@@ -51,6 +53,8 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int somaRodadaL = 0;
     String resultadoFinal = "";
     private int count = 0;
+    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
 
     public ComunicacaoSocketServidor(Stage p) {
         this.p = p;
@@ -93,7 +97,9 @@ public class ComunicacaoSocketServidor implements Runnable {
             }
 
         } catch (IOException e) {
-            System.out.println("Erro: " + e.getMessage());
+          //  System.out.println("Erro: " + e.getMessage());
+            Main.LOGGER.severe("Erro na conexão do cliente com o servidor - Método run do Servidor ");
+            System.out.println(e.toString());
         }
     }
 
@@ -533,7 +539,7 @@ public class ComunicacaoSocketServidor implements Runnable {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             lista = (ListaUsuarios) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
-            Main.LOGGER.severe("Falha na leitura do XML! Contate o suporte!");
+            Main.LOGGER.severe("Falha ao ler o arquivo XML!");
             System.out.println(e.toString());
         }
         return lista;
@@ -553,7 +559,8 @@ public class ComunicacaoSocketServidor implements Runnable {
 //            jaxbMarshaller.marshal(usuarios, System.out);
 
         } catch (JAXBException e) {
-            Main.LOGGER.warning("Falha ao gravar XML!");
+            Main.LOGGER.warning("Falha ao gravar o arquivo XML!");
+            System.out.println(e.toString());
         }
 
     }

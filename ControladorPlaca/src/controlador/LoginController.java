@@ -69,7 +69,8 @@ public class LoginController implements Initializable {
                 Main.mandaMSG("#DESCONECTAR");
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro ao desconectar usando o método fecharTela");
+            System.out.println(ex.toString());
         }
         Main.getStage().close();
     }
@@ -99,7 +100,8 @@ public class LoginController implements Initializable {
                     Main.mandaMSG("#DESCONECTAR");
                 }
             } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                Main.LOGGER.severe("Erro no processo de validação de Login");
+                System.out.println(ex.toString());
             }
             Main.getStage().close();
         }
@@ -125,10 +127,14 @@ public class LoginController implements Initializable {
                 chave = false;
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro de I/O ao faça a conexao, dentro do método chamaLogin");
+            System.out.println(ex.toString());
         } catch (RuntimeException ex) {
+            Main.LOGGER.warning("Erro ao chama o método 'conectar' dentro da execução do chamaLogin");
 
         } catch (Exception ex) {
+            Main.LOGGER.severe("Erro ao tentar fazer a conexão, usando o método chamaLogin");
+            System.out.println(ex.toString());
 
         }
 
@@ -160,7 +166,7 @@ public class LoginController implements Initializable {
                             alert.setContentText("MAXIMO DE USUARIOS CONECTADOS!");
                             alert.show();
                             chave = true;
-                        } else if(msg[0].equals("#NOT_DATA")){
+                        } else if (msg[0].equals("#NOT_DATA")) {
                             Alert alert = new Alert(AlertType.WARNING);
                             alert.setTitle("WARNING");
                             alert.setHeaderText(null);
@@ -174,14 +180,14 @@ public class LoginController implements Initializable {
                             alert.show();
                         }
                     } catch (IOException ex) {
-                        //IMPLEMENTAR LOG
+                        Main.LOGGER.severe("Erro ao chamar o método 'mandaMSG' dentro do chamaLogin");
                     }
 
                 }
             }
 
         } catch (RuntimeException ex) {
-
+           Main.LOGGER.warning("Erro de Runtime durante a execução do socket, dentro do método chamaLogin");
         }
 
     }

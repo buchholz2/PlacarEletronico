@@ -52,7 +52,8 @@ public class EscolheModalidadeController implements Initializable {
                 Main.loadScene("/view/FXMLControladorPlacar.fxml");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao fazer a inicialização da modalidade 'Basquete'");
+            System.out.println(ex.toString());
         }
     }
 

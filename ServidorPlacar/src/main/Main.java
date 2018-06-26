@@ -72,7 +72,7 @@ public class Main extends Application {
                 Files.createDirectories(p);
                 criaUsuariosXmlPrimeiraExecucao();
             } catch (IOException ex) {
-                Main.LOGGER.config("Problema na configuração de usuários padrões!");
+                Main.LOGGER.config("Erro ao fazer a primeira criação do diretório do XML");
             }
         }
     }
@@ -84,7 +84,7 @@ public class Main extends Application {
             try {
                 Files.createDirectories(p);                
             } catch (IOException ex) {
-                Main.LOGGER.config("Problema ao criar diretório de Midias!");
+                Main.LOGGER.config("Problema ao criar diretório de Midias!");   
             }
         }
     }
@@ -123,15 +123,22 @@ public class Main extends Application {
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.config("Erro ao iniciar o diretorio de Log");
+            
         }
 
         Handler fh = null;
         try {
             // Nome do arquivo, booleano (append)
             fh = new FileHandler(path + "\\log.txt", true);
-        } catch (IOException | SecurityException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.config("Erro ao criar arquivo de Log");
+            
+        } catch (SecurityException ex) {
+             Main.LOGGER.warning("Erro de segurança ao criar arquivo de Log");
+            
         }
         // Padrão é XML, para log no formato texto deve setar.
         fh.setFormatter(new SimpleFormatter());
@@ -166,7 +173,8 @@ public class Main extends Application {
                 primaryStage.setFullScreen(true);
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            Main.LOGGER.config("Erro ao carregar cena");
+            System.out.println(e.toString());
         }
 //        try {
 //            Parent root = FXMLLoader.load(thisClass.getClass().getResource("/view/FXMLBasquete.fxml"));
@@ -196,7 +204,8 @@ public class Main extends Application {
             });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Main.LOGGER.config("Erro ao carregar cena de propaganda");
+            System.out.println(e.toString());
         }
 
     }

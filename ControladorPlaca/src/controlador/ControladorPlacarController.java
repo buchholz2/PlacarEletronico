@@ -195,7 +195,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao fazer a alteração de nomes");
+            System.out.println(ex.toString());
         }
     }
 
@@ -208,7 +209,8 @@ public class ControladorPlacarController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro ao Iniciar a propaganda !");
+            System.out.println(ex.toString());
         }
 
     }
@@ -270,7 +272,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir tempo no relógio");
+            System.out.println(ex.toString());
         }
     }
 
@@ -296,7 +299,8 @@ public class ControladorPlacarController implements Initializable {
                 th.start();
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao iniciar o relógio");
+            System.out.println(ex.toString());
         }
     }
 
@@ -320,7 +324,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+2 pontos' para o time local ");
+            System.out.println(ex.toString());
         }
     }
 
@@ -344,7 +349,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro a definir '+2 pontos' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -361,7 +367,8 @@ public class ControladorPlacarController implements Initializable {
                 mudaFalta("LOCAL", "SOMA");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+1 falta' ao time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -378,7 +385,8 @@ public class ControladorPlacarController implements Initializable {
                 mudaFalta("VISITANTE", "SOMA");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+         Main.LOGGER.severe("Ero ao definir '+1 falta' ao time visitante");
+         System.out.println(ex.toString());
         }
     }
 
@@ -402,7 +410,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+3 pontos' ao time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -426,7 +435,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+3 pontos' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -450,7 +460,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+1 ponto' para o tme local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -474,7 +485,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '+1 ponto' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -498,7 +510,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-2 pontos' para o time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -522,7 +535,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-2 pontos' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -537,7 +551,8 @@ public class ControladorPlacarController implements Initializable {
                 mudaFalta("LOCAL", "SUB");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao retirar Uma Falta do time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -552,7 +567,8 @@ public class ControladorPlacarController implements Initializable {
                 mudaFalta("VISITANTE", "SUB");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao retirar Uma Falta do time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -576,7 +592,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-3 pontos' para o time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -600,7 +617,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-3 pontos' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -624,7 +642,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-1 ponto' para o time local");
+            System.out.println(ex.toString());
         }
     }
 
@@ -648,7 +667,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao definir '-1 ponto' para o time visitante");
+            System.out.println(ex.toString());
         }
     }
 
@@ -762,7 +782,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao iniciar um novo Quarto");
+            System.out.println(ex.toString());
         }
     }
 
@@ -783,7 +804,8 @@ public class ControladorPlacarController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao fazer a pausa do relógio");
+            System.out.println(ex.toString());
         }
     }
 
@@ -844,7 +866,8 @@ public class ControladorPlacarController implements Initializable {
 
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao reiniciar o relógio");
+            System.out.println(ex.toString());
         }
     }
 
@@ -861,7 +884,8 @@ public class ControladorPlacarController implements Initializable {
                 jLTempoLancamento.setText("24");
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
+            Main.LOGGER.severe("Erro ao reiniciar o lançamento");
+            System.out.println(ex.toString());
         }
     }
 
@@ -1069,7 +1093,8 @@ public class ControladorPlacarController implements Initializable {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
-            Logger.getLogger(ControladorPlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro ao acessar o Date durante o método initialize");
+            System.out.println(ex.toString());
         }
 
     }

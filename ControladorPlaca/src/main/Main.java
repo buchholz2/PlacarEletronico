@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -14,6 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * @author Cristiano Künas
@@ -29,6 +40,8 @@ public class Main extends Application {
     public static Socket cliente;
     public static ObjectInputStream entrada;
     public static ObjectOutputStream saida;
+    private static final String PATH = (System.getProperty("user.home")+"\\Documents\\Placar\\");
+    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
      * A classe principal da aplicação em JavaFX
@@ -107,7 +120,9 @@ public class Main extends Application {
                 primaryStage.show();
             });
         } catch (IOException e) {
-            //IMPLEMENTAR LOG            
+            Main.LOGGER.severe("Erro ao carregar cena !");
+            System.out.println(e.toString());
+            
         }
 
     }
@@ -146,5 +161,45 @@ public class Main extends Application {
     public static Socket getSocket() {
         return Main.cliente;
     }
+    
+    public static void iniciaDiretorioLog() {
+        Date data = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String dataFormatada = sdf.format(data);
+        Path path = Paths.get(PATH+"\\Log\\" + dataFormatada);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException ex) {
+           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro ao criar diretorio do Log");
+            System.out.println(ex.toString());
+        }
+
+        Handler fh = null;
+        try {
+            // Nome do arquivo, booleano (append)
+            fh = new FileHandler(path + "\\log.txt", true);
+        } catch (IOException ex) {
+           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.severe("Erro ao criar arquivo de Log");
+            System.out.println(ex.toString());
+        } catch (SecurityException ex) {
+             Main.LOGGER.severe("Erro de segurança ao criar arquivo de Log");
+             System.out.println(ex.toString());
+        }
+        // Padrão é XML, para log no formato texto deve setar.
+        fh.setFormatter(new SimpleFormatter());
+        
+
+        Logger.getLogger("").addHandler(fh);
+        // Remoção das mensagens no console
+        Logger l = Logger.getLogger("");
+        Handler[] handlers = l.getHandlers();
+        if (handlers[0] instanceof ConsoleHandler) {
+            l.removeHandler(handlers[0]);
+        }
+
+    }
+
 
 }

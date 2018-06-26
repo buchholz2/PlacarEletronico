@@ -65,9 +65,9 @@ public class PropagandaController implements Initializable {
             jMidiaView.setPreserveRatio(true);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+            Main.LOGGER.warning("Erro durante a busca do arquivo");
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
+           Main.LOGGER.warning("Erro de URL durante a busca do arquivo");
         }
     }
 
