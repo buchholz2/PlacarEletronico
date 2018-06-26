@@ -9,8 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" maxWidth="1080.0" minWidth="1080.0" prefHeight="455.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controlador.ControlVoleiController">
+<AnchorPane id="AnchorPane" maxWidth="1080.0" minWidth="1080.0" prefHeight="455.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControlVoleiController">
    <children>
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="341.0" layoutX="16.0" layoutY="69.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="585.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="189.0" layoutX="617.0" layoutY="68.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
@@ -33,12 +32,12 @@
                   <Font name="DS-Digital Bold" size="23.0" />
                </font>
             </Label>
-            <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="138.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+            <Label fx:id="jLPontosLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="124.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="68.0" />
                </font>
             </Label>
-            <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="433.0" layoutY="138.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
+            <Label fx:id="jLPontosVisitante" alignment="CENTER" contentDisplay="CENTER" layoutX="433.0" layoutY="124.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="68.0" />
                </font>
@@ -53,17 +52,17 @@
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal1" alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="125.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="181.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal11" alignment="CENTER" contentDisplay="CENTER" layoutX="429.0" layoutY="125.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="429.0" layoutY="181.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PONTOS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLPontosLocal1" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="103.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VS" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="103.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VS" textFill="WHITE">
                <font>
                   <Font name="DS-Digital Bold" size="68.0" />
                </font>
@@ -78,32 +77,32 @@
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal21" alignment="CENTER" contentDisplay="CENTER" layoutX="137.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="SETS" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="137.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="SETS" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal211" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="1" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="1" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal2111" alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="2" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="2" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal21111" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="3" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="3" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal21112" alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="4" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="4" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="jLNomeLocal21113" alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="5" textAlignment="CENTER" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="222.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="5" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="25.0" />
                </font>
@@ -213,7 +212,7 @@
             <Font name="Ebrima" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="jBProximoSet" alignment="CENTER" contentDisplay="CENTER" layoutX="753.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#novoQuarto" prefHeight="59.0" prefWidth="70.0" text="Proximo Set" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="jBProximoSet" alignment="CENTER" contentDisplay="CENTER" layoutX="753.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#proximoSet" prefHeight="59.0" prefWidth="70.0" text="Proximo Set" textAlignment="CENTER" wrapText="true" />
       <Label fx:id="jLLogger" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="439.0" text="buchholz: 22/05/2018 - 23:01">
          <font>
             <Font name="Ebrima" size="11.0" />
