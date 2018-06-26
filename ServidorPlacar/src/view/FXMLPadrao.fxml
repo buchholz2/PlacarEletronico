@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PadraoController">
+   <center>
+      <GridPane prefHeight="288.0" prefWidth="997.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="316.0" minHeight="5.0" prefHeight="121.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="190.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="154.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="FALTAS" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLCronometroCentral" alignment="CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00:00:00" textAlignment="JUSTIFY" textFill="RED" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="LCD AT&amp;T Phone Time/Date" size="130.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="TEMPO DE JOGO" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdoPontos" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdo" alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="Local" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireitoPontos" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireito" alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="VISITANTE" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeEsquerdoFaltas" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="FALTAS" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLTimeDireitoFaltas" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="00" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="125.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLPeriodo" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="0" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="150.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PERIODO" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="DS-Digital Bold" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLAcrescimo" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="+2" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <font>
+                  <Font name="DS-Digital Bold" size="88.0" />
+               </font>
+            </Label>
+            <Label fx:id="jLSeguraBola11" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" opacity="0.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="+2" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="DS-Digital Bold" size="96.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <GridPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="766.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="100.0" prefHeight="300.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="72.0" maxWidth="2000.0" prefHeight="72.0" prefWidth="1000.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="PLACAR PADRAO" textFill="WHITE">
+               <font>
+                  <Font size="96.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>

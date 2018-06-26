@@ -16,49 +16,10 @@ import javafx.scene.control.Label;
  *
  * @author danie
  */
-public class VoleiController implements Initializable {
+public class PadraoController implements Initializable {
 
     @FXML
-    private Label jLTimeEsquerdoSets;
-
-    @FXML
-    private Label jLTimeDireitoSets;
-
-    @FXML
-    private Label jLSetsLocal;
-
-    @FXML
-    private Label jLSetsVisitante;
-
-    @FXML
-    private Label jLSetLocal1;
-
-    @FXML
-    private Label jLSetVisitante2;
-
-    @FXML
-    private Label jLSetLocal2;
-
-    @FXML
-    private Label jLSetVisitante4;
-
-    @FXML
-    private Label jLSetLocal4;
-
-    @FXML
-    private Label jLSetVisitante3;
-
-    @FXML
-    private Label jLSetVisitante5;
-
-    @FXML
-    private Label jLSetVisitante1;
-
-    @FXML
-    private Label jLSetLocal3;
-
-    @FXML
-    private Label jLSetLocal5;
+    private Label jLCronometroCentral;
 
     @FXML
     private Label jLTimeEsquerdoPontos;
@@ -73,13 +34,19 @@ public class VoleiController implements Initializable {
     private Label jLTimeDireito;
 
     @FXML
-    private Label jLPosseEsquerdo;
+    private Label jLTimeEsquerdoFaltas;
 
     @FXML
-    private Label jLPosseDireito;
+    private Label jLTimeDireitoFaltas;
 
     @FXML
-    private Label jLCronometroCentral;
+    private Label jLPeriodo;
+
+    @FXML
+    private Label jLAcrescimo;
+
+    @FXML
+    private Label jLSeguraBola11;
 
     /**
      * Initializes the controller class.
