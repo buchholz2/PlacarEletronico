@@ -81,6 +81,10 @@ public class Main extends Application {
         }        
     }
 
+    /**
+     * Quando iniciar o sistema se não existir o diretorio do arquivo XML.
+     * É criado o diretorio deste arquivo
+     */
     public static void criaDirXmlPrimeiraExecucao() {
         File file = new File(PATH + "xml");
         if (!file.exists()) {
@@ -94,6 +98,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Quando iniciar o sistema se não existir o diretorio de Midia.
+     * É criado o diretorio deste arquivo
+     */
     public static void criaDirMidia() {
         File file = new File(PATH + "Midia");
         if (!file.exists()) {
@@ -106,6 +114,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Na primeira execução do programa não existe nenhum dado dentro do XML.
+     * Aqui é criado o XML com os usuários padrões.
+     * ADM, PLACAR, PROPAGANDA
+     */
     private static void criaUsuariosXmlPrimeiraExecucao() {
         ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
         ListaUsuarios lista = new ListaUsuarios();
@@ -131,6 +144,9 @@ public class Main extends Application {
         c.gravarXML(lista);
     }
 
+    /**
+     * Inicia o diretorio de logs
+     */
     public static void iniciaDiretorioLog() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -162,14 +178,28 @@ public class Main extends Application {
 
     }
 
+    /**
+     * Ação de ler o Path
+     * 
+     * @return 
+     */
     public static String getPath() {
         return PATH;
     }
 
+    /**
+     * Ação de gravar o Path
+     * 
+     * @param s 
+     */
     public void setStage(Stage s) {
         this.primaryStage = s;
     }
 
+    /** 
+     * Ação de ler a cena
+     * @param local 
+     */
     public static void loadScene(String local) {
 
         try {
@@ -197,6 +227,16 @@ public class Main extends Application {
 
     }
 
+    /**
+     * 
+     * 
+     * 
+     * @param pontosL
+     * @param pontosV
+     * @param nomeLocal
+     * @param nomeVisitante
+     * @throws IOException 
+     */
     public static void propaganda(int pontosL, int pontosV, String nomeLocal, String nomeVisitante) throws IOException {
         Main.pLocal = pontosL;
         Main.pVisitante = pontosV;
