@@ -199,6 +199,7 @@ public class PropagandaController implements Initializable {
                 while (chave) {
                     if (Main.fechaPropaganda()) {
                         curr.stop();
+                        curr.dispose();
                         chave = false;
                         lista.clear();
                     }
