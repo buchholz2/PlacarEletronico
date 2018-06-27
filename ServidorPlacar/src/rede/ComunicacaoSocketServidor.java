@@ -34,8 +34,6 @@ import model.ListaUsuarios;
 import model.ServerPropaganda;
 import org.apache.commons.codec.binary.Base64;
 
-
-
 /**
  * @author Cristiano Künas
  * @author Daniel Buchholz
@@ -115,7 +113,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                 }
             }
         } catch (IOException e) {
-          //  System.out.println("Erro: " + e.getMessage());
+            //  System.out.println("Erro: " + e.getMessage());
             Main.LOGGER.severe("Erro na conexão do cliente com o servidor - Método run do Servidor ");
             System.out.println(e.toString());
         }
@@ -727,7 +725,7 @@ public class ComunicacaoSocketServidor implements Runnable {
      *
      * @return
      */
-    private String restauraTudo() {
+    private String restauraTudoBasquete() {
         cronosPausado = false;
         fimCrono = false;
         pontosV = 0;
@@ -752,19 +750,19 @@ public class ComunicacaoSocketServidor implements Runnable {
             l.setText("00 X 00");
             l = (Label) p.getScene().getRoot().lookup("#jLRodada5");
             l.setText("00 X 00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos");
             l.setText("00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos");
             l.setText("00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLSeguraBola");
             l.setText("00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoFaltas");
             l.setText("00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoFaltas");
             l.setText("00");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
             l.setText("LOCAL");
-            l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
             l.setText("VISITANTE");
         });
         return "RESTAURADO";
@@ -985,8 +983,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#EXCLUIR_USUARIO")) {
                         saida.writeUTF(excluirUsuario(escolha));
                         saida.flush();
-                    } else if (escolha[0].equals("#RESTAURA_TUDO")) {
-                        saida.writeUTF(restauraTudo());
+                    } else if (escolha[0].equals("#RESTAURA_TUDO_BASQUETE")) {
+                        saida.writeUTF(restauraTudoBasquete());
                         saida.flush();
                     } else if (escolha[0].equals("#LISTAR_USUARIOS")) {
                         saida.writeUTF(listaUsuario(escolha));
@@ -1038,6 +1036,9 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                     } else if (escolha[0].equals("#PROXIMO_SET")) {
                         saida.writeUTF(proximoSet());
+                        saida.flush();
+                    } else if (escolha[0].equals("#RESTAURA_TUDO_VOLEI")) {
+                        saida.writeUTF(restauraTudoVolei());
                         saida.flush();
                     }
                 }
@@ -1263,5 +1264,54 @@ public class ComunicacaoSocketServidor implements Runnable {
                 visitante.setText("" + pontosV);
             }
         });
+    }
+
+    public String restauraTudoVolei() {
+        fimCrono = false;
+        pontosL = 0;
+        pontosV = 0;
+        setAutal = 0;
+        Platform.runLater(() -> {
+            Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00:00:00");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetsVisitante");
+            l.setText("0");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+            l.setText("0");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoSets");
+            l.setText("LOCAL");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoSets");
+            l.setText("VISITANTE");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+            l.setText("LOCAL");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+            l.setText("VISITANTE");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetLocal1");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetVisitante1");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetLocal2");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetVisitante2");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetLocal3");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetVisitante3");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetLocal4");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetVisitante4");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetLocal5");
+            l.setText("-");
+            l = (Label) p.getScene().getRoot().lookup("#jLSetVisitante5");
+            l.setText("-");
+        });
+
+        return "RESTAURADO";
     }
 }

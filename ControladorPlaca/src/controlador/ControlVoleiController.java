@@ -136,7 +136,6 @@ public class ControlVoleiController implements Initializable {
     private int pontosV = 0;
     private int pontosL = 0;
     private boolean fimCrono = false;
-    private boolean cronosPausado = false;
     private int setAutal;
     private int valorSetLocal;
     private int valorSetVisitante;
@@ -230,6 +229,10 @@ public class ControlVoleiController implements Initializable {
                 }
 
             }
+            if (pontosL >= 25) {
+                Main.mandaMSG("#PROXIMO_SET");
+                proximoSet();
+            }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
         }
@@ -253,6 +256,10 @@ public class ControlVoleiController implements Initializable {
                     jLPontosVisitante.setText("0" + pontosV);
                 }
 
+            }
+            if (pontosV >= 25) {
+                Main.mandaMSG("#PROXIMO_SET");
+                proximoSet();
             }
         } catch (IOException ex) {
             Logger.getLogger(ControlVoleiController.class.getName()).log(Level.SEVERE, null, ex);
@@ -335,7 +342,39 @@ public class ControlVoleiController implements Initializable {
      */
     @FXML
     void restauraTudo(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#RESTAURA_TUDO_VOLEI").equals("RESTAURADO")) {
+                Platform.runLater(() -> {
+                    jLNomeLocal.setText("LOCAL");
+                    jLNomeVisitante.setText("VISITANTE");
+                    jLNomeLocalSets.setText("LOCAL");
+                    jLNomeVisitanteSets.setText("VISITANTE");
+                    jLPontosLocal.setText("00");
+                    jLPontosVisitante.setText("00");
+                    jLLocalSet1.setText("-");
+                    jLLocalSet2.setText("-");
+                    jLLocalSet3.setText("-");
+                    jLLocalSet4.setText("-");
+                    jLLocalSet5.setText("-");
+                    jLVisitanteSet1.setText("-");
+                    jLVisitanteSet2.setText("-");
+                    jLVisitanteSet3.setText("-");
+                    jLVisitanteSet4.setText("-");
+                    jLVisitanteSet5.setText("-");
+                    jLSetsLocal.setText("0");
+                    jLSetsVisitante.setText("0");
+                    jLCronometro.setText("00:00:00");
+                });
+                fimCrono = false;
+                setAutal = 0;
+                valorSetLocal = 0;
+                valorSetVisitante = 0;
+                pontosL = 0;
+                pontosV = 0;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ControlVoleiController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

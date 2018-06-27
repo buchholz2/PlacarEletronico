@@ -35,7 +35,8 @@ import java.util.logging.SimpleFormatter;
  * @author Leandro Heck
  */
 public class Main extends Application {
-
+    
+    private static String IPServidor = "locahost";
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
@@ -85,18 +86,19 @@ public class Main extends Application {
      * Ação conectar ao servidor, passando o ip do servidor e a porta a qual será 
      * feita a conexão 
      */
-    public static void conectar() {
+    public static String conectar() {
 
         try {
-            setSocket(new Socket("localhost", 12345));
+            setSocket(new Socket(IPServidor, 12345));
             entrada = new ObjectInputStream(getSocket().getInputStream());
             saida = new ObjectOutputStream(getSocket().getOutputStream());
         } catch (ConnectException ex) {
             
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            return "#ERRO_IP";
         }
-
+        return "#LOGADO";
     }
 
     /**
@@ -217,6 +219,14 @@ public class Main extends Application {
             l.removeHandler(handlers[0]);
         }
 
+    }
+
+    public static String getIPServidor() {
+        return IPServidor;
+    }
+
+    public static void setIPServidor(String IPServidor) {
+        Main.IPServidor = IPServidor;
     }
 
 

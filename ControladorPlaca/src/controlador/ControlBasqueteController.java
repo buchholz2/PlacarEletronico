@@ -895,7 +895,7 @@ public class ControlBasqueteController implements Initializable {
      */
     @FXML
     void restauraTudo(MouseEvent event) throws IOException {
-        if (Main.mandaMSG("#RESTAURA_TUDO").equals("RESTAURADO")) {
+        if (Main.mandaMSG("#RESTAURA_TUDO_BASQUETE").equals("RESTAURADO")) {
             cronosPausado = false;
             fimCrono = false;
             pontosV = 0;

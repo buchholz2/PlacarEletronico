@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -51,6 +52,8 @@ public class LoginController implements Initializable {
     @FXML
     private JFXPasswordField jTFSenha;
 
+    private static int count = 0;
+    private static String nome = "";
     public static boolean chave = true;
 
     /**
@@ -124,7 +127,24 @@ public class LoginController implements Initializable {
         System.out.println("Tentou Conectar222");
         if (chave) {
             System.out.println("Tentou Conectar");
-            Main.conectar();
+            String msg = Main.conectar();
+            if (msg.equals("#ERRO_IP")) {
+                if (count < 3) {
+                    TextInputDialog dialogoNome = new TextInputDialog();
+
+                    dialogoNome.setTitle("ERRO DE IP DO SERVIDOR");
+                    dialogoNome.setHeaderText("ENTRE COM A IP NOVA DO SERVIDOR");
+                    dialogoNome.setContentText("IP:");
+                    dialogoNome.showAndWait().ifPresent(v -> nome = v);
+                    Main.setIPServidor(nome);
+                } else {
+                    Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
+                    dialogoErro.setTitle("ERRO DE IP");
+                    dialogoErro.setHeaderText("ERRO AO CONECTAR AO SERVIDOR");
+                    dialogoErro.setContentText("USUARIO MONGOL VEJA SE O SERVIDOR ESTÁ ATIVO!");
+                    dialogoErro.showAndWait();
+                }
+            }
             try {
                 if (Main.getSocket().isConnected()) {
                     chave = false;
