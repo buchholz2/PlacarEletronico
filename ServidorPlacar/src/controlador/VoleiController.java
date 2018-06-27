@@ -14,7 +14,10 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author danie
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
  */
 public class VoleiController implements Initializable {
 

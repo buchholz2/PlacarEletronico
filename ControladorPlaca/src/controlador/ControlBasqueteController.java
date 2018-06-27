@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import main.Main;
 
 /**
+ * excluir
  * @author Cristiano Künas
  * @author Daniel Buchholz
  * @author Douglas Hoffmann

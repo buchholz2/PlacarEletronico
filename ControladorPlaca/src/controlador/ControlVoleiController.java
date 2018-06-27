@@ -441,6 +441,12 @@ public class ControlVoleiController implements Initializable {
         jLPosseVisitante.setOpacity(0);
     }
 
+    /**
+     * 
+     * Inicia O cronometro na preview volei
+     * @param l
+     * @return 
+     */
     private Task iniciaCronosPreview(Label l) {
 
         Task task = new Task<Void>() {
@@ -508,6 +514,11 @@ public class ControlVoleiController implements Initializable {
         return fimCrono;
     }
 
+    /**
+     * Verifica que é o vencedor do SET atual
+     * 
+     * @return 
+     */
     public String chamaGanho() {
         System.out.println("QUEM CHAMOU GANHO" + setAtual);
         int verificador = 0;
@@ -582,6 +593,10 @@ public class ControlVoleiController implements Initializable {
         return "#NINGUEM_GANHO";
     }
 
+    /**
+     * Método para realizar o inicio de um novo SET. Seta a pontuação do set Atual
+     * nos labels inferiores
+     */
     private void proximoSet() {
 
         int verificador = 0;
@@ -720,6 +735,10 @@ public class ControlVoleiController implements Initializable {
         }
     }
 
+    /**
+     * Zera os pontos dos times a cada novo SET. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     */
     public void zeraPlacar() {
         pontosL = 0;
         pontosV = 0;
@@ -737,6 +756,11 @@ public class ControlVoleiController implements Initializable {
         });
     }
 
+    /**
+     * Ação de trocr a posse da bola. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     * @param event 
+     */
     @FXML
     void trocaPosse(MouseEvent event) {
         try {
@@ -756,6 +780,9 @@ public class ControlVoleiController implements Initializable {
         }
     }
 
+    /**
+     * Método chamado quando um time vence. Desativa os botões 
+     */
     private void encerraPartida() {
         jBTrocaPosse.setDisable(true);
         jBAlteraNome.setDisable(true);

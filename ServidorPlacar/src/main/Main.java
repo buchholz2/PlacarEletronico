@@ -26,6 +26,15 @@ import model.ListaUsuarios;
 import model.Usuario;
 import rede.ComunicacaoSocketServidor;
 
+/**
+ * FXML Controller class
+ *
+ * @author Cristiano Künas
+ * @author Daniel Buchholz
+ * @author Douglas Hoffmann
+ * @author Leandro Heck
+ */
+
 public class Main extends Application {
 
     public static boolean propaganda = false;
@@ -71,6 +80,10 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Ao deslogar do programa seta a opção Logado do xml todos os usuários 
+     * como FALSE
+     */
     public static void setDeslogaAllFalse() {
         ComunicacaoSocketServidor com = new ComunicacaoSocketServidor();
         ListaUsuarios users = com.leituraXML();
@@ -238,7 +251,7 @@ public class Main extends Application {
 
     /**
      *
-     *
+     *método que chama a view padrão da propaganda
      *
      * @param pontosL
      * @param pontosV
@@ -270,6 +283,16 @@ public class Main extends Application {
 
     }
 
+    /**
+     * Método que a chama a View propaganda, quando se está no placar de Volei
+     * 
+     * @param pontosL
+     * @param pontosV
+     * @param nomeLocal
+     * @param nomeVisitante
+     * @param tipo
+     * @throws IOException 
+     */
     public static void propagandaVolei(int pontosL, int pontosV, String nomeLocal, String nomeVisitante, String tipo) throws IOException {
         Main.pLocal = pontosL;
         Main.pVisitante = pontosV;
@@ -307,13 +330,18 @@ public class Main extends Application {
         return secundaryStage;
     }
 
+    /**
+     * Retorna se a propaganda está fechada
+     * @return 
+     */
     public static boolean fechaPropaganda() {
         return propaganda;
     }
 
-    public static Stage alteraStageSecundary() {
-        return secundaryStage;
-    }
+    
+//    public static Stage alteraStageSecundary() {
+//        return secundaryStage;
+//    }
 
     public static String getNomeVisitante() {
         return nomeVisitante;

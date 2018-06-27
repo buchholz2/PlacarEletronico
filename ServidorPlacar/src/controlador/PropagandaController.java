@@ -115,7 +115,14 @@ public class PropagandaController implements Initializable {
         }
         return url;
     }
+    
 
+    /**
+     * Método para iniciar as propagandas. Onde são passadas
+     * para uma lista, as propagadas são sorteadas, para não ocorrer de iniciar 
+     * sempre a mesma propaganda
+     * @param urls 
+     */
     private void initMediaPlayer(final Iterator<String> urls) {
         if (urls.hasNext()) {
 
@@ -123,7 +130,7 @@ public class PropagandaController implements Initializable {
             Media m = new Media(endereco);
             mediaPlayer = new MediaPlayer(m);
             mediaPlayer.play();
-            chamaCronos(mediaPlayer);
+            chamaPausa(mediaPlayer);
             mediaPlayer.setOnEndOfMedia(new Runnable() {
                 @Override
                 public void run() {
@@ -139,13 +146,22 @@ public class PropagandaController implements Initializable {
         }
     }
 
-    public void chamaCronos(MediaPlayer current) {
-        Thread th = new Thread(iniciaCronos(current));
+    /**
+     * Método para iniciar a Thread, para pausar as propagandas
+     * @param current 
+     */
+    public void chamaPausa(MediaPlayer current) {
+        Thread th = new Thread(iniciaPausa(current));
         th.setDaemon(true);
         th.start();
     }
 
-    private Task iniciaCronos(MediaPlayer curr) {
+    /**
+     * Método para inicia a pausa da propaganda
+     * @param curr
+     * @return 
+     */
+    private Task iniciaPausa(MediaPlayer curr) {
 
         Task task = new Task<Void>() {
             boolean chave = true;
@@ -166,6 +182,9 @@ public class PropagandaController implements Initializable {
         return task;
     }
 
+    /**
+     * Método responsável por inicia a propaganda
+     */
     public void iniciaPropaganda() {
         try {
             buscaArquivos();

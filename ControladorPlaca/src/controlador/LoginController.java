@@ -121,6 +121,10 @@ public class LoginController implements Initializable {
         chave = true;
     }
 
+    /**
+     * Método utilizado para realizar a conexão com o servidor. Envia mensagem ao servidor
+     * retorna resposta 
+     */
     private void chamaLogin() {
         System.out.println("Tentou Conectar222");
         if (chave) {
