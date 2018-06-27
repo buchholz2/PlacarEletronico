@@ -1191,7 +1191,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
                     Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
                     Platform.runLater(() -> {
-                        l.setText("" + valorSetLocal);
+                        l.setText("" + valorSetVisitante);
                         if (pL < 9) {
                             setLocal.setText("0" + pL);
                         } else {
