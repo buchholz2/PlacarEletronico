@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VoleiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VoleiController">
    <bottom>
       <GridPane prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -76,52 +76,52 @@
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetLocal1" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="jLSetLocal1" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetVisitante2" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label fx:id="jLSetVisitante2" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetLocal2" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label fx:id="jLSetLocal2" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetVisitante4" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <Label fx:id="jLSetVisitante4" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetLocal4" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Label fx:id="jLSetLocal4" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetVisitante3" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Label fx:id="jLSetVisitante3" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetVisitante5" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <Label fx:id="jLSetVisitante5" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetVisitante1" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="jLSetVisitante1" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetLocal3" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label fx:id="jLSetLocal3" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>
             </Label>
-            <Label fx:id="jLSetLocal5" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="RED" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Label fx:id="jLSetLocal5" alignment="CENTER" prefHeight="100.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="-" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <font>
                   <Font name="DS-Digital Bold" size="50.0" />
                </font>

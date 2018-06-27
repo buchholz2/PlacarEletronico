@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import main.Main;
 
 /**
  *@author Cristiano Künas
@@ -29,7 +30,7 @@ public class ClientPropaganda {
      * @throws IOException 
      */
     public void enviaArquivo(File file) throws IOException {
-        cliente = new Socket("127.0.0.1", 50001);
+        cliente = new Socket(Main.getIPServidor(), 50001);
         DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
 
         FileInputStream fl = new FileInputStream(file.getPath());

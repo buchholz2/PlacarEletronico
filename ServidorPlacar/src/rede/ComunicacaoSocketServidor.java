@@ -991,6 +991,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                     } else if (escolha[0].equals("#DESCONECTAR")) {
                         count--;
+                        zeraPlacar();
                         saida.writeUTF("OK");
                         saida.flush();
                         entrada.close();
@@ -1186,7 +1187,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                 } else {
                     setAutal++;
                     valorSetVisitante++;
-                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsVisitante");
                     Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
                     Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
                     Platform.runLater(() -> {

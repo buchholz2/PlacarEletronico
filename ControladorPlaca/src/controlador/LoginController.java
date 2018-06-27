@@ -150,12 +150,14 @@ public class LoginController implements Initializable {
                     chave = false;
                 }
             } catch (RuntimeException ex) {
-                Main.LOGGER.severe("Erro ao tentar fazer a conexão, usando o método chamaLogin");
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("ERRO SERVIDOR");
-                alert.setHeaderText(null);
-                alert.setContentText("SEM CONEXÃO AO SERVIDOR ");
-                alert.show();
+                if (!msg.equals("#ERRO_IP")) {
+                    Main.LOGGER.severe("Erro ao tentar fazer a conexão, usando o método chamaLogin");
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("ERRO SERVIDOR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("SEM CONEXÃO AO SERVIDOR ");
+                    alert.show();
+                }
             }
         }
 

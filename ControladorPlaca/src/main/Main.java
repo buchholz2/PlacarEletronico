@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,7 +36,7 @@ import java.util.logging.SimpleFormatter;
  * @author Leandro Heck
  */
 public class Main extends Application {
-    
+
     private static String IPServidor = "locahost";
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
@@ -43,7 +44,7 @@ public class Main extends Application {
     public static Socket cliente;
     public static ObjectInputStream entrada;
     public static ObjectOutputStream saida;
-    private static final String PATH = (System.getProperty("user.home")+"\\Documents\\Placar\\");
+    private static final String PATH = (System.getProperty("user.home") + "\\Documents\\Placar\\");
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
@@ -83,8 +84,8 @@ public class Main extends Application {
     }
 
     /**
-     * Ação conectar ao servidor, passando o ip do servidor e a porta a qual será 
-     * feita a conexão 
+     * Ação conectar ao servidor, passando o ip do servidor e a porta a qual
+     * será feita a conexão
      */
     public static String conectar() {
 
@@ -93,7 +94,9 @@ public class Main extends Application {
             entrada = new ObjectInputStream(getSocket().getInputStream());
             saida = new ObjectOutputStream(getSocket().getOutputStream());
         } catch (ConnectException ex) {
-            
+            return "#ERRO_IP";
+        } catch (UnknownHostException ex) {
+            return "#ERRO_IP";
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             return "#ERRO_IP";
@@ -103,7 +106,7 @@ public class Main extends Application {
 
     /**
      * Açao de gravar a Stage
-     * 
+     *
      * @param s
      */
     public void setStage(Stage s) {
@@ -111,8 +114,8 @@ public class Main extends Application {
     }
 
     /**
-     * Ação de ler a Stage 
-     * 
+     * Ação de ler a Stage
+     *
      * @return
      */
     public static Stage getStage() {
@@ -140,13 +143,14 @@ public class Main extends Application {
         } catch (IOException e) {
             Main.LOGGER.severe("Erro ao carregar cena !");
             System.out.println(e.toString());
-            
+
         }
 
     }
 
     /**
      * Ação de mandar mensagens ao servidor
+     *
      * @param msg
      * @return
      * @throws IOException
@@ -166,7 +170,7 @@ public class Main extends Application {
 
     /**
      * Ação de gravar o socket
-     * 
+     *
      * @param sok
      */
     private static void setSocket(Socket sok) {
@@ -175,22 +179,22 @@ public class Main extends Application {
 
     /**
      * Ação de ler o socket
-     * 
-     * @return 
+     *
+     * @return
      */
     public static Socket getSocket() {
         return Main.cliente;
     }
-    
+
     public static void iniciaDiretorioLog() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dataFormatada = sdf.format(data);
-        Path path = Paths.get(PATH+"\\Log\\" + dataFormatada);
+        Path path = Paths.get(PATH + "\\Log\\" + dataFormatada);
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
-           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             Main.LOGGER.severe("Erro ao criar diretorio do Log");
             System.out.println(ex.toString());
         }
@@ -200,16 +204,15 @@ public class Main extends Application {
             // Nome do arquivo, booleano (append)
             fh = new FileHandler(path + "\\log.txt", true);
         } catch (IOException ex) {
-           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             Main.LOGGER.severe("Erro ao criar arquivo de Log");
             System.out.println(ex.toString());
         } catch (SecurityException ex) {
-             Main.LOGGER.severe("Erro de segurança ao criar arquivo de Log");
-             System.out.println(ex.toString());
+            Main.LOGGER.severe("Erro de segurança ao criar arquivo de Log");
+            System.out.println(ex.toString());
         }
         // Padrão é XML, para log no formato texto deve setar.
         fh.setFormatter(new SimpleFormatter());
-        
 
         Logger.getLogger("").addHandler(fh);
         // Remoção das mensagens no console
@@ -228,6 +231,5 @@ public class Main extends Application {
     public static void setIPServidor(String IPServidor) {
         Main.IPServidor = IPServidor;
     }
-
 
 }
