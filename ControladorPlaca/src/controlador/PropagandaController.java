@@ -81,17 +81,29 @@ public class PropagandaController implements Initializable {
 
     ObservableList<Propaganda> propData = FXCollections.observableArrayList();
 
+    /**
+     * Método para enviar propagandas ao diretório
+     * @param event 
+     */
     @FXML
     void enviaPropaganda(MouseEvent event) {
         iniciaTransferencia();
 
     }
 
+    /**
+     * método para chamar a lista de propagandas
+     * @param event 
+     */
     @FXML
     void listaPropagandas(MouseEvent event) {
         chamaListarPropaganda();
     }
 
+    /**
+     * Chama a lista de propagandas contidas no diretório midia. 
+     * Manda mensagem ao servidor, aguarda mensagem para retorna a lista
+     */
     public void chamaListarPropaganda() {
         try {
             propData.clear();
@@ -119,6 +131,10 @@ public class PropagandaController implements Initializable {
         }
     }
 
+    /**
+     * Chama a lista de propagandas contidas no diretório midia. 
+     * Manda mensagem ao servidor, aguarda mensagem para retorna a lista
+     */
     public void chamaListarPropagandaAtualizar() {
         try {
             propData.clear();
@@ -140,6 +156,12 @@ public class PropagandaController implements Initializable {
         }
     }
 
+    /**
+     * exclui propaganda do diretória de midia. Manda mensagem ao servidor
+     * aguarda resposta para excluir midia do diretório
+     * 
+     * @param event 
+     */
     @FXML
     void excluirPropaganda(MouseEvent event) {
         try {
@@ -167,6 +189,12 @@ public class PropagandaController implements Initializable {
         }
     }
 
+    /**
+     * Abre o Explore para procurar o caminho onde se encontra as mídias para enviar a 
+     * propaganda
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void procuraCaminho(MouseEvent event) throws IOException {
         file = null;
@@ -182,6 +210,11 @@ public class PropagandaController implements Initializable {
         jBEnviaProp.setDisable(false);
     }
 
+    /**
+     * Fecha a janela de propagandas. Manda mensagem ao servidor
+     * aguarda resposta para encerrar a View
+     * @param event 
+     */
     @FXML
     void sairJanela(MouseEvent event) {
         try {
@@ -191,6 +224,12 @@ public class PropagandaController implements Initializable {
         }
     }
 
+    /**
+     * Inicializador 
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         jTCTituloProp.setCellValueFactory(new PropertyValueFactory<>("url"));
@@ -199,6 +238,10 @@ public class PropagandaController implements Initializable {
         jBEnviaProp.setDisable(true);
     }
 
+    /**
+     * Inicializa a tranferecia de video. Manda mensagem para o servidor
+     * aguarda retorno
+     */
     public void iniciaTransferencia() {
         System.out.println("Esperando1");
         Thread th = new Thread(transferencia());
@@ -206,6 +249,10 @@ public class PropagandaController implements Initializable {
         th.start();
     }
 
+    /**
+     * Inicia a tranferencia 
+     * @return 
+     */
     private Task transferencia() {
         System.out.println("Esperando1.2");
         Task task = new Task<Void>() {

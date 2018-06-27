@@ -431,7 +431,7 @@ public class ControlPadraoController implements Initializable {
     }
 
     /**
-     * Ação de restaurar todos os elementos do painel contradolor basquete.
+     * Ação de restaurar todos os elementos do painel contradolor padrão.
      * Envia comanto para servidor, Aguarda retorno para atualizar preview
      *
      * @param event
@@ -496,7 +496,12 @@ public class ControlPadraoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         jLAcrescimo.setOpacity(0);
     }
-
+    
+    /**
+     * Ação de mudar faltas dos times. 
+     * @param time
+     * @param fun 
+     */
     private void mudaFalta(String time, String fun) {
         if (time.equals("LOCAL")) {
             if (fun.equals("SOMA")) {
@@ -540,6 +545,12 @@ public class ControlPadraoController implements Initializable {
         }
     }
 
+    /**
+     * 
+     * Inicialiaza o cronometro na preview placar padrão
+     * @param l
+     * @return 
+     */
     private Task iniciaCronosPreview(Label l) {
 
         Task task = new Task<Void>() {
@@ -599,6 +610,10 @@ public class ControlPadraoController implements Initializable {
         return task;
     }
 
+    /**
+     * Retorna se o cronometro está encerrado
+     * @return 
+     */
     public boolean fimCrono() {
         return fimCrono;
     }
