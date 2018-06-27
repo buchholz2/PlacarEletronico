@@ -17,7 +17,6 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -63,6 +62,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int setAtual = 1;
     private boolean control = true;
     private int setAtualAux = 0;
+    private int novoPeriodo = 0;
 
     /**
      * Construtor
@@ -1063,6 +1063,18 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.writeUTF("REINICIADO");
                         saida.flush();
                         System.out.println("Saiu");
+                    } else if (escolha[0].equals("#PROXIMO_PERIODO")) {
+                        Label l = (Label) p.getScene().getRoot().lookup("#jLPeriodo");
+                        Platform.runLater(() -> {
+                            l.setText("" + novoPeriodo);
+                        });
+                        novoPeriodo++;
+                        saida.writeUTF("#OK");
+                        saida.flush();
+                    } else if (escolha[0].equals("#RESTAURA_TUDO_PADRAO")) {
+                        restauraTudoPadrao();
+                        saida.writeUTF("#OK");
+                        saida.flush();
                     }
                 }
             }
@@ -1481,5 +1493,33 @@ public class ComunicacaoSocketServidor implements Runnable {
                 });
             }
         }
+    }
+
+    private void restauraTudoPadrao() {
+        fimCrono = false;
+        pontosL = 0;
+        pontosV = 0;
+        faltasL = 0;
+        faltasV = 0;
+        novoPeriodo = 0;
+        nomeVisitante = "VISITANTE";
+        nomeLocal = "LOCAL";
+        Platform.runLater(() -> {
+            Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+            l.setText("00:00:00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoPontos");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoPontos");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoFaltas");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoFaltas");
+            l.setText("00");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+            l.setText("LOCAL");
+            l = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+            l.setText("VISITANTE");
+
+        });
     }
 }

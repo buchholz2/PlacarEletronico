@@ -12,11 +12,11 @@
       <GridPane prefHeight="288.0" prefWidth="997.0" style="-fx-background-color: BLACK;" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="130.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="460.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="130.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
          </columnConstraints>
          <rowConstraints>

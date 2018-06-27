@@ -8,9 +8,17 @@ package controlador;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,7 +91,7 @@ public class LoginController implements Initializable {
      * @throws Exception
      */
     @FXML
-    void validaLogin(ActionEvent event) {
+    void validaLogin(ActionEvent event) throws IOException {
         chamaLogin();
     }
 
@@ -94,7 +102,7 @@ public class LoginController implements Initializable {
      * @param event
      */
     @FXML
-    void validaLoginK(KeyEvent event) {
+    void validaLoginK(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             chamaLogin();
         } else if (event.getCode() == KeyCode.ESCAPE) {
@@ -122,10 +130,10 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * Método utilizado para realizar a conexão com o servidor. Envia mensagem ao servidor
-     * retorna resposta 
+     * Método utilizado para realizar a conexão com o servidor. Envia mensagem
+     * ao servidor retorna resposta
      */
-    private void chamaLogin() {
+    private void chamaLogin() throws IOException {
         System.out.println("Tentou Conectar222");
         if (chave) {
             System.out.println("Tentou Conectar");
@@ -133,12 +141,11 @@ public class LoginController implements Initializable {
             if (msg.equals("#ERRO_IP")) {
                 if (count < 3) {
                     TextInputDialog dialogoNome = new TextInputDialog();
-
                     dialogoNome.setTitle("ERRO DE IP DO SERVIDOR");
                     dialogoNome.setHeaderText("ENTRE COM A IP NOVA DO SERVIDOR");
                     dialogoNome.setContentText("IP:");
                     dialogoNome.showAndWait().ifPresent(v -> nome = v);
-                    Main.setIPServidor(nome);
+                    escritor(nome);
                 } else {
                     Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
                     dialogoErro.setTitle("ERRO DE IP");
@@ -224,6 +231,36 @@ public class LoginController implements Initializable {
         } catch (RuntimeException ex) {
             Main.LOGGER.warning("Erro de Runtime durante a execução do socket, dentro do método chamaLogin");
         }
+    }
 
+    public String leitor() throws IOException {
+        String path = "/lib/ip.txt";
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+        String linha = "";
+        while (true) {
+            if (linha != null) {
+                System.out.println(linha);
+
+            } else {
+                break;
+            }
+            linha = buffRead.readLine();
+        }
+        buffRead.close();
+        return linha;
+    }
+
+    public void escritor(String msg) throws IOException {
+        File file = new File(System.getProperty("user.home") + "\\Documents\\Placar\\IP\\ip.txt");
+        if (!file.exists()) {
+            Path p = Paths.get(System.getProperty("user.home") + "\\Documents\\Placar\\IP");
+            try {
+                Files.createDirectories(p);
+            } catch (IOException ex) {
+            }
+        }
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.toString()));
+        buffWrite.append(msg + "\n");
+        buffWrite.close();
     }
 }

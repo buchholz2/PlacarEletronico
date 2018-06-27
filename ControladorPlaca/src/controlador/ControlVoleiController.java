@@ -418,6 +418,11 @@ public class ControlVoleiController implements Initializable {
     void voltarEscolhaModalidade(MouseEvent event) {
         try {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
+            if (jTBIniciaProp.isSelected()) {
+
+            } else {
+                Main.mandaMSG("#PROPAGANDA_FECHA");
+            }
         } catch (IOException ex) {
         }
         Main.loadScene("/view/FXMLEscolheModalidade.fxml");
@@ -435,7 +440,7 @@ public class ControlVoleiController implements Initializable {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
-            
+
         }
         jLPosseVisitante.setOpacity(0);
     }

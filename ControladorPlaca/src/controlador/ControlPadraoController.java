@@ -5,8 +5,6 @@
  */
 package controlador;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -135,6 +133,7 @@ public class ControlPadraoController implements Initializable {
     private boolean fimCrono = false;
     private int faltasV = 0;
     private int faltasL = 0;
+    private int periodo = 0;
 
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
@@ -202,7 +201,7 @@ public class ControlPadraoController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            
+
         }
 
     }
@@ -383,7 +382,13 @@ public class ControlPadraoController implements Initializable {
      */
     @FXML
     void novoPeriodo(MouseEvent event) {
-
+        try {
+            Main.mandaMSG("#PROXIMO_PERIODO");
+            jLPeriodo.setText("" + periodo);
+            periodo++;
+        } catch (IOException ex) {
+            Logger.getLogger(ControlPadraoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -431,20 +436,27 @@ public class ControlPadraoController implements Initializable {
     }
 
     /**
-     * Ação de restaurar todos os elementos do painel contradolor padrão.
-     * Envia comanto para servidor, Aguarda retorno para atualizar preview
+     * Ação de restaurar todos os elementos do painel contradolor padrão. Envia
+     * comanto para servidor, Aguarda retorno para atualizar preview
      *
      * @param event
      */
     @FXML
     void restauraTudo(MouseEvent event) {
+        try {
+            Main.mandaMSG("#RESTAURA_TUDO_PADRAO");
+        } catch (IOException ex) {
+            Logger.getLogger(ControlPadraoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cronosPausado = false;
         pontosV = 0;
         pontosL = 0;
         fimCrono = false;
         faltasV = 0;
         faltasL = 0;
+        periodo = 0;
         Platform.runLater(() -> {
+            jLPeriodo.setText("0");
             jLAcrescimo.setOpacity(0);
             jLCronometro.setText("00:00:00");
             jLFaltasLocal.setText("00");
@@ -478,9 +490,13 @@ public class ControlPadraoController implements Initializable {
     void voltarEscolhaModalidade(MouseEvent event) {
         try {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
+            if (jTBIniciaProp.isSelected()) {
 
+            } else {
+                Main.mandaMSG("#PROPAGANDA_FECHA");
+            }
         } catch (IOException ex) {
-          
+
         }
         Main.loadScene("/view/FXMLEscolheModalidade.fxml");
     }
@@ -495,11 +511,12 @@ public class ControlPadraoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         jLAcrescimo.setOpacity(0);
     }
-    
+
     /**
-     * Ação de mudar faltas dos times. 
+     * Ação de mudar faltas dos times.
+     *
      * @param time
-     * @param fun 
+     * @param fun
      */
     private void mudaFalta(String time, String fun) {
         if (time.equals("LOCAL")) {
@@ -545,13 +562,15 @@ public class ControlPadraoController implements Initializable {
     }
 
     /**
-     * 
+     *
      * Inicialiaza o cronometro na preview placar padrão
+     *
      * @param l
-     * @return 
+     * @return
      */
     private Task iniciaCronosPreview(Label l) {
-
+        jBDefineCrono.setDisable(true);
+        jBLimitaTempo.setDisable(true);
         Task task = new Task<Void>() {
 
             int m = 0;
@@ -582,9 +601,13 @@ public class ControlPadraoController implements Initializable {
                     }
 
                     while (cronosPausado) {
-
+                        jBDefineCrono.setDisable(false);
+                        jBLimitaTempo.setDisable(false);
                         Thread.sleep(100);
                     }
+
+                    jBDefineCrono.setDisable(true);
+                    jBLimitaTempo.setDisable(true);
 
                     Platform.runLater(() -> {
                         l.setText(horas + ":" + minutos + ":" + segundos);
@@ -611,7 +634,8 @@ public class ControlPadraoController implements Initializable {
 
     /**
      * Retorna se o cronometro está encerrado
-     * @return 
+     *
+     * @return
      */
     public boolean fimCrono() {
         return fimCrono;

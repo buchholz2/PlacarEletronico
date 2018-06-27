@@ -22,6 +22,7 @@ import main.Main;
 
 /**
  * excluir
+ *
  * @author Cristiano Künas
  * @author Daniel Buchholz
  * @author Douglas Hoffmann
@@ -202,13 +203,13 @@ public class ControlBasqueteController implements Initializable {
             //IMPLEMENTAR LOG
         }
     }
+
     /**
      * Ação iniciar propaganda. Envia comanto para servidor, Aguarda retorno
      * para atualizar preview
      *
      * @param event
      */
-     
     @FXML
     void iniciaPropaganda(MouseEvent event) {
         try {
@@ -491,6 +492,7 @@ public class ControlBasqueteController implements Initializable {
     /**
      * Ação subtrai menos dois pontos time local. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -514,8 +516,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação subtrai menos dois pontos time visitante. Envia comanto para servidor,
-     * Aguarda retorno para atualizar preview
+     * Ação subtrai menos dois pontos time visitante. Envia comanto para
+     * servidor, Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -539,8 +542,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação diminui falta time local. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação diminui falta time local. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -555,8 +559,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação diminui falta time visitante. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação diminui falta time visitante. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -573,6 +578,7 @@ public class ControlBasqueteController implements Initializable {
     /**
      * Ação subtrai menos três pontos time local. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -596,8 +602,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação subtrai menos dois pontos time visitante. Envia comanto para servidor,
-     * Aguarda retorno para atualizar preview
+     * Ação subtrai menos dois pontos time visitante. Envia comanto para
+     * servidor, Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -623,6 +630,7 @@ public class ControlBasqueteController implements Initializable {
     /**
      * Ação subtrai menos um ponto time local. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -648,6 +656,7 @@ public class ControlBasqueteController implements Initializable {
     /**
      * Ação subtrai menos um ponto time visitante. Envia comanto para servidor,
      * Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -671,7 +680,7 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @param event
      */
     @FXML
@@ -787,6 +796,7 @@ public class ControlBasqueteController implements Initializable {
     /**
      * Ação de pausar o cronometro. Envia comanto para servidor, Aguarda retorno
      * para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -807,8 +817,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação de reiniciar o cronometro que esta pausado. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação de reiniciar o cronometro que esta pausado. Envia comanto para
+     * servidor, Aguarda retorno para atualizar preview
+     *
      * @param event
      * @throws InterruptedException
      */
@@ -869,10 +880,10 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação de reiniciar o tempo de lançamento da bola, 
-     * tempo que o time tem para fazer a sexta.
-     * Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação de reiniciar o tempo de lançamento da bola, tempo que o time tem
+     * para fazer a sexta. Envia comanto para servidor, Aguarda retorno para
+     * atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -889,9 +900,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação de restaurar todos os elementos do painel contradolor basquete. 
-     * Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação de restaurar todos os elementos do painel contradolor basquete.
+     * Envia comanto para servidor, Aguarda retorno para atualizar preview
+     *
      * @param event
      */
     @FXML
@@ -928,8 +939,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação de iniciar cronometro na preview. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação de iniciar cronometro na preview. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     *
      * @param l
      * @param min
      * @param seg
@@ -1003,11 +1015,10 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação para finalizar o cronometro, 
-     * TRUE = continua execução do cronometro.
-     * FALSE = encerrar execução do cronometro.
-     * Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação para finalizar o cronometro, TRUE = continua execução do cronometro.
+     * FALSE = encerrar execução do cronometro. Envia comanto para servidor,
+     * Aguarda retorno para atualizar preview
+     *
      * @return
      */
     public boolean fimCrono() {
@@ -1015,8 +1026,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação para inicia o tempo na preview. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação para inicia o tempo na preview. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
      * @param l
      */
     private void iniciaTempoLPreview(Label l) {
@@ -1042,8 +1054,9 @@ public class ControlBasqueteController implements Initializable {
     }
 
     /**
-     * Ação para mudar falta. Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
+     * Ação para mudar falta. Envia comanto para servidor, Aguarda retorno para
+     * atualizar preview
+     *
      * @param time
      * @param fun
      */
@@ -1089,25 +1102,35 @@ public class ControlBasqueteController implements Initializable {
             }
         }
     }
-    
+
     /**
-     * Ação para voltar a tela de escolha de modalidade. 
-     * Envia comanto para servidor, Aguarda retorno
-     * para atualizar preview
-     * @param event 
+     * Ação para voltar a tela de escolha de modalidade. Envia comanto para
+     * servidor, Aguarda retorno para atualizar preview
+     *
+     * @param event
      */
     @FXML
     void voltarEscolhaModalidade(MouseEvent event) {
         try {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
+
+            if (jTBIniciaProp.isSelected()) {
+
+            } else {
+                Main.mandaMSG("#PROPAGANDA_FECHA");
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Main.loadScene("/view/FXMLEscolheModalidade.fxml");
+
+        Main.loadScene(
+                "/view/FXMLEscolheModalidade.fxml");
     }
 
     /**
      * Inicializar
+     *
      * @param url
      * @param rb
      */
@@ -1116,8 +1139,10 @@ public class ControlBasqueteController implements Initializable {
         try {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
+
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlBasqueteController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }

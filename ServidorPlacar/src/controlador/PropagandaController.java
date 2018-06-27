@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.FileChannel;
@@ -36,7 +36,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import main.Main;
-import static main.Main.LOGGER;
 
 /**
  * FXML Controller class
@@ -119,11 +118,11 @@ public class PropagandaController implements Initializable {
      * @throws InterruptedException
      * @throws MalformedURLException
      */
-    public URL buscaArquivos(){
+    public URL buscaArquivos() {
         try {
             File file = new File(diretorio);
             File afile[] = file.listFiles();
-            URL url = new URL(afile[i].toURL().toString());
+
             if (afile.length != 0) {
                 for (int j = afile.length; i < j; i++) {
                     File arquivos = afile[i];
@@ -131,14 +130,18 @@ public class PropagandaController implements Initializable {
                     lista.add(u);
                     System.out.println(arquivos.toURI().toURL().toString());
                 }
+            } else {
+                URL url = getClass().getResource("/imagens/VideoPadrao.mp4");
+                lista.add(url.toString());
+//                System.out.println("Chegou ELSE");
+//                gravaMidiaPadrao();
+//                buscaArquivos();
             }
-            return url;
+            return null;
         } catch (MalformedURLException ex) {
-            try {
-                gravaMidiaPadrao();
-            } catch (IOException ex1) {
-                Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(PropagandaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -215,11 +218,10 @@ public class PropagandaController implements Initializable {
      * Método responsável por inicia a propaganda
      */
     public void iniciaPropaganda() throws IOException, InterruptedException {
+        System.out.println("TESTANDO ANTES");
         buscaArquivos();
-        System.out.println("Vai entra");
-        if (lista.isEmpty()) {
-            
-        }
+        System.out.println("TESTANDO");
+
         Collections.shuffle(lista);
         initMediaPlayer(lista.iterator());
         final DoubleProperty width = jMidiaView.fitWidthProperty();
@@ -251,45 +253,46 @@ public class PropagandaController implements Initializable {
     }
 
     public void gravaMidiaPadrao() throws FileNotFoundException, IOException {
-        File origem = new File("C:\\z\\VideoPadrao.mp4");
-        File destino = new File(Main.getPath() + "\\Midia\\VideoPadrao.mp4");
-        if (destino.exists()) {
-            destino.delete();
-        }
-        FileChannel sourceChannel = null;
-        FileChannel destinationChannel = null;
-        try {
-            sourceChannel = new FileInputStream(origem).getChannel();
-            destinationChannel = new FileOutputStream(destino).getChannel();
-            sourceChannel.transferTo(0, sourceChannel.size(),
-                    destinationChannel);
-        } finally {
-            if (sourceChannel != null && sourceChannel.isOpen()) {
-                sourceChannel.close();
-            }
-            if (destinationChannel != null && destinationChannel.isOpen()) {
-                destinationChannel.close();
-            }
-        }
-//        BufferedOutputStream output = null;
-//        URL url = getClass().getResource("/imagens/VedeoPadrao.mp4");
-//        File origem = new File(url.toString());
+
+//        File origem = new File("/imagens/VideoPadrao.mp4");
 //        File destino = new File(Main.getPath() + "\\Midia\\VideoPadrao.mp4");
 //        if (destino.exists()) {
-//            FileReader fis = new FileReader(origem);
-//            BufferedReader bufferedReader = new BufferedReader(fis);
-//            StringBuilder buffer = new StringBuilder();
-//            String line = "";
-//            while ((line = bufferedReader.readLine()) != null) {
-//                buffer.append(line).append("\n");
+//            destino.delete();
+//        }
+//        FileChannel sourceChannel = null;
+//        FileChannel destinationChannel = null;
+//        try {
+//            sourceChannel = new FileInputStream(origem).getChannel();
+//            destinationChannel = new FileOutputStream(destino).getChannel();
+//            sourceChannel.transferTo(0, sourceChannel.size(),
+//                    destinationChannel);
+//        } finally {
+//            if (sourceChannel != null && sourceChannel.isOpen()) {
+//                sourceChannel.close();
 //            }
-//            fis.close();
-//            bufferedReader.close();
-//            FileWriter writer = new FileWriter(destino);
-//            writer.write(buffer.toString());
-//            writer.flush();
-//            writer.close();
+//            if (destinationChannel != null && destinationChannel.isOpen()) {
+//                destinationChannel.close();
+//            }
+//        }
+        BufferedOutputStream output = null;
 
+        InputStream url = getClass().getResourceAsStream("/imagens/VedeoPadrao.mp4");
+        File origem = new File(url.toString());
+        File destino = new File(Main.getPath() + "\\Midia\\VideoPadrao.mp4");
+        if (destino.exists()) {
+            FileReader fis = new FileReader(origem);
+            BufferedReader bufferedReader = new BufferedReader(fis);
+            StringBuilder buffer = new StringBuilder();
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                buffer.append(line).append("\n");
+            }
+            fis.close();
+            bufferedReader.close();
+            FileWriter writer = new FileWriter(destino);
+            writer.write(buffer.toString());
+            writer.flush();
+            writer.close();
 //        try {
 //            URL url = getClass().getResource("/imagens/VedeoPadrao.mp4");
 //            String source = url.toString();
@@ -310,6 +313,6 @@ public class PropagandaController implements Initializable {
 //            LOGGER.warning("Erro! File not found!");
 //        } catch (IOException ex) {
 //            LOGGER.warning("Erro de I/O Video Padrão");
-//        }
+        }
     }
 }
