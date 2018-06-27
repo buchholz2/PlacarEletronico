@@ -1001,6 +1001,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                             StackPane pane = new StackPane();
                             Main.getStageSecundary().setScene(new Scene(pane, 10, 10));
                             Main.getStageSecundary().close();
+                            p.setFullScreen(true);
                         });
                     } else if (escolha[0].equals("#ENVIAR_PROPAGANDA")) {
                         chamaTransferencia(escolha);
