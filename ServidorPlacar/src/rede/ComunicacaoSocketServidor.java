@@ -990,7 +990,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.flush();
                     } else if (escolha[0].equals("#DESCONECTAR")) {
                         count--;
-                        zeraPlacar();
+                        restauraServidor();
                         saida.writeUTF("OK");
                         saida.flush();
                         entrada.close();
