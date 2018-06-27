@@ -202,7 +202,7 @@ public class ControlPadraoController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
     }
@@ -480,8 +480,7 @@ public class ControlPadraoController implements Initializable {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
 
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+          
         }
         Main.loadScene("/view/FXMLEscolheModalidade.fxml");
     }

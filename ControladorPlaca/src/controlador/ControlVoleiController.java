@@ -217,7 +217,7 @@ public class ControlVoleiController implements Initializable {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
@@ -419,7 +419,6 @@ public class ControlVoleiController implements Initializable {
         try {
             Main.mandaMSG("#TROCA_TELA$PRINCIPAL");
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Main.loadScene("/view/FXMLEscolheModalidade.fxml");
     }
@@ -436,16 +435,17 @@ public class ControlVoleiController implements Initializable {
             Date date = new Date();
             jLLogger.setText(Main.mandaMSG("#QUAL_USER") + " : " + date.toGMTString());
         } catch (IOException ex) {
-            Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         jLPosseVisitante.setOpacity(0);
     }
 
     /**
-     * 
+     *
      * Inicia O cronometro na preview volei
+     *
      * @param l
-     * @return 
+     * @return
      */
     private Task iniciaCronosPreview(Label l) {
 
@@ -516,8 +516,8 @@ public class ControlVoleiController implements Initializable {
 
     /**
      * Verifica que é o vencedor do SET atual
-     * 
-     * @return 
+     *
+     * @return
      */
     public String chamaGanho() {
         System.out.println("QUEM CHAMOU GANHO" + setAtual);
@@ -594,8 +594,8 @@ public class ControlVoleiController implements Initializable {
     }
 
     /**
-     * Método para realizar o inicio de um novo SET. Seta a pontuação do set Atual
-     * nos labels inferiores
+     * Método para realizar o inicio de um novo SET. Seta a pontuação do set
+     * Atual nos labels inferiores
      */
     private void proximoSet() {
 
@@ -757,9 +757,10 @@ public class ControlVoleiController implements Initializable {
     }
 
     /**
-     * Ação de trocr a posse da bola. Envia comanto para servidor,
-     * Aguarda retorno para atualizar preview
-     * @param event 
+     * Ação de trocr a posse da bola. Envia comanto para servidor, Aguarda
+     * retorno para atualizar preview
+     *
+     * @param event
      */
     @FXML
     void trocaPosse(MouseEvent event) {
@@ -781,7 +782,7 @@ public class ControlVoleiController implements Initializable {
     }
 
     /**
-     * Método chamado quando um time vence. Desativa os botões 
+     * Método chamado quando um time vence. Desativa os botões
      */
     private void encerraPartida() {
         jBTrocaPosse.setDisable(true);

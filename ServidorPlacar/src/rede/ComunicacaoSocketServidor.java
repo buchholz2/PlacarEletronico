@@ -88,7 +88,7 @@ public class ComunicacaoSocketServidor implements Runnable {
         try {
             ServerSocket servidor = new ServerSocket(12345);
             Main.LOGGER.info("Servidor ouvindo na porta 12345");
-            //System.out.println("" + p.getRoot().lookup("#jLCronometroCentral").getId());
+
             while (true) {
 
                 Socket cliente = servidor.accept();
