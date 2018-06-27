@@ -1272,6 +1272,8 @@ public class ComunicacaoSocketServidor implements Runnable {
         pontosL = 0;
         pontosV = 0;
         setAutal = 0;
+        valorSetLocal = 0;
+        valorSetVisitante = 0;
         Platform.runLater(() -> {
             Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
             l.setText("00:00:00");
