@@ -10,13 +10,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" maxWidth="1090.0" minWidth="1090.0" prefHeight="455.0" prefWidth="1090.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controlador.ControlPadraoController">
+<AnchorPane id="AnchorPane" maxWidth="1090.0" minWidth="1090.0" prefHeight="455.0" prefWidth="1090.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControlPadraoController">
    <children>
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="341.0" layoutX="16.0" layoutY="69.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="585.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="617.0" layoutY="68.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="252.0" layoutX="818.0" layoutY="68.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="184.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="617.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="245.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="71.0" layoutX="617.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="384.0" />
       <Label layoutX="398.0" layoutY="19.0" styleClass="fonteTitulo" stylesheets="@../estilos/meinCSS.css" text="Controlador Placar Padrao">
          <font>
             <Font name="Soccer League Regular" size="25.0" />
@@ -202,5 +201,7 @@
       </Label>
       <ToggleButton fx:id="jTBIniciaProp" layoutX="1011.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#iniciaPropaganda" prefHeight="59.0" prefWidth="70.0" text="Inicia Propag." textAlignment="CENTER" wrapText="true" />
       <Button fx:id="jBVoltar" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#voltarEscolhaModalidade" text="Voltar" />
+      <TextField fx:id="jTFValorLimiteCrono" layoutX="863.0" layoutY="351.0" prefHeight="25.0" prefWidth="133.0" promptText="Valor Limite do Crono" />
+      <Button fx:id="jBLimitaTempo" layoutX="863.0" layoutY="379.0" mnemonicParsing="false" onMouseClicked="#limitarTempo" prefHeight="25.0" prefWidth="133.0" text="LIMITAR TEMPO" />
    </children>
 </AnchorPane>

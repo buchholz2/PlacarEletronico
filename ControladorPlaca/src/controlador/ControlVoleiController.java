@@ -146,7 +146,6 @@ public class ControlVoleiController implements Initializable {
     private int valorSetLocal;
     private int valorSetVisitante;
     private boolean control = true;
-    private int setAtualAux = 0;
 
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
@@ -191,7 +190,7 @@ public class ControlVoleiController implements Initializable {
     @FXML
     void iniciaCrono(MouseEvent event) {
         try {
-            String retorno = Main.mandaMSG("#INICIA_CRONO_VOLEI");
+            String retorno = Main.mandaMSG("#INICIA_CRONO_PADRAO");
             if (retorno.equals("CRONOS_INICIADO")) {
                 fimCrono = true;
                 Thread th = new Thread(iniciaCronosPreview(jLCronometro));

@@ -1019,7 +1019,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                             saida.writeUTF("TROCADO");
                             saida.flush();
                         }
-                    } else if (escolha[0].equals("#INICIA_CRONO_VOLEI")) {
+                    } else if (escolha[0].equals("#INICIA_CRONO_PADRAO")) {
                         saida.writeUTF(iniciaCronosPadrao());
                         saida.flush();
                     } else if (escolha[0].equals("#PROXIMO_SET")) {
@@ -1052,6 +1052,17 @@ public class ComunicacaoSocketServidor implements Runnable {
                         Main.propagandaVolei(valorSetLocal, valorSetVisitante, nomeLocal, nomeVisitante, "VOLEI");
                         saida.writeUTF("INICIADA");
                         saida.flush();
+                    } else if (escolha[0].equals("#REINICIA_CRONO_PADRAO")) {
+                        System.out.println("Entrou");
+                        fimCrono = false;
+                        cronosPausado = false;
+                        Label l = (Label) p.getScene().getRoot().lookup("#jLCronometroCentral");
+                        Platform.runLater(() -> {
+                            l.setText("00:00:00");
+                        });
+                        saida.writeUTF("REINICIADO");
+                        saida.flush();
+                        System.out.println("Saiu");
                     }
                 }
             }
@@ -1132,15 +1143,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                         horas = "0" + h;
                     }
 
-//                    while (cronosPausado) {
-//                        Thread.sleep(100);
-//                    }
-//                    if (cronosPausado) {
-//                        fimCrono = true;
-//                        URL url = getClass().getResource("/estilos/apito.wav");
-//                        AudioClip audio = Applet.newAudioClip(url);
-//                        audio.play();
-//                    }
+                    while (cronosPausado) {
+                        Thread.sleep(100);
+                    }
+
                     Platform.runLater(() -> {
                         l.setText(horas + ":" + minutos + ":" + segundos);
                     });

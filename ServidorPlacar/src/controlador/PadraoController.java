@@ -60,7 +60,7 @@ public class PadraoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        jLAcrescimo.setOpacity(0);
     }
 
 }
