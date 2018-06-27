@@ -252,6 +252,7 @@ public class Main extends Application {
                 break;
             }
             linha = buffRead.readLine();
+            return linha;
         }
         buffRead.close();
         return linha;
@@ -264,7 +265,7 @@ public class Main extends Application {
             try {
                 Files.createDirectories(p);
                 BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.toString()));
-                buffWrite.append("localhost" + "\n");
+                buffWrite.append("localhost");
                 buffWrite.close();
             } catch (IOException ex) {
             }

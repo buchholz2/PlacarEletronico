@@ -260,7 +260,7 @@ public class LoginController implements Initializable {
             }
         }
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.toString()));
-        buffWrite.append(msg + "\n");
+        buffWrite.append(msg);
         buffWrite.close();
     }
 }
