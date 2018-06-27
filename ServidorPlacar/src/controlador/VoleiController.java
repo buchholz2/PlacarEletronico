@@ -89,7 +89,8 @@ public class VoleiController implements Initializable {
     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        jLPosseDireito.setOpacity(0);
+        jLPosseEsquerdo.setOpacity(1);
     }
 
 }

@@ -60,7 +60,9 @@ public class ComunicacaoSocketServidor implements Runnable {
     private String nomeLocal = "Local";
     private int valorSetLocal = 0;
     private int valorSetVisitante = 0;
-    private int setAutal = 0;
+    private int setAtual = 1;
+    private boolean control = true;
+    private int setAtualAux = 0;
 
     /**
      * Construtor
@@ -886,22 +888,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                         saida.writeUTF(mudaFalta(escolha));
                         saida.flush();
                     } else if (escolha[0].equals("#ALTERA_NOME")) {
-                        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
-                        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
-                        if (escolha.length > 0) {
-                            if (escolha[1].equals("") != true) {
-                                Platform.runLater(() -> {
-                                    local.setText(escolha[1]);
-                                    nomeLocal = escolha[1];
-                                });
-                            }
-                            if (escolha[2].equals("") != true) {
-                                Platform.runLater(() -> {
-                                    visitante.setText(escolha[2]);
-                                    nomeVisitante = escolha[2];
-                                });
-                            }
-                        }
+                        alteraNomePadrao(escolha);
                         saida.writeUTF("ALTERADO");
                         saida.flush();
                     } else if (escolha[0].equals("#NOVA_RODADA")) {
@@ -1041,6 +1028,26 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#RESTAURA_TUDO_VOLEI")) {
                         saida.writeUTF(restauraTudoVolei());
                         saida.flush();
+                    } else if (escolha[0].equals("#TROCA_POSSE")) {
+                        Label local = (Label) p.getScene().getRoot().lookup("#jLPosseEsquerdo");
+                        Label visitante = (Label) p.getScene().getRoot().lookup("#jLPosseDireito");
+                        Platform.runLater(() -> {
+                            if (control) {
+                                visitante.setOpacity(1);
+                                local.setOpacity(0);
+                                control = false;
+                            } else {
+                                visitante.setOpacity(0);
+                                local.setOpacity(1);
+                                control = true;
+                            }
+                        });
+                        saida.writeUTF("#TROCADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#ALTERA_NOME_VOLEI")) {
+                        alteraNomeVolei(escolha);
+                        saida.writeUTF("#ALTERADO");
+                        saida.flush();
                     }
                 }
             }
@@ -1153,24 +1160,136 @@ public class ComunicacaoSocketServidor implements Runnable {
         return task;
     }
 
-    public String proximoSet() {
+    public String chamaGanho() {
+
         int verificador = 0;
+        verificador = pontosL - pontosV;
+        if (verificador < 0) {
+            verificador = verificador * (-1);
+        }
+
+        if (pontosL >= 15 || pontosV >= 15) {
+            if (setAtual == 5) {
+                if (verificador >= 2) {
+                    System.out.println("2 chamaGanh");
+                    if (pontosL > pontosV) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHOU";
+                }
+            }
+        } else if (pontosL >= 25 || pontosV >= 25) {
+            if (setAtual == 3) {
+                System.out.println("3 chama ganho");
+                int verificadorGanho = valorSetLocal - valorSetVisitante;
+                if (verificadorGanho < 0) {
+                    verificadorGanho = verificadorGanho * (-1);
+                }
+                if (verificadorGanho == 3) {
+                    if (valorSetLocal > valorSetVisitante) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHO";
+                }
+            }
+            if (setAtual == 4) {
+                System.out.println("4 chama ganho");
+                int verificadorGanho = valorSetLocal - valorSetVisitante;
+                if (verificadorGanho < 0) {
+                    verificadorGanho = verificadorGanho * (-1);
+                }
+                if (verificadorGanho == 2) {
+                    if (valorSetLocal > valorSetVisitante) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHO";
+                }
+            }
+        }
+        zeraPlacar();
+        return "#NINGUEM_GANHO";
+    }
+
+    private String proximoSet() {
         int pL = pontosL;
         int pV = pontosV;
+        String retorno = "";
+        Label setLocalValor = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
+        Label setVisitanteValor = (Label) p.getScene().getRoot().lookup("#jLSetsVisitante");
+        Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAtual);
+        Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAtual);
+        int verificador = 0;
         verificador = pL - pV;
         if (verificador < 0) {
             verificador = verificador * (-1);
         }
+        if (setAtual == 5 && (pL >= 15 || pV >= 15)) {
+            if (verificador >= 2) {
+                if (pL > pV) {
+                    valorSetLocal++;
+                    Platform.runLater(() -> {
+                        setLocalValor.setText("" + valorSetLocal);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+                    System.out.println(pL + " : " + pV);
+                    retorno = chamaGanho();
+                    return retorno;
+                } else {
+                    valorSetVisitante++;
+                    Platform.runLater(() -> {
+                        setVisitanteValor.setText("" + valorSetVisitante);
+                        if (pL < 9) {
+                            setLocal.setText("0" + pL);
+                        } else {
+                            setLocal.setText("" + pL);
+                        }
+                        if (pV < 9) {
+                            setVisitante.setText("0" + pV);
+                        } else {
+                            setVisitante.setText("" + pV);
+                        }
+                    });
+
+                    System.out.println(pL + " : " + pV);
+                    retorno = chamaGanho();
+                    return retorno;
+                }
+            }
+        }
+
         if (pL >= 25 || pV >= 25) {
             if (verificador >= 2) {
                 if (pL > pV) {
-                    setAutal++;
+
                     valorSetLocal++;
-                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsLocal");
-                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
-                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
                     Platform.runLater(() -> {
-                        l.setText("" + valorSetLocal);
+                        System.out.println(setAtual);
+
+                        setLocalValor.setText("" + valorSetLocal);
                         if (pL < 9) {
                             setLocal.setText("0" + pL);
                         } else {
@@ -1182,16 +1301,14 @@ public class ComunicacaoSocketServidor implements Runnable {
                             setVisitante.setText("" + pV);
                         }
                     });
-                    zeraPlacar();
+                    retorno = chamaGanho();
+                    setAtual++;
                     System.out.println(pL + " : " + pV);
                 } else {
-                    setAutal++;
                     valorSetVisitante++;
-                    Label l = (Label) p.getScene().getRoot().lookup("#jLSetsVisitante");
-                    Label setLocal = (Label) p.getScene().getRoot().lookup("#jLSetLocal" + setAutal);
-                    Label setVisitante = (Label) p.getScene().getRoot().lookup("#jLSetVisitante" + setAutal);
+                    System.out.println(setAtual);
                     Platform.runLater(() -> {
-                        l.setText("" + valorSetVisitante);
+                        setVisitanteValor.setText("" + valorSetVisitante);
                         if (pL < 9) {
                             setLocal.setText("0" + pL);
                         } else {
@@ -1202,50 +1319,17 @@ public class ComunicacaoSocketServidor implements Runnable {
                         } else {
                             setVisitante.setText("" + pV);
                         }
-                    });
-                    zeraPlacar();
-                    System.out.println(pL + " : " + pV);
-                }
-                if (setAutal == 3) {
-                    int verificadorGanho = valorSetLocal - valorSetVisitante;
-                    if (verificadorGanho < 0) {
-                        verificadorGanho = verificadorGanho * (-1);
-                    }
-                    if (verificadorGanho == 3) {
-                        if (valorSetLocal > valorSetVisitante) {
-                            fimCrono = false;
-                        } else {
-                            fimCrono = false;
-                        }
-                        return "#ALGUEM_GANHO";
-                    }
 
-                }
-                if (setAutal == 4) {
-                    int verificadorGanho = valorSetLocal - valorSetVisitante;
-                    if (verificadorGanho < 0) {
-                        verificadorGanho = verificadorGanho * (-1);
-                    }
-                    if (verificadorGanho == 2) {
-                        if (valorSetLocal > valorSetVisitante) {
-                            fimCrono = false;
-                        } else {
-                            fimCrono = false;
-                        }
-                        return "#ALGUEM_GANHO";
-                    }
+                        System.out.println(pL + " : " + pV);
+                    });
+                    retorno = chamaGanho();
+                    setAtual++;
                 }
             }
+
+            System.out.println("Somou o setAtual" + setAtual);
         }
-        if (setAutal == 5) {
-            if (valorSetLocal > valorSetVisitante) {
-                fimCrono = false;
-            } else {
-                fimCrono = false;
-            }
-            return "#ALGUEM_GANHO";
-        }
-        return "#NINGUEM_GANHOU";
+        return retorno;
     }
 
     public void zeraPlacar() {
@@ -1268,10 +1352,11 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String restauraTudoVolei() {
+        control = true;
         fimCrono = false;
         pontosL = 0;
         pontosV = 0;
-        setAutal = 0;
+        setAtual = 1;
         valorSetLocal = 0;
         valorSetVisitante = 0;
         Platform.runLater(() -> {
@@ -1319,6 +1404,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     private void restauraServidor() {
+        control = true;
         fimCrono = false;
         pontosL = 0;
         pontosV = 0;
@@ -1335,6 +1421,48 @@ public class ComunicacaoSocketServidor implements Runnable {
         nomeLocal = "Local";
         valorSetLocal = 0;
         valorSetVisitante = 0;
-        setAutal = 0;
+        setAtual = 1;
+    }
+
+    private void alteraNomePadrao(String[] escolha) {
+        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+        if (escolha.length > 0) {
+            if (escolha[1].equals("") != true) {
+                Platform.runLater(() -> {
+                    local.setText(escolha[1]);
+                    nomeLocal = escolha[1];
+                });
+            }
+            if (escolha[2].equals("") != true) {
+                Platform.runLater(() -> {
+                    visitante.setText(escolha[2]);
+                    nomeVisitante = escolha[2];
+                });
+            }
+        }
+    }
+
+    private void alteraNomeVolei(String[] escolha) {
+        Label local = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdo");
+        Label visitante = (Label) p.getScene().getRoot().lookup("#jLTimeDireito");
+        Label localSets = (Label) p.getScene().getRoot().lookup("#jLTimeEsquerdoSets");
+        Label visitanteSets = (Label) p.getScene().getRoot().lookup("#jLTimeDireitoSets");
+        if (escolha.length > 0) {
+            if (escolha[1].equals("") != true) {
+                Platform.runLater(() -> {
+                    local.setText(escolha[1]);
+                    localSets.setText(escolha[1]);
+                    nomeLocal = escolha[1];
+                });
+            }
+            if (escolha[2].equals("") != true) {
+                Platform.runLater(() -> {
+                    visitante.setText(escolha[2]);
+                    visitanteSets.setText(escolha[2]);
+                    nomeVisitante = escolha[2];
+                });
+            }
+        }
     }
 }

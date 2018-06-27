@@ -37,7 +37,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class Main extends Application {
 
-    private static String IPServidor = "locahost";
+    private static String IPServidor = "localhost";
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;

@@ -133,12 +133,20 @@ public class ControlVoleiController implements Initializable {
     @FXML
     private Button jBTrocaPosse;
 
+    @FXML
+    private Label jLPosseLocal;
+
+    @FXML
+    private Label jLPosseVisitante;
+
     private int pontosV = 0;
     private int pontosL = 0;
     private boolean fimCrono = false;
-    private int setAutal;
+    private int setAtual = 1;
     private int valorSetLocal;
     private int valorSetVisitante;
+    private boolean control = true;
+    private int setAtualAux = 0;
 
     /**
      * Evento do botão alterar nomes. Verifica se camposestão vazios. Envia
@@ -151,17 +159,21 @@ public class ControlVoleiController implements Initializable {
     void alteraNomes(MouseEvent event) {
         try {
             if (jTFAlteraNomeLocal.getText().equals("") != true && jTFAlteraNomeVisitante.getText().equals("") != true) {
-                if (Main.mandaMSG("#ALTERA_NOME$" + jTFAlteraNomeLocal.getText() + "$" + jTFAlteraNomeVisitante.getText()).equals("ALTERADO")) {
+                if (Main.mandaMSG("#ALTERA_NOME_VOLEI$" + jTFAlteraNomeLocal.getText() + "$" + jTFAlteraNomeVisitante.getText()).equals("#ALTERADO")) {
                     Platform.runLater(() -> {
                         jLNomeLocal.setText(jTFAlteraNomeLocal.getText());
                         jLNomeVisitante.setText(jTFAlteraNomeVisitante.getText());
+                        jLNomeLocalSets.setText(jTFAlteraNomeLocal.getText());
+                        jLNomeVisitanteSets.setText(jTFAlteraNomeVisitante.getText());
                     });
                 }
             } else {
-                if (Main.mandaMSG("#ALTERA_NOME$" + "LOCAL" + "$" + "VISITANTE").equals("ALTERADO")) {
+                if (Main.mandaMSG("#ALTERA_NOME$" + "LOCAL" + "$" + "VISITANTE").equals("#ALTERADO")) {
                     Platform.runLater(() -> {
                         jLNomeVisitante.setText("VISITANTE");
                         jLNomeLocal.setText("LOCAL");
+                        jLNomeVisitanteSets.setText("VISITANTE");
+                        jLNomeLocalSets.setText("LOCAL");
                     });
                 }
             }
@@ -233,6 +245,11 @@ public class ControlVoleiController implements Initializable {
                 Main.mandaMSG("#PROXIMO_SET");
                 proximoSet();
             }
+
+            if (setAtual == 5 && pontosL >= 15) {
+                Main.mandaMSG("#PROXIMO_SET");
+                proximoSet();
+            }
         } catch (IOException ex) {
             //IMPLEMENTAR LOG
         }
@@ -258,6 +275,10 @@ public class ControlVoleiController implements Initializable {
 
             }
             if (pontosV >= 25) {
+                Main.mandaMSG("#PROXIMO_SET");
+                proximoSet();
+            }
+            if (setAtual == 5 && pontosV >= 15) {
                 Main.mandaMSG("#PROXIMO_SET");
                 proximoSet();
             }
@@ -364,9 +385,12 @@ public class ControlVoleiController implements Initializable {
                     jLSetsLocal.setText("0");
                     jLSetsVisitante.setText("0");
                     jLCronometro.setText("00:00:00");
+                    jLPosseLocal.setOpacity(1);
+                    jLPosseVisitante.setOpacity(0);
                 });
+                control = true;
                 fimCrono = false;
-                setAutal = 0;
+                setAtual = 1;
                 valorSetLocal = 0;
                 valorSetVisitante = 0;
                 pontosL = 0;
@@ -407,6 +431,7 @@ public class ControlVoleiController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ControlBasqueteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jLPosseVisitante.setOpacity(0);
     }
 
     private Task iniciaCronosPreview(Label l) {
@@ -476,22 +501,119 @@ public class ControlVoleiController implements Initializable {
         return fimCrono;
     }
 
-    public String proximoSet() {
+    public String chamaGanho() {
+
         int verificador = 0;
         verificador = pontosL - pontosV;
         if (verificador < 0) {
             verificador = verificador * (-1);
         }
-        if (pontosL >= 25 || pontosV >= 25) {
 
+        if (pontosL >= 15 || pontosV >= 15) {
+            if (setAtual == 5) {
+                if (verificador >= 2) {
+                    if (pontosL > pontosV) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHOU";
+                }
+            }
+        } else if (pontosL >= 25 || pontosV >= 25) {
+            if (setAtual == 3) {
+                int verificadorGanho = valorSetLocal - valorSetVisitante;
+                if (verificadorGanho < 0) {
+                    verificadorGanho = verificadorGanho * (-1);
+                }
+                if (verificadorGanho == 3) {
+                    if (valorSetLocal > valorSetVisitante) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHO";
+                }
+            }
+            if (setAtual == 4) {
+                int verificadorGanho = valorSetLocal - valorSetVisitante;
+                if (verificadorGanho < 0) {
+                    verificadorGanho = verificadorGanho * (-1);
+                }
+                if (verificadorGanho == 2) {
+                    if (valorSetLocal > valorSetVisitante) {
+                        fimCrono = false;
+                    } else {
+                        fimCrono = false;
+                    }
+                    URL url = getClass().getResource("/estilos/apito.wav");
+                    AudioClip audio = Applet.newAudioClip(url);
+                    audio.play();
+                    return "#ALGUEM_GANHO";
+                }
+            }
+        }
+        zeraPlacar();
+        return null;
+    }
+
+    private void proximoSet() {
+        setAtualAux = setAtual;
+        int verificador = 0;
+        verificador = pontosL - pontosV;
+        if (verificador < 0) {
+            verificador = verificador * (-1);
+        }
+        if (setAtual == 5 && (pontosL >= 15 || pontosV >= 15)) {
             if (verificador >= 2) {
                 if (pontosL > pontosV) {
-                    setAutal++;
+                    valorSetLocal++;
+                    jLSetsLocal.setText("" + valorSetLocal);
+                    if (pontosL < 9) {
+                        jLLocalSet5.setText("0" + pontosL);
+                    } else {
+                        jLLocalSet5.setText("" + pontosL);
+                    }
+                    if (pontosV < 9) {
+                        jLVisitanteSet5.setText("0" + pontosV);
+                    } else {
+                        jLVisitanteSet5.setText("" + pontosV);
+                    }
+                    
+                    System.out.println(pontosL + " : " + pontosV);
+                } else {
+                    jLSetsVisitante.setText("" + valorSetVisitante);
+                    if (pontosL < 9) {
+                        jLLocalSet5.setText("0" + pontosL);
+                    } else {
+                        jLLocalSet5.setText("" + pontosL);
+                    }
+                    if (pontosV < 9) {
+                        jLVisitanteSet5.setText("0" + pontosV);
+                    } else {
+                        jLVisitanteSet5.setText("" + pontosV);
+                    }
+                    
+                    System.out.println(pontosL + " : " + pontosV);
+
+                }
+            }
+            chamaGanho();
+        }
+
+        if (pontosL >= 25 || pontosV >= 25) {
+            if (verificador >= 2) {
+                if (pontosL > pontosV) {
                     valorSetLocal++;
                     Label setLocal;
                     Label setVisitante;
-
-                    switch (setAutal) {
+                    switch (setAtual) {
                         case 1:
                             setLocal = jLLocalSet1;
                             setVisitante = jLVisitanteSet1;
@@ -513,6 +635,7 @@ public class ControlVoleiController implements Initializable {
                             setVisitante = jLVisitanteSet5;
                             break;
                     }
+                    System.out.println(setAtual);
 
                     jLSetsLocal.setText("" + valorSetLocal);
                     if (pontosL < 9) {
@@ -525,15 +648,14 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         setVisitante.setText("" + pontosV);
                     }
-                    zeraPlacar();
+                    
                     System.out.println(pontosL + " : " + pontosV);
                 } else {
-                    setAutal++;
                     valorSetVisitante++;
                     Label setLocal;
                     Label setVisitante;
 
-                    switch (setAutal) {
+                    switch (setAtual) {
                         case 1:
                             setLocal = jLLocalSet1;
                             setVisitante = jLVisitanteSet1;
@@ -555,7 +677,7 @@ public class ControlVoleiController implements Initializable {
                             setVisitante = jLVisitanteSet5;
                             break;
                     }
-
+                    System.out.println(setAtual);
                     jLSetsVisitante.setText("" + valorSetVisitante);
                     if (pontosL < 9) {
                         setLocal.setText("0" + pontosL);
@@ -567,50 +689,15 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         setVisitante.setText("" + pontosV);
                     }
-                    zeraPlacar();
+                    
                     System.out.println(pontosL + " : " + pontosV);
-                }
-                if (setAutal == 3) {
-                    int verificadorGanho = valorSetLocal - valorSetVisitante;
-                    if (verificadorGanho < 0) {
-                        verificadorGanho = verificadorGanho * (-1);
-                    }
-                    if (verificadorGanho == 3) {
-                        if (valorSetLocal > valorSetVisitante) {
-                            fimCrono = false;
-                        } else {
-                            fimCrono = false;
-                        }
-                        return "#ALGUEM_GANHO";
-                    }
 
                 }
-                if (setAutal == 4) {
-                    int verificadorGanho = valorSetLocal - valorSetVisitante;
-                    if (verificadorGanho < 0) {
-                        verificadorGanho = verificadorGanho * (-1);
-                    }
-                    if (verificadorGanho == 2) {
-                        if (valorSetLocal > valorSetVisitante) {
-                            fimCrono = false;
-                        } else {
-                            fimCrono = false;
-                        }
-                        return "#ALGUEM_GANHO";
-                    }
-                }
             }
-
-            if (setAutal == 5) {
-                if (valorSetLocal > valorSetVisitante) {
-                    fimCrono = false;
-                } else {
-                    fimCrono = false;
-                }
-                return "#ALGUEM_GANHO";
-            }
+            chamaGanho();
+            setAtual++;
+            System.out.println("Somou o setAtual" + setAtual);
         }
-        return "#NINGUEM_GANHOU";
     }
 
     public void zeraPlacar() {
@@ -632,6 +719,20 @@ public class ControlVoleiController implements Initializable {
 
     @FXML
     void trocaPosse(MouseEvent event) {
-
+        try {
+            if (Main.mandaMSG("#TROCA_POSSE").equals("#TROCADO")) {
+                if (control) {
+                    jLPosseVisitante.setOpacity(1);
+                    jLPosseLocal.setOpacity(0);
+                    control = false;
+                } else {
+                    jLPosseVisitante.setOpacity(0);
+                    jLPosseLocal.setOpacity(1);
+                    control = true;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ControlVoleiController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
