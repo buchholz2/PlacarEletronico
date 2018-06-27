@@ -53,6 +53,9 @@ public class PropagandaController implements Initializable {
     @FXML
     private MediaView jMidiaView;
 
+    @FXML
+    private Label jLVS;
+
     private int i = 0;
 
     private ArrayList<String> lista;
@@ -175,7 +178,13 @@ public class PropagandaController implements Initializable {
             height.bind(Bindings.selectDouble(jMidiaView.sceneProperty(), "height"));
 
             jMidiaView.setPreserveRatio(true);
-
+            if (Main.getTipo().equals("PADRAO")) {
+                jLVS.setText("X");
+                jLVS.setStyle("-fx-font-size: 96");
+            } else {
+                jLVS.setText("SETS");
+                jLVS.setStyle("-fx-font-size: 70");
+            }
             jLLocal.setText(Main.getNomeLocal());
             jLVisitante.setText(Main.getNomeVisitante());
             int pL = Main.getpLocal();

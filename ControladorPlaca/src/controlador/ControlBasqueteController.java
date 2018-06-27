@@ -212,7 +212,7 @@ public class ControlBasqueteController implements Initializable {
     void iniciaPropaganda(MouseEvent event) {
         try {
             if (jTBIniciaProp.isSelected()) {
-                Main.mandaMSG("#PROPAGANDA_INICIA");
+                Main.mandaMSG("#PROPAGANDA_INICIA_PADRAO");
             } else {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }

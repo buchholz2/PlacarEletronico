@@ -988,8 +988,8 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#QUAL_USER")) {
                         saida.writeUTF(user);
                         saida.flush();
-                    } else if (escolha[0].equals("#PROPAGANDA_INICIA")) {
-                        Main.propaganda(pontosL, pontosV, nomeLocal, nomeVisitante);
+                    } else if (escolha[0].equals("#PROPAGANDA_INICIA_PADRAO")) {
+                        Main.propagandaPadrao(pontosL, pontosV, nomeLocal, nomeVisitante, "PADRAO");
                         saida.writeUTF("INICIADA");
                         saida.flush();
                         // alteraDados();
@@ -1047,6 +1047,10 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#ALTERA_NOME_VOLEI")) {
                         alteraNomeVolei(escolha);
                         saida.writeUTF("#ALTERADO");
+                        saida.flush();
+                    } else if (escolha[0].equals("#PROPAGANDA_INICIA_VOLEI")) {
+                        Main.propagandaVolei(valorSetLocal, valorSetVisitante, nomeLocal, nomeVisitante, "VOLEI");
+                        saida.writeUTF("INICIADA");
                         saida.flush();
                     }
                 }
@@ -1161,7 +1165,7 @@ public class ComunicacaoSocketServidor implements Runnable {
     }
 
     public String chamaGanho() {
-
+        System.out.println("QUEM CHAMOU GANHO" + setAtual);
         int verificador = 0;
         verificador = pontosL - pontosV;
         if (verificador < 0) {
@@ -1180,25 +1184,33 @@ public class ComunicacaoSocketServidor implements Runnable {
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    zeraPlacar();
                     return "#ALGUEM_GANHOU";
                 }
             }
-        } else if (pontosL >= 25 || pontosV >= 25) {
+        }
+
+        if (pontosL >= 25 || pontosV >= 25) {
+            System.out.println("Pontos 25 " + setAtual);
+            System.out.println("PONTOS: " + pontosL + " = " + pontosV);
             if (setAtual == 3) {
                 System.out.println("3 chama ganho");
                 int verificadorGanho = valorSetLocal - valorSetVisitante;
                 if (verificadorGanho < 0) {
                     verificadorGanho = verificadorGanho * (-1);
                 }
+                System.out.println("Verificador Ganho 3" + verificadorGanho);
                 if (verificadorGanho == 3) {
                     if (valorSetLocal > valorSetVisitante) {
                         fimCrono = false;
                     } else {
                         fimCrono = false;
                     }
+                    System.out.println("entrou ganho 3");
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    zeraPlacar();
                     return "#ALGUEM_GANHO";
                 }
             }
@@ -1217,6 +1229,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    zeraPlacar();
                     return "#ALGUEM_GANHO";
                 }
             }
@@ -1284,7 +1297,6 @@ public class ComunicacaoSocketServidor implements Runnable {
         if (pL >= 25 || pV >= 25) {
             if (verificador >= 2) {
                 if (pL > pV) {
-
                     valorSetLocal++;
                     Platform.runLater(() -> {
                         System.out.println(setAtual);
@@ -1326,7 +1338,6 @@ public class ComunicacaoSocketServidor implements Runnable {
                     setAtual++;
                 }
             }
-
             System.out.println("Somou o setAtual" + setAtual);
         }
         return retorno;

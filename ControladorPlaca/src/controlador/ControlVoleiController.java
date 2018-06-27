@@ -213,7 +213,7 @@ public class ControlVoleiController implements Initializable {
     void iniciaPropaganda(MouseEvent event) {
         try {
             if (jTBIniciaProp.isSelected()) {
-                Main.mandaMSG("#PROPAGANDA_INICIA");
+                Main.mandaMSG("#PROPAGANDA_INICIA_VOLEI");
             } else {
                 Main.mandaMSG("#PROPAGANDA_FECHA");
             }
@@ -388,6 +388,14 @@ public class ControlVoleiController implements Initializable {
                     jLPosseLocal.setOpacity(1);
                     jLPosseVisitante.setOpacity(0);
                 });
+                jBTrocaPosse.setDisable(false);
+                jBAlteraNome.setDisable(false);
+                jBIniciaCrono.setDisable(false);
+                jBMaisUmPontosL.setDisable(false);
+                jBMaisUmPontosV.setDisable(false);
+                jBMenosUmPontosL.setDisable(false);
+                jBMenosUmPontosV.setDisable(false);
+                jBProximoSet.setDisable(false);
                 control = true;
                 fimCrono = false;
                 setAtual = 1;
@@ -502,7 +510,7 @@ public class ControlVoleiController implements Initializable {
     }
 
     public String chamaGanho() {
-
+        System.out.println("QUEM CHAMOU GANHO" + setAtual);
         int verificador = 0;
         verificador = pontosL - pontosV;
         if (verificador < 0) {
@@ -512,6 +520,7 @@ public class ControlVoleiController implements Initializable {
         if (pontosL >= 15 || pontosV >= 15) {
             if (setAtual == 5) {
                 if (verificador >= 2) {
+                    System.out.println("2 chamaGanh");
                     if (pontosL > pontosV) {
                         fimCrono = false;
                     } else {
@@ -520,28 +529,38 @@ public class ControlVoleiController implements Initializable {
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    encerraPartida();
                     return "#ALGUEM_GANHOU";
                 }
             }
-        } else if (pontosL >= 25 || pontosV >= 25) {
+        }
+
+        if (pontosL >= 25 || pontosV >= 25) {
+            System.out.println("Pontos 25 " + setAtual);
+            System.out.println("PONTOS: " + pontosL + " = " + pontosV);
             if (setAtual == 3) {
+                System.out.println("3 chama ganho");
                 int verificadorGanho = valorSetLocal - valorSetVisitante;
                 if (verificadorGanho < 0) {
                     verificadorGanho = verificadorGanho * (-1);
                 }
+                System.out.println("Verificador Ganho 3" + verificadorGanho);
                 if (verificadorGanho == 3) {
                     if (valorSetLocal > valorSetVisitante) {
                         fimCrono = false;
                     } else {
                         fimCrono = false;
                     }
+                    System.out.println("entrou ganho 3");
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    encerraPartida();
                     return "#ALGUEM_GANHO";
                 }
             }
             if (setAtual == 4) {
+                System.out.println("4 chama ganho");
                 int verificadorGanho = valorSetLocal - valorSetVisitante;
                 if (verificadorGanho < 0) {
                     verificadorGanho = verificadorGanho * (-1);
@@ -555,16 +574,17 @@ public class ControlVoleiController implements Initializable {
                     URL url = getClass().getResource("/estilos/apito.wav");
                     AudioClip audio = Applet.newAudioClip(url);
                     audio.play();
+                    encerraPartida();
                     return "#ALGUEM_GANHO";
                 }
             }
         }
         zeraPlacar();
-        return null;
+        return "#NINGUEM_GANHO";
     }
 
     private void proximoSet() {
-        setAtualAux = setAtual;
+
         int verificador = 0;
         verificador = pontosL - pontosV;
         if (verificador < 0) {
@@ -585,7 +605,8 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         jLVisitanteSet5.setText("" + pontosV);
                     }
-                    
+                    chamaGanho();
+                    setAtual++;
                     System.out.println(pontosL + " : " + pontosV);
                 } else {
                     jLSetsVisitante.setText("" + valorSetVisitante);
@@ -599,12 +620,12 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         jLVisitanteSet5.setText("" + pontosV);
                     }
-                    
-                    System.out.println(pontosL + " : " + pontosV);
 
+                    System.out.println(pontosL + " : " + pontosV);
+                    chamaGanho();
+                    setAtual++;
                 }
             }
-            chamaGanho();
         }
 
         if (pontosL >= 25 || pontosV >= 25) {
@@ -648,7 +669,8 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         setVisitante.setText("" + pontosV);
                     }
-                    
+                    chamaGanho();
+                    setAtual++;
                     System.out.println(pontosL + " : " + pontosV);
                 } else {
                     valorSetVisitante++;
@@ -689,13 +711,12 @@ public class ControlVoleiController implements Initializable {
                     } else {
                         setVisitante.setText("" + pontosV);
                     }
-                    
+                    chamaGanho();
+                    setAtual++;
                     System.out.println(pontosL + " : " + pontosV);
 
                 }
             }
-            chamaGanho();
-            setAtual++;
             System.out.println("Somou o setAtual" + setAtual);
         }
     }
@@ -734,5 +755,17 @@ public class ControlVoleiController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ControlVoleiController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void encerraPartida() {
+        jBTrocaPosse.setDisable(true);
+        jBAlteraNome.setDisable(true);
+        jBIniciaCrono.setDisable(true);
+        jBMaisUmPontosL.setDisable(true);
+        jBMaisUmPontosV.setDisable(true);
+        jBMenosUmPontosL.setDisable(true);
+        jBMenosUmPontosV.setDisable(true);
+        jBProximoSet.setDisable(true);
+        zeraPlacar();
     }
 }

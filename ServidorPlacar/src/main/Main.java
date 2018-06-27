@@ -40,6 +40,7 @@ public class Main extends Application {
     public static String nomeLocal = "";
     public static int pLocal = 0;
     public static int pVisitante = 0;
+    public static String tipo = "";
 
     /**
      * A classe principal da aplicação em JavaFX
@@ -76,14 +77,14 @@ public class Main extends Application {
         Iterator<Usuario> iterator = users.getUsuarios().iterator();
         while (iterator.hasNext()) {
             Usuario user = iterator.next();
-            user.setLogado(false);  
+            user.setLogado(false);
             com.gravarXML(users);
-        }        
+        }
     }
 
     /**
-     * Quando iniciar o sistema se não existir o diretorio do arquivo XML.
-     * É criado o diretorio deste arquivo
+     * Quando iniciar o sistema se não existir o diretorio do arquivo XML. É
+     * criado o diretorio deste arquivo
      */
     public static void criaDirXmlPrimeiraExecucao() {
         File file = new File(PATH + "xml");
@@ -99,8 +100,8 @@ public class Main extends Application {
     }
 
     /**
-     * Quando iniciar o sistema se não existir o diretorio de Midia.
-     * É criado o diretorio deste arquivo
+     * Quando iniciar o sistema se não existir o diretorio de Midia. É criado o
+     * diretorio deste arquivo
      */
     public static void criaDirMidia() {
         File file = new File(PATH + "Midia");
@@ -109,15 +110,14 @@ public class Main extends Application {
             try {
                 Files.createDirectories(p);
             } catch (IOException ex) {
-                Main.LOGGER.config("Problema ao criar diretório de Midias!");   
+                Main.LOGGER.config("Problema ao criar diretório de Midias!");
             }
         }
     }
 
     /**
      * Na primeira execução do programa não existe nenhum dado dentro do XML.
-     * Aqui é criado o XML com os usuários padrões.
-     * ADM, PLACAR, PROPAGANDA
+     * Aqui é criado o XML com os usuários padrões. ADM, PLACAR, PROPAGANDA
      */
     private static void criaUsuariosXmlPrimeiraExecucao() {
         ComunicacaoSocketServidor c = new ComunicacaoSocketServidor();
@@ -155,9 +155,9 @@ public class Main extends Application {
         try {
             Files.createDirectories(path);
         } catch (IOException ex) {
-           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             Main.LOGGER.config("Erro ao iniciar o diretorio de Log");
-            
+
         }
 
         Handler fh = null;
@@ -165,12 +165,12 @@ public class Main extends Application {
             // Nome do arquivo, booleano (append)
             fh = new FileHandler(path + "\\log.txt", true);
         } catch (IOException ex) {
-           // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             Main.LOGGER.config("Erro ao criar arquivo de Log");
-            
+
         } catch (SecurityException ex) {
-             Main.LOGGER.warning("Erro de segurança ao criar arquivo de Log");
-            
+            Main.LOGGER.warning("Erro de segurança ao criar arquivo de Log");
+
         }
         // Padrão é XML, para log no formato texto deve setar.
         fh.setFormatter(new SimpleFormatter());
@@ -187,8 +187,8 @@ public class Main extends Application {
 
     /**
      * Ação de ler o Path
-     * 
-     * @return 
+     *
+     * @return
      */
     public static String getPath() {
         return PATH;
@@ -196,16 +196,17 @@ public class Main extends Application {
 
     /**
      * Ação de gravar o Path
-     * 
-     * @param s 
+     *
+     * @param s
      */
     public void setStage(Stage s) {
         this.primaryStage = s;
     }
 
-    /** 
+    /**
      * Ação de ler a cena
-     * @param local 
+     *
+     * @param local
      */
     public static void loadScene(String local) {
 
@@ -236,20 +237,45 @@ public class Main extends Application {
     }
 
     /**
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @param pontosL
      * @param pontosV
      * @param nomeLocal
      * @param nomeVisitante
-     * @throws IOException 
+     * @throws IOException
      */
-    public static void propaganda(int pontosL, int pontosV, String nomeLocal, String nomeVisitante) throws IOException {
+    public static void propagandaPadrao(int pontosL, int pontosV, String nomeLocal, String nomeVisitante, String tipo) throws IOException {
         Main.pLocal = pontosL;
         Main.pVisitante = pontosV;
         Main.nomeLocal = nomeLocal;
         Main.nomeVisitante = nomeVisitante;
+        Main.tipo = tipo;
+        try {
+            propaganda = false;
+            FXMLLoader fxmlLoader = new FXMLLoader(outraClass.getClass().getResource("/view/FXMLPropaganda.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+
+            Platform.runLater(() -> {
+                secundaryStage = new Stage();
+                secundaryStage.setScene(new Scene(root1));
+                secundaryStage.show();
+                secundaryStage.setFullScreen(true);
+            });
+        } catch (Exception e) {
+            Main.LOGGER.config("Erro ao carregar cena de propaganda");
+            System.out.println(e.toString());
+        }
+
+    }
+
+    public static void propagandaVolei(int pontosL, int pontosV, String nomeLocal, String nomeVisitante, String tipo) throws IOException {
+        Main.pLocal = pontosL;
+        Main.pVisitante = pontosV;
+        Main.nomeLocal = nomeLocal;
+        Main.nomeVisitante = nomeVisitante;
+        Main.tipo = tipo;
         try {
             propaganda = false;
             FXMLLoader fxmlLoader = new FXMLLoader(outraClass.getClass().getResource("/view/FXMLPropaganda.fxml"));
@@ -305,4 +331,11 @@ public class Main extends Application {
         return pVisitante;
     }
 
+    public static String getTipo() {
+        return tipo;
+    }
+
+    public static void setTipo(String tipo) {
+        Main.tipo = tipo;
+    }
 }

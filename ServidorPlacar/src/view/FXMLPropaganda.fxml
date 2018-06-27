@@ -7,7 +7,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PropagandaController">
+<GridPane alignment="BOTTOM_LEFT" prefHeight="400.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PropagandaController">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
   </columnConstraints>
@@ -19,7 +19,7 @@
       <GridPane maxHeight="120.0" maxWidth="600.0" prefHeight="120.0" styleClass="fundoPropaganda" stylesheets="@../estilos/meinCSS.css">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="10.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -28,9 +28,9 @@
           <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="37.0" valignment="BOTTOM" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="94.0" prefWidth="415.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="X" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="jLVS" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="94.0" prefWidth="415.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="X" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="78.0" />
+                  <Font name="System Bold" size="96.0" />
                </font>
             </Label>
             <Label fx:id="jLLocal" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="49.0" prefWidth="418.0" styleClass="fonteplacar" stylesheets="@../estilos/meinCSS.css" text="Local" textFill="WHITE">
