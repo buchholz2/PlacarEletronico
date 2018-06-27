@@ -1,7 +1,12 @@
 package main;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,7 +39,6 @@ import rede.ComunicacaoSocketServidor;
  * @author Douglas Hoffmann
  * @author Leandro Heck
  */
-
 public class Main extends Application {
 
     public static boolean propaganda = false;
@@ -81,8 +85,8 @@ public class Main extends Application {
     }
 
     /**
-     * Ao deslogar do programa seta a opção Logado do xml todos os usuários 
-     * como FALSE
+     * Ao deslogar do programa seta a opção Logado do xml todos os usuários como
+     * FALSE
      */
     public static void setDeslogaAllFalse() {
         ComunicacaoSocketServidor com = new ComunicacaoSocketServidor();
@@ -128,7 +132,7 @@ public class Main extends Application {
         }
     }
 
-    /**
+     /**
      * Na primeira execução do programa não existe nenhum dado dentro do XML.
      * Aqui é criado o XML com os usuários padrões. ADM, PLACAR, PROPAGANDA
      */
@@ -251,7 +255,7 @@ public class Main extends Application {
 
     /**
      *
-     *método que chama a view padrão da propaganda
+     * método que chama a view padrão da propaganda
      *
      * @param pontosL
      * @param pontosV
@@ -285,13 +289,13 @@ public class Main extends Application {
 
     /**
      * Método que a chama a View propaganda, quando se está no placar de Volei
-     * 
+     *
      * @param pontosL
      * @param pontosV
      * @param nomeLocal
      * @param nomeVisitante
      * @param tipo
-     * @throws IOException 
+     * @throws IOException
      */
     public static void propagandaVolei(int pontosL, int pontosV, String nomeLocal, String nomeVisitante, String tipo) throws IOException {
         Main.pLocal = pontosL;
@@ -332,17 +336,16 @@ public class Main extends Application {
 
     /**
      * Retorna se a propaganda está fechada
-     * @return 
+     *
+     * @return
      */
     public static boolean fechaPropaganda() {
         return propaganda;
     }
 
-    
 //    public static Stage alteraStageSecundary() {
 //        return secundaryStage;
 //    }
-
     public static String getNomeVisitante() {
         return nomeVisitante;
     }
