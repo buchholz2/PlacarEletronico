@@ -56,7 +56,6 @@ public class ComunicacaoSocketServidor implements Runnable {
     private int somaRodadaL = 0;
     String resultadoFinal = "";
     private int count = 0;
-    private int i = 0;
     private String nomeVisitante = "Visitante";
     private String nomeLocal = "Local";
     private int valorSetLocal = 0;
@@ -1029,6 +1028,7 @@ public class ComunicacaoSocketServidor implements Runnable {
                     } else if (escolha[0].equals("#TROCA_TELA")) {
                         if (escolha[1].equals("PRINCIPAL")) {
                             Main.loadScene("/view/FXMLPrincipal.fxml");
+                            restauraServidor();
                             saida.writeUTF("TROCADO");
                             saida.flush();
                         }
@@ -1314,5 +1314,25 @@ public class ComunicacaoSocketServidor implements Runnable {
         });
 
         return "RESTAURADO";
+    }
+
+    private void restauraServidor() {
+        fimCrono = false;
+        pontosL = 0;
+        pontosV = 0;
+        cronosPausado = false;
+        tempoLan = 24;
+        muda = 60;
+        faltasL = 0;
+        faltasV = 0;
+        rodada = 1;
+        somaRodadaV = 0;
+        somaRodadaL = 0;
+        resultadoFinal = "";
+        nomeVisitante = "Visitante";
+        nomeLocal = "Local";
+        valorSetLocal = 0;
+        valorSetVisitante = 0;
+        setAutal = 0;
     }
 }
