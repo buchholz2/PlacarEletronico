@@ -42,7 +42,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class Main extends Application {
 
-    private static String IPServidor;
+    private static String IPServidor = "localhost";
     public static Stage primaryStage;
     public static Scene sceneBasquete, scenePrincipal;
     public static Class thisClass;
@@ -57,9 +57,6 @@ public class Main extends Application {
      */
     public Main() throws IOException {
         thisClass = getClass();
-        escritorPrimeira();
-        IPServidor = leitor();
-        System.out.println(IPServidor);
     }
 
     /**
@@ -240,37 +237,37 @@ public class Main extends Application {
         Main.IPServidor = IPServidor;
     }
 
-    public String leitor() throws IOException {
-        File file = new File(System.getProperty("user.home") + "\\Documents\\Placar\\IP\\ip.txt");
-        BufferedReader buffRead = new BufferedReader(new FileReader(file));
-        String linha = "";
-        while (true) {
-            if (linha != null) {
-                System.out.println(linha);
-
-            } else {
-                break;
-            }
-            linha = buffRead.readLine();
-            return linha;
-        }
-        buffRead.close();
-        return linha;
-    }
-
-    public void escritorPrimeira() throws IOException {
-        File file = new File(System.getProperty("user.home") + "\\Documents\\Placar\\IP\\ip.txt");
-        if (!file.exists()) {
-            Path p = Paths.get(System.getProperty("user.home") + "\\Documents\\Placar\\IP");
-            try {
-                Files.createDirectories(p);
-                BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.toString()));
-                buffWrite.append("localhost");
-                buffWrite.close();
-            } catch (IOException ex) {
-            }
-        }
-
-    }
+//    public String leitor() throws IOException {
+//        File file = new File(System.getProperty("user.home") + "\\Documents\\Placar\\IP\\ip.txt");
+//        BufferedReader buffRead = new BufferedReader(new FileReader(file));
+//        String linha = "";
+//        while (true) {
+//            if (linha != null) {
+//                System.out.println(linha);
+//
+//            } else {
+//                break;
+//            }
+//            linha = buffRead.readLine();
+//            return linha;
+//        }
+//        buffRead.close();
+//        return linha;
+//    }
+//
+//    public void escritorPrimeira() throws IOException {
+//        File file = new File(System.getProperty("user.home") + "\\Documents\\Placar\\IP\\ip.txt");
+//        if (!file.exists()) {
+//            Path p = Paths.get(System.getProperty("user.home") + "\\Documents\\Placar\\IP");
+//            try {
+//                Files.createDirectories(p);
+//                BufferedWriter buffWrite = new BufferedWriter(new FileWriter(file.toString()));
+//                buffWrite.append("localhost");
+//                buffWrite.close();
+//            } catch (IOException ex) {
+//            }
+//        }
+//
+//    }
 
 }

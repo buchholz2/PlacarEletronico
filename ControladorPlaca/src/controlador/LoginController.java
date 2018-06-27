@@ -145,7 +145,8 @@ public class LoginController implements Initializable {
                     dialogoNome.setHeaderText("ENTRE COM A IP NOVA DO SERVIDOR");
                     dialogoNome.setContentText("IP:");
                     dialogoNome.showAndWait().ifPresent(v -> nome = v);
-                    escritor(nome);
+                    Main.setIPServidor(nome);
+                    
                 } else {
                     Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
                     dialogoErro.setTitle("ERRO DE IP");
